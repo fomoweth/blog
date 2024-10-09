@@ -1,34 +1,35 @@
 "use client";
 
-/**
- * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...tool]]/page.tsx` route
- */
-
 import { defineConfig } from "sanity";
-import { structureTool } from "sanity/structure";
+import { unsplashAssetSource } from "sanity-plugin-asset-source-unsplash";
 import { LaunchIcon } from "@sanity/icons";
-import { visionTool } from "@sanity/vision";
 
-// Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
-import { apiVersion, dataset, projectId, studioUrl } from "@/env";
-import { schema } from "./schema";
-import { structure } from "./structure";
+import { dataset, projectId } from "@/env";
+import plugins from "./plugins";
+import schema from "./schema";
 
 export default defineConfig({
 	icon: LaunchIcon,
 	title: "Studio",
 	name: "studio",
-	basePath: studioUrl,
+	basePath: "/studio",
 	projectId,
 	dataset,
-	// Add and edit the content schema in the './sanity/schemaTypes' folder
 	schema,
-	plugins: [
-		structureTool({ structure }),
-		// Vision is for querying with GROQ from inside the Studio
-		// https://www.sanity.io/docs/the-vision-plugin
-		visionTool({ defaultApiVersion: apiVersion }),
-	],
+	plugins,
+	form: {
+		image: {
+			assetSources: (previousAssetSources, { schema }) => {
+				if (schema.name === "movie-image") {
+					return previousAssetSources.filter(
+						(assetSource) => assetSource !== unsplashAssetSource,
+					);
+				}
+
+				return previousAssetSources;
+			},
+		},
+	},
 	tasks: { enabled: false },
 	scheduledPublishing: { enabled: false },
 });
