@@ -10,7 +10,7 @@ import type { SanityImageObject } from "@sanity/image-url/lib/types/types";
 
 declare global {
 	namespace Sanity {
-		// documents
+		// singletons
 
 		interface Settings extends SanityDocument {
 			_type: "settings";
@@ -18,15 +18,22 @@ declare global {
 			title: string;
 			description: string;
 			keywords: Array<string>;
-			introduction: Array<Block>;
 			copyright: Array<Block>;
-			contact: Array<Contact>;
+		}
+
+		interface Author extends SanityDocument {
+			_type: "author";
+			name: string;
+			position: { title: string; startDate: string };
 			location: string;
+			contacts: Array<Contact>;
 			resume: {
 				_type: "file";
 				asset: SanityAsset;
 			};
 		}
+
+		// documents
 
 		interface Category extends SanityDocument {
 			_type: "category";
@@ -107,19 +114,14 @@ declare global {
 			_key: string;
 			label: string;
 			href: string;
-			hex: string;
-			color: ColorValue;
+			// hex: string;
+			color: string;
 		}
 
 		interface Duration {
 			_type: "duration";
 			start: string;
 			end: string;
-		}
-
-		interface Heading {
-			style: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-			text: string;
 		}
 
 		interface Skill extends TypedObject {
@@ -156,5 +158,10 @@ declare global {
 			| "back-end"
 			| "database"
 			| "spoken-languages";
+
+		interface Heading {
+			style: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+			text: string;
+		}
 	}
 }

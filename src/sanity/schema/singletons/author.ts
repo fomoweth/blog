@@ -1,103 +1,54 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
-import { CogIcon } from "@sanity/icons";
+import { UserIcon } from "@sanity/icons";
 
 export default defineType({
-	icon: CogIcon,
-	title: "Settings",
-	name: "settings",
+	icon: UserIcon,
+	title: "Author",
+	name: "author",
 	type: "document",
-	groups: [
-		{
-			title: "SEO",
-			name: "seo",
-		},
-		{
-			title: "General",
-			name: "general",
-		},
-		{
-			title: "Editorial",
-			name: "editorial",
-		},
-	],
 	fields: [
 		defineField({
-			title: "Open Graph Image",
-			name: "ogImage",
-			type: "image",
-			group: "seo",
-			options: { hotspot: true },
-		}),
-		defineField({
-			title: "Title",
-			name: "title",
+			title: "Name",
+			name: "name",
 			type: "string",
-			group: "seo",
+			initialValue: "Ryan Kim",
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
-			title: "Description",
-			name: "description",
-			type: "text",
-			rows: 2,
-			group: "seo",
-			validation: (rule) => rule.required(),
-		}),
-		defineField({
-			title: "Keywords",
-			name: "keywords",
-			type: "array",
-			of: [
-				defineArrayMember({
-					title: "Keyword",
-					name: "keyword",
+			title: "Position",
+			name: "position",
+			type: "object",
+			fields: [
+				defineField({
+					title: "Title",
+					name: "title",
 					type: "string",
+					initialValue: "Smart Contract Engineer",
+					validation: (rule) => rule.required(),
+				}),
+				defineField({
+					title: "Start Date",
+					name: "startDate",
+					type: "date",
+					options: {
+						dateFormat: "YYYY-MM-DD",
+					},
+					initialValue: "2021-06-01",
+					validation: (rule) => rule.required(),
 				}),
 			],
-			group: "seo",
-			validation: (rule) => rule.required().min(3),
-		}),
-		defineField({
-			title: "Paths",
-			name: "paths",
-			type: "array",
-			of: [
-				defineArrayMember({
-					type: "string",
-				}),
-			],
-			group: "editorial",
-			// validation: (rule) => rule.required(),
-		}),
-		defineField({
-			title: "Introduction",
-			name: "introduction",
-			type: "array",
-			of: [
-				defineArrayMember({
-					type: "block",
-					styles: [{ title: "Normal", value: "normal" }],
-				}),
-			],
-			group: "editorial",
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
-			title: "Copyright",
-			name: "copyright",
-			type: "array",
-			of: [
-				{
-					type: "block",
-					styles: [{ title: "Normal", value: "normal" }],
-				},
-			],
-			group: "editorial",
+			title: "Location",
+			name: "location",
+			type: "string",
+			initialValue: "California",
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
-			title: "Contact",
-			name: "contact",
+			title: "Contacts",
+			name: "contacts",
 			type: "array",
 			of: [
 				defineArrayMember({
@@ -159,15 +110,6 @@ export default defineType({
 					],
 				}),
 			],
-			group: "general",
-		}),
-		defineField({
-			title: "Location",
-			name: "location",
-			type: "string",
-			group: "general",
-			initialValue: "California",
-			validation: (rule) => rule.required(),
 		}),
 		defineField({
 			title: "Resume",
@@ -176,13 +118,17 @@ export default defineType({
 			options: {
 				accept: "application/pdf",
 			},
-			group: "general",
 			validation: (rule) => rule.required(),
 		}),
 	],
 	preview: {
-		prepare: () => ({
-			title: "Site Settings",
+		select: {
+			name: "name",
+		},
+		prepare: ({ name }) => ({
+			media: UserIcon,
+			title: "Author",
+			subtitle: name,
 		}),
 	},
 });

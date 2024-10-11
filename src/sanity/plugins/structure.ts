@@ -8,9 +8,6 @@ export default function structure(
 	params: { id: string; flag?: boolean }[][],
 ): StructureResolver {
 	return (S, ctx) => {
-		const format = (schema: BaseSchemaType): string =>
-			pluralize(schema.title || capitalize(schema.name), 0);
-
 		const resolve = (
 			schema: BaseSchemaType,
 			flag?: boolean,
@@ -19,7 +16,7 @@ export default function structure(
 				? S.listItem()
 						.id(schema.name)
 						.schemaType(schema.name)
-						.title(format(schema))
+						.title(schema.title || capitalize(schema.name))
 						.icon(schema.icon)
 						.child(
 							S.editor()
@@ -27,7 +24,9 @@ export default function structure(
 								.schemaType(schema.name)
 								.documentId(schema.name),
 						)
-				: S.documentTypeListItem(schema.name).title(format(schema));
+				: S.documentTypeListItem(schema.name).title(
+						pluralize(schema.title || capitalize(schema.name), 0),
+					);
 
 		return S.list()
 			.title(title)

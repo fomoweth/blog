@@ -4,7 +4,7 @@ import { defineConfig } from "sanity";
 import { unsplashAssetSource } from "sanity-plugin-asset-source-unsplash";
 import { LaunchIcon } from "@sanity/icons";
 
-import { dataset, projectId } from "@/env";
+import { dataset, projectId, studioUrl } from "@/env";
 import plugins from "./plugins";
 import schema from "./schema";
 
@@ -12,7 +12,7 @@ export default defineConfig({
 	icon: LaunchIcon,
 	title: "Studio",
 	name: "studio",
-	basePath: "/studio",
+	basePath: studioUrl,
 	projectId,
 	dataset,
 	schema,

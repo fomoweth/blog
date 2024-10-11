@@ -8,10 +8,11 @@ import protocol from "./documents/protocol";
 import content from "./objects/content";
 import duration from "./objects/duration";
 
+import author from "./singletons/author";
 import settings from "./singletons/settings";
 
 const schema = {
-	singletons: { settings },
+	singletons: { author, settings },
 	documents: {
 		category,
 		experience,
@@ -26,6 +27,7 @@ const schema = {
 	},
 	types: [
 		// singletons
+		author,
 		settings,
 
 		// documents
