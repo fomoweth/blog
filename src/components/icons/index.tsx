@@ -1,0 +1,15 @@
+export { default as Anchor } from "./Anchor";
+export { default as Arrow } from "./Arrow";
+export { default as Chevron } from "./Chevron";
+export { default as CodeBracket } from "./CodeBracket";
+export { default as CV } from "./CoverLetter";
+export { default as Download } from "./Download";
+export { default as External } from "./External";
+export { default as Github } from "./Github";
+export { default as Google } from "./Google";
+export { default as LinkedIn } from "./LinkedIn";
+export { default as Tag } from "./Tag";
+export { default as TG } from "./Telegram";
+export { default as VerticalDots } from "./VerticalDots";
+export { default as Web } from "./Web";
+export { default as X } from "./X";
