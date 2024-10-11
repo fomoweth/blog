@@ -50,3 +50,12 @@ export const orbiter = localFont({
 	variable: "--font-orbiter",
 	display: "swap",
 });
+
+export default [
+	inter.variable,
+	roboto_flex.variable,
+	roboto_mono.variable,
+	orbiter.variable,
+	geist_sans.variable,
+	geist_mono.variable,
+];

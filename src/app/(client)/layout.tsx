@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { draftMode } from "next/headers";
 
-import {
-	inter,
-	geist_mono,
-	geist_sans,
-	orbiter,
-	roboto_flex,
-	roboto_mono,
-} from "./fonts";
+import Footer from "@/components/global/Footer";
+import Header from "@/components/global/Header";
+
+import { cn } from "@/lib/utils";
+
+import fonts from "./fonts";
+
 import "./globals.css";
+
+const Providers = dynamic(() => import("@/components/providers"), {
+	ssr: false,
+});
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -22,12 +26,30 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html
+			className="scrollbar-none !scroll-smooth"
+			lang="en"
+			suppressHydrationWarning
+		>
 			<body
-				className={`${inter.variable} ${roboto_flex.variable} ${roboto_mono.variable} ${orbiter.variable} ${geist_sans.variable} ${geist_mono.variable} antialiased`}
+				className={cn(
+					"bg-background font-inter antialiased",
+					"bg-slate-50/80 text-gray-700 dark:bg-[#121212] dark:text-zinc-200",
+					fonts,
+				)}
 				suppressHydrationWarning
 			>
-				{children}
+				<Providers>
+					<div
+						className={cn(
+							"relative flex min-h-screen w-full flex-col justify-center overflow-hidden supports-[overflow:clip]:overflow-clip",
+						)}
+					>
+						<Header />
+						{children}
+						<Footer />
+					</div>
+				</Providers>
 			</body>
 		</html>
 	);
