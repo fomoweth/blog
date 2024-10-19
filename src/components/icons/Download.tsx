@@ -19,7 +19,7 @@ export default function Download({ fill, size, strokeWidth, ...props }: Props) {
 				stroke={fill || "currentColor"}
 				strokeLinecap="round"
 				strokeLinejoin="round"
-				strokeWidth={strokeWidth || 1.5}
+				strokeWidth={strokeWidth || 2}
 			/>
 		</svg>
 	);

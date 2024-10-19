@@ -18,7 +18,7 @@ export default function BulletPoints({ classNames, items }: Props) {
 			{items.map((item, idx) => (
 				<li
 					key={idx}
-					className={cn("text-accent ml-5", classNames?.li)}
+					className={cn("ml-5 text-[#0847F7]", classNames?.li)}
 				>
 					<span
 						className={cn(

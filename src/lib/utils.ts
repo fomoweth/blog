@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { UrlObject } from "url";
 
 export function cn(...values: ClassValue[]): string {
 	return twMerge(clsx(values));
@@ -30,4 +31,13 @@ export function parseYears(value: string): number {
 	const parsed = new Date().getFullYear() - new Date(value).getFullYear();
 
 	return parsed > 0 ? parsed : 0;
+}
+
+export function isExternal(url: string | UrlObject): boolean {
+	if (typeof url === "string") {
+		if (!URL.canParse(url)) return false;
+		url = new URL(url);
+	}
+
+	return url.protocol === "https:" || url.protocol === "mailto:";
 }

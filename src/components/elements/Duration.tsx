@@ -8,8 +8,8 @@ type Props = Pick<Intl.DateTimeFormatOptions, "month" | "day" | "year"> & {
 
 export default function Duration({
 	className,
-	month = "long",
-	day,
+	month,
+	day = "numeric",
 	year = "numeric",
 	value: { start, end },
 }: Props) {
@@ -21,11 +21,12 @@ export default function Duration({
 			)}
 		>
 			<DateTime month={month} day={day} year={year} value={start} /> -{" "}
-			{end ? (
-				<DateTime month={month} day={day} year={year} value={end} />
-			) : (
-				"Present"
-			)}
+			<DateTime
+				month={month}
+				day={day}
+				year={year}
+				value={end || "Present"}
+			/>
 		</small>
 	);
 }
