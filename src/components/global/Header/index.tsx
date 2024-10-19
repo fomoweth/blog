@@ -1,38 +1,38 @@
 import { groq } from "next-sanity";
 
-import { cn } from "@/lib/utils";
 import fetch from "@/sanity/lib/fetch";
 import Navigation from "./Navigation";
+import Wrapper from "./Wrapper";
 
 export default async function Header() {
-	const { title, paths } = await fetch<{
+	const { title, paths, contacts } = await fetch<{
 		title: string;
 		paths: Array<string>;
+		contacts: Array<Sanity.Contact>;
 	}>({
 		query: groq`
 			*[_type == "settings"][0] {
 				title,
-				paths[]
+				paths[],
+				"contacts": *[_type == "author"][0].contacts[] {
+					...,
+					"color": upper(color.hex)
+				},
 			}
 		`,
 	});
 
 	return (
-		<header
-			className={cn(
-				"border-divider sticky inset-x-0 top-0 z-30 h-16 w-full border-b bg-transparent text-zinc-300 backdrop-blur-xl backdrop-saturate-150",
-			)}
-		>
-			<div
-				className={cn(
-					"flex h-full max-w-screen-2xl items-center justify-between lg:mx-auto",
-				)}
-			>
+		<Wrapper className="border-b border-black/10 dark:border-slate-500">
+			<div className="relative flex h-full w-full max-w-screen-2xl items-center justify-between lg:mx-auto">
 				<Navigation
-					paths={paths || ["/projects", "/blog"]}
+					paths={[
+						{ href: "/projects", label: "projects" },
+						{ href: "/blog", label: "blog" },
+					]}
 					title={title}
 				/>
 			</div>
-		</header>
+		</Wrapper>
 	);
 }
