@@ -4,16 +4,13 @@ import { draftMode } from "next/headers";
 
 import Footer from "@/components/global/Footer";
 import Header from "@/components/global/Header";
+import Providers from "@/components/providers";
+import VisualEditor from "@/components/VisualEditor";
+import TailwindIndicator from "@/components/TailwindIndicator";
 
 import { cn } from "@/lib/utils";
-
-import fonts from "./fonts";
-
-import "./globals.css";
-
-const Providers = dynamic(() => import("@/components/providers"), {
-	ssr: false,
-});
+import { inter, orbiter, roboto_flex, roboto_mono } from "@/styles/fonts";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -26,29 +23,26 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html
-			className="scrollbar-none !scroll-smooth"
-			lang="en"
-			suppressHydrationWarning
-		>
+		<html lang="en" suppressHydrationWarning>
 			<body
 				className={cn(
-					"bg-background font-inter antialiased",
-					"bg-slate-50/80 text-gray-700 dark:bg-[#121212] dark:text-zinc-200",
-					fonts,
+					"bg-slate-50 font-inter text-gray-700 antialiased dark:bg-[#121212] dark:text-zinc-200",
+					inter.variable,
+					orbiter.variable,
+					roboto_flex.variable,
+					roboto_mono.variable,
 				)}
 				suppressHydrationWarning
 			>
 				<Providers>
-					<div
-						className={cn(
-							"relative flex min-h-screen w-full flex-col justify-center overflow-hidden supports-[overflow:clip]:overflow-clip",
-						)}
-					>
+					<div className="relative min-h-screen">
 						<Header />
 						{children}
 						<Footer />
 					</div>
+
+					<TailwindIndicator />
+					<VisualEditor />
 				</Providers>
 			</body>
 		</html>
