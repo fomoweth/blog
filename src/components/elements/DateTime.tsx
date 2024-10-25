@@ -13,14 +13,14 @@ const isDateString = (value: any): boolean => {
 };
 
 export default function DateTime({
-	className = "text-black/60 dark:text-white/60",
+	className,
 	month = "short",
 	day,
-	year = "numeric",
+	year,
 	timeZone = "UTC",
 	value,
 }: Props) {
-	if (!value || !isDateString(value)) {
+	if (!isDateString(value)) {
 		return <span className={cn("capitalize", className)}>{value}</span>;
 	}
 
@@ -38,7 +38,13 @@ export default function DateTime({
 	});
 
 	return (
-		<time className={className} dateTime={dateTime}>
+		<time
+			className={cn(
+				"text-sm font-medium text-black/60 dark:text-white/60",
+				className,
+			)}
+			dateTime={dateTime}
+		>
 			{formatted}
 		</time>
 	);

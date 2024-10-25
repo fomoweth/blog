@@ -7,21 +7,24 @@ type Props = Pick<Intl.DateTimeFormatOptions, "month" | "day" | "year"> & {
 };
 
 export default function Duration({
-	className,
+	className = "text-sm text-black/60 dark:text-white/60",
 	month,
-	day = "numeric",
-	year = "numeric",
+	day,
+	year,
 	value: { start, end },
 }: Props) {
 	return (
-		<small
-			className={cn(
-				"text-sm text-black/60 dark:text-white/60",
-				className,
-			)}
-		>
-			<DateTime month={month} day={day} year={year} value={start} /> -{" "}
+		<small className={className}>
 			<DateTime
+				className={className}
+				month={month}
+				day={day}
+				year={year}
+				value={start}
+			/>
+			<span> &ndash; </span>
+			<DateTime
+				className={className}
 				month={month}
 				day={day}
 				year={year}

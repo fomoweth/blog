@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 interface Props {
-	classNames?: { ul?: string; li?: string; span?: string };
+	classNames?: { ul?: string; li?: string };
 	items: Array<string>;
 }
 
@@ -18,16 +18,12 @@ export default function BulletPoints({ classNames, items }: Props) {
 			{items.map((item, idx) => (
 				<li
 					key={idx}
-					className={cn("ml-5 text-[#0847F7]", classNames?.li)}
+					className={cn(
+						"ml-5 text-balance tracking-tight marker:text-[#0847F7] md:text-pretty",
+						classNames?.li,
+					)}
 				>
-					<span
-						className={cn(
-							"text-balance tracking-tight text-gray-600 dark:text-gray-400 md:text-pretty",
-							classNames?.span,
-						)}
-					>
-						{item}
-					</span>
+					{item}
 				</li>
 			))}
 		</ul>
