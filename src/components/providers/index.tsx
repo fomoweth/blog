@@ -1,4 +1,4 @@
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { TooltipProvider } from "@/components/ui";
 import JotaiProvider from "./JotaiProvider";
 import ThemeProvider from "./ThemeProvider";
 
