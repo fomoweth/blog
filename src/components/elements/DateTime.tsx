@@ -39,10 +39,7 @@ export default function DateTime({
 
 	return (
 		<time
-			className={cn(
-				"text-sm font-medium text-black/60 dark:text-white/60",
-				className,
-			)}
+			className={cn("text-sm font-medium text-black/60", className)}
 			dateTime={dateTime}
 		>
 			{formatted}

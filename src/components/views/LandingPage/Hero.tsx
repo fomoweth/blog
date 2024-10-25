@@ -2,6 +2,7 @@ import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 
 import TypeAnimation from "@/components/elements/TypeAnimation";
+
 import { cn } from "@/lib/utils";
 
 const TYPE_TEXT = ["ON CLAY", "ON PAPER", "ONLINE", "ONCHAIN"] as const;
