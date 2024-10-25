@@ -10,10 +10,10 @@
 		--card-foreground: 240 10% 3.9%;
 		--popover: 0 0% 100%;
 		--popover-foreground: 240 10% 3.9%;
-		--primary: 221.2 83.2% 53.3%;
-		--primary-foreground: 210 40% 98%;
-		--secondary: 262.1 83.3% 57.8%;
-		--secondary-foreground: 210 20% 98%;
+		--primary: 240 5.9% 10%;
+		--primary-foreground: 0 0% 98%;
+		--secondary: 240 4.8% 95.9%;
+		--secondary-foreground: 240 5.9% 10%;
 		--muted: 240 4.8% 95.9%;
 		--muted-foreground: 240 3.8% 46.1%;
 		--accent: 240 4.8% 95.9%;
@@ -29,19 +29,6 @@
 		--chart-3: 197 37% 24%;
 		--chart-4: 43 74% 66%;
 		--chart-5: 27 87% 67%;
-
-		--custom-red: #ed5565;
-		--custom-pink: #ec87c0;
-		--custom-orange: #fb6e51;
-		--custom-yellow: #ffce54;
-		--custom-lime: #a0d468;
-		--custom-teal: #48cfad;
-		--custom-cyan: #4fc1e9;
-		--custom-blue: #5e9beb;
-		--custom-violet: #ac92ec;
-		--custom-neutral: #656d78;
-		--custom-slate: #ccd1d9;
-		--custom-white: #f6f7fa;
 	}
 
 	.dark {
@@ -51,10 +38,10 @@
 		--card-foreground: 0 0% 98%;
 		--popover: 240 10% 3.9%;
 		--popover-foreground: 0 0% 98%;
-		--primary: 217.2 91.2% 59.8%;
-		--primary-foreground: 222.2 47.4% 11.2%;
-		--secondary: 263.4 70% 50.4%;
-		--secondary-foreground: 210 20% 98%;
+		--primary: 0 0% 98%;
+		--primary-foreground: 240 5.9% 10%;
+		--secondary: 240 3.7% 15.9%;
+		--secondary-foreground: 0 0% 98%;
 		--muted: 240 3.7% 15.9%;
 		--muted-foreground: 240 5% 64.9%;
 		--accent: 240 3.7% 15.9%;
@@ -69,23 +56,8 @@
 		--chart-3: 30 80% 55%;
 		--chart-4: 280 65% 60%;
 		--chart-5: 340 75% 55%;
-
-		--custom-red: #da4453;
-		--custom-orange: #e9573f;
-		--custom-pink: #d772ad;
-		--custom-yellow: #f6bb42;
-		--custom-lime: #8cc152;
-		--custom-teal: #37bc9b;
-		--custom-cyan: #3bafda;
-		--custom-blue: #4a89dc;
-		--custom-violet: #967bdc;
-		--custom-neutral: #434a54;
-		--custom-slate: #aab2bd;
-		--custom-white: #e6e9ed;
 	}
-}
 
-@layer base {
 	* {
 		@apply border-border;
 	}
@@ -99,40 +71,43 @@
 		/* Hide scrollbar for IE, Edge and Firefox */
 		-ms-overflow-style: none; /* IE and Edge */
 		scrollbar-width: none; /* Firefox */
-
 		scroll-behavior: smooth;
-
-		/* scroll-snap-type: y mandatory; */
 	}
 
 	body {
-		font-synthesis-weight: none;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeLegibility;
+		-webkit-text-size-adjust: 100%;
+		-ms-font-feature-settings: "kern" 1;
+		font-feature-settings: "kern";
+		font-synthesis-weight: none;
+	}
+
+	[hidden] {
+		display: none !important;
 	}
 
 	:target:is(h1, h2, h3, h4, h5, h6) {
 		scroll-margin-top: var(--header-height);
 		animation: target 2s ease-in-out forwards;
 	}
+
+	@keyframes target {
+		0%,
+		50% {
+			background-color: var(--highlight);
+		}
+	}
 }
 
 @layer components {
-	.section {
-		@apply mx-auto max-w-screen-xl p-8 max-md:px-4 md:py-12;
-
-		/* height: calc(100vh - var(--header-height)); */
-	}
-
 	.title {
-		@apply font-orbiter font-bold capitalize tracking-tight;
+		@apply font-orbiter font-bold capitalize;
 	}
 
 	.emphasis {
 		@apply font-roboto-mono font-bold uppercase leading-loose tracking-widest;
-	}
-
-	.link {
-		@apply font-medium underline-offset-4 hover:underline hover:opacity-80 focus:outline-none;
 	}
 
 	.h1 {
@@ -144,7 +119,7 @@
 	}
 
 	.h3 {
-		@apply text-4xl font-semibold xs:text-3xl md:text-5xl lg:text-6xl xl:text-7xl;
+		@apply text-4xl font-semibold md:text-5xl lg:text-6xl xl:text-7xl;
 	}
 
 	.h4 {
@@ -159,55 +134,59 @@
 		@apply text-xl font-medium md:text-2xl lg:text-3xl xl:text-4xl;
 	}
 
-	.p {
-		@apply text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl;
-	}
-
-	.text-shadow {
-		text-shadow: 0 0 0.2em rgb(0 0 0 / 0.25);
-	}
-
 	.btn {
 		@apply inline-flex items-center justify-center overflow-hidden rounded-md border border-transparent text-center text-sm font-medium text-white focus:outline-none;
-	}
-
-	.ghost {
-		@apply btn text-gray-700 transition-all hover:bg-zinc-800 hover:text-gray-50 dark:text-zinc-200 dark:hover:text-zinc-50;
-	}
-
-	.badge {
-		@apply btn rounded-full px-2.5 py-0.5 text-xs font-semibold;
-	}
-
-	.logo {
-		@apply h-[30px] w-[30px] rounded-full object-cover;
 	}
 
 	.portable-text {
 		@apply space-y-2 leading-relaxed;
 
 		& h1 {
-			@apply text-3xl font-bold;
+			@apply text-4xl font-bold md:text-5xl;
 		}
 
 		& h2 {
-			@apply text-2xl font-bold;
+			@apply text-3xl font-bold md:text-4xl;
 		}
 
 		& h3 {
-			@apply text-xl font-bold;
+			@apply text-2xl font-bold md:text-3xl;
 		}
 
 		& h4 {
-			@apply text-lg font-bold;
+			@apply text-xl font-bold md:text-2xl;
 		}
 
 		& h5 {
-			@apply font-bold;
+			@apply text-lg font-bold md:text-xl;
 		}
 
 		& h6 {
-			@apply font-bold;
+			@apply text-lg font-bold md:text-xl;
+		}
+
+		& p {
+			@apply text-base md:text-xl;
+		}
+
+		& a {
+			@apply text-base font-medium text-blue-500 underline underline-offset-2 hover:opacity-70 md:text-xl;
+		}
+
+		& :not(pre) > code {
+			@apply rounded bg-black/5 px-1 text-base md:text-xl;
+		}
+
+		& pre {
+			tab-size: 4;
+			@apply overflow-x-auto rounded bg-transparent p-3 text-sm leading-relaxed;
+		}
+
+		& :is(ul, ol) {
+			@apply space-y-1 text-base md:text-xl;
+
+			list-style: revert;
+			padding-left: 1.5em;
 		}
 	}
 }
@@ -224,26 +203,36 @@
 		scrollbar-width: none; /* Firefox */
 	}
 
-	.below-header {
-		position: sticky;
-		top: calc(var(--header-height) + var(--offset, 0px));
+	@keyframes animate-fade-to {
+		from {
+			opacity: 0;
+			translate: var(--x, 0) var(--y, 0);
+		}
 	}
 
-	.glass {
-		@apply bg-transparent bg-opacity-80 backdrop-blur-sm backdrop-saturate-150;
+	.animate-fade,
+	.animate-fade-to-l,
+	.animate-fade-to-r,
+	.animate-fade-to-t,
+	.animate-fade-to-b {
+		--x: 0;
+		--y: 0;
+		animation: animate-fade-to 0.2s ease-in-out forwards;
 	}
 
-	.outline {
-		@apply border border-zinc-200 bg-white hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50;
+	.animate-fade-to-l {
+		--x: 1rem;
 	}
 
-	.step {
-		counter-increment: step;
+	.animate-fade-to-r {
+		--x: -1rem;
 	}
 
-	.step:before {
-		@apply absolute inline-flex h-9 w-9 items-center justify-center rounded-full border-4 border-background bg-muted text-center -indent-px font-mono text-base font-medium;
-		@apply ml-[-50px] mt-[-4px];
-		content: counter(step);
+	.animate-fade-to-t {
+		--y: 1rem;
+	}
+
+	.animate-fade-to-b {
+		--y: -1rem;
 	}
 }
