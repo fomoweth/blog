@@ -9,9 +9,8 @@ const ASSET = groq`
 
 const NAVIGATION = groq`
 	enabled,
-	position,
 	"headings": select(
-		enabled => ^.content[style in ["h1", "h2", "h3", "h4"]] {
+		enabled => ^.content[style in ["h2"]] {
 			style,
 			"text": pt::text(@)
 		}
@@ -27,11 +26,11 @@ export const POST_PARTIAL = groq`
 	title,
 	slug,
 	excerpt,
-	tags[],
 	category ->,
+	tags[],
 	date,
 	sourceCode,
-	featured
+	featured,
 `;
 
 export const POST = groq`
@@ -45,7 +44,8 @@ export const POST = groq`
 	sourceCode,
 	"content": select(_type == "image" => asset ->, content),
 	navigation { ${NAVIGATION} },
-	featured
+	featured,
+	relatedPosts[] -> { ${POST_PARTIAL} }
 `;
 
 export const PROJECT = groq`
@@ -56,28 +56,18 @@ export const PROJECT = groq`
 	duration,
 	sourceCode,
 	protocols[] -> {
-		...,
-		logo {
-			default { ${ASSET} },
-			light { ${ASSET} },
-			dark { ${ASSET} },
-		},
-		icon { ${ASSET} }
+		icon { ${ASSET} },
+		label,
+		slug,
+		ticker,
+		link
 	},
 	bulletPoints[],
 	featured
 `;
 
-const DRAFT_FILTER = groq`
-	!(_id in path("drafts.**"))
-`;
-
-const SLUG_FILTER = groq`
-	defined(slug.current)
-`;
-
 export async function loadLandingPage({
-	slice = { start: 0, end: 5 },
+	slice = { start: 0, end: 4 },
 }: {
 	slice?: { start: number; end: number };
 } = {}) {
@@ -131,11 +121,11 @@ export async function loadLandingPage({
 				...,
 				${PROJECT}
 			},
-			"posts": *[_type == "post" && defined(slug.current)] | order(date, desc)[$start...$end] {
+			"posts": *[_type == "post" && defined(slug.current)] | order(date, desc) {
 				${POST_PARTIAL}
 			}
 		}`,
-		params: { ...slice },
+		params: {},
 		tags: [
 			"settings",
 			"author",
@@ -219,15 +209,8 @@ export async function loadPosts({
 	order?: { field: string; direction: "asc" | "desc" };
 	slice?: { start: number; end: number };
 } = {}) {
-	const query = slice
-		? groq`
-			*[_type == "post" && defined(slug.current)] | order($field, $direction)[$start...$end] {
-				...,
-				${POST}
-			}
-		`
-		: groq`
-			*[_type == "post" && defined(slug.current)] | order($field, $direction) {
+	const query = groq`
+			*[_type == "post" && defined(slug.current)] | order(date, desc) {
 				...,
 				${POST}
 			}
@@ -235,7 +218,7 @@ export async function loadPosts({
 
 	return await fetch<Array<Sanity.Post>>({
 		query,
-		params: { ...order, ...(slice || {}) },
+		params: { ...order, ...slice },
 		tags: ["post"],
 	});
 }
@@ -243,8 +226,8 @@ export async function loadPosts({
 export async function loadPost(slug: string) {
 	return await fetch<{
 		post: Sanity.Post;
-		prev?: Sanity.Post;
-		next?: Sanity.Post;
+		prev?: Sanity.PostPartial;
+		next?: Sanity.PostPartial;
 	}>({
 		query: groq`
 			*[_type == "post" && slug.current == $slug][0] {
