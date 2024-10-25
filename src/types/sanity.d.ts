@@ -27,10 +27,7 @@ declare global {
 			position: { title: string; startDate: string };
 			location: string;
 			contacts: Array<Contact>;
-			resume: {
-				_type: "file";
-				asset: SanityAsset;
-			};
+			resume: Asset;
 		}
 
 		// documents
@@ -155,7 +152,6 @@ declare global {
 		interface Asset {
 			_type: "file" | "image" | string;
 			asset: SanityAsset;
-			href: string;
 		}
 
 		interface Code extends TypedObject {
