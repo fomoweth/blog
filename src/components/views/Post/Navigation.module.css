@@ -1,0 +1,5 @@
+@screen md {
+	.inView:not(.inView ~ .inView) {
+		@apply border-l-4 border-blue-500;
+	}
+}
