@@ -11,10 +11,6 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-interface Props {
-	className?: string;
-}
-
 export default function ThemeToggle() {
 	const { setTheme } = useTheme();
 
@@ -30,7 +26,7 @@ export default function ThemeToggle() {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button
-					className="text-slate-800 dark:text-zinc-200"
+					className="text-slate-800 dark:text-zinc-200 [&>svg]:h-10 [&>svg]:w-10"
 					variant="ghost"
 				>
 					<span className="sr-only">Theme Toggle</span>
@@ -55,7 +51,7 @@ export default function ThemeToggle() {
 					<svg
 						className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
 						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
+						viewBox="0 0 18 22"
 						height={30}
 						width={30}
 						focusable="false"

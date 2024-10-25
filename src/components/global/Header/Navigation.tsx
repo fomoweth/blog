@@ -2,60 +2,45 @@
 
 import { useCallback } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
 interface Props {
+	className: string;
 	paths: Array<{ href: string; label: string }>;
 	title: string;
 }
 
-export default function Navigation({ paths, title }: Props) {
-	const pathname = usePathname();
-
+export default function Navigation({ className, paths, title }: Props) {
 	const renderLink = useCallback(
 		(path: { href: string; label: string }, idx: number) => {
 			return (
 				<Link
 					key={idx}
-					className={cn(
-						"emphasis font-orbiter text-lg transition-colors hover:text-foreground/80",
-						path.href === pathname
-							? "text-foreground"
-							: "text-foreground/60",
-					)}
 					href={path.href}
+					className="emphasis font-orbiter text-lg"
 				>
-					{path.label}
+					<motion.div
+						className="h-5"
+						whileHover={{ y: -20 }}
+						transition={{ duration: 0.5, ease: "backInOut" }}
+					>
+						<span className="flex h-5 items-center text-slate-500">
+							{path.label}
+						</span>
+						<span className="flex h-5 items-center text-slate-400">
+							{path.label}
+						</span>
+					</motion.div>
 				</Link>
 			);
 		},
-		[pathname, paths],
+		[paths],
 	);
 
-	const renderLinks = useCallback(() => {
-		return paths.map((path, idx) => {
-			return (
-				<Link
-					key={idx}
-					className={cn(
-						"emphasis font-orbiter text-lg transition-colors hover:text-foreground/80",
-						path.href === pathname
-							? "text-foreground"
-							: "text-foreground/60",
-					)}
-					href={path.href}
-				>
-					{path.label}
-				</Link>
-			);
-		});
-	}, [pathname, paths]);
-
 	return (
-		<nav className="hidden h-full w-full items-center justify-between gap-x-10 md:flex">
+		<nav className={className}>
 			<div className="overflow-hidden">
 				<motion.div
 					initial={{ opacity: 0, y: 100 }}
@@ -93,7 +78,7 @@ export default function Navigation({ paths, title }: Props) {
 
 			<div className="overflow-hidden">
 				<motion.div
-					className="flex items-center space-x-6"
+					className="hidden items-center gap-x-10 md:flex"
 					initial={{ opacity: 0, y: 100 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.3 }}
