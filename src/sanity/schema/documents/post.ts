@@ -102,6 +102,18 @@ export default defineType({
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
+			title: "Related Posts",
+			name: "relatedPosts",
+			type: "array",
+			of: [
+				defineArrayMember({
+					type: "reference",
+					to: { type: "post" },
+				}),
+			],
+			group: "editorial",
+		}),
+		defineField({
 			title: "Navigation",
 			name: "navigation",
 			type: "object",

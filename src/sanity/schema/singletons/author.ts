@@ -61,14 +61,14 @@ export default defineType({
 							options: {
 								layout: "radio",
 								list: [
-									{ title: "Email", value: "email" },
-									{ title: "Github", value: "github" },
-									{ title: "LinkedIn", value: "linkedin" },
-									{ title: "Telegram", value: "telegram" },
-									{ title: "X", value: "x" },
+									"Email",
+									"Github",
+									"LinkedIn",
+									"Telegram",
+									"X",
 								],
 							},
-							initialValue: "email",
+							initialValue: "Email",
 							validation: (rule) => rule.required(),
 						}),
 						defineField({
@@ -84,7 +84,7 @@ export default defineType({
 											{}) as any;
 
 										const protocol =
-											label === "email"
+											label === "Email"
 												? "mailto:"
 												: "https:";
 

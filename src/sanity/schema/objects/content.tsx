@@ -102,6 +102,7 @@ export default defineField({
 			options: {
 				languageAlternatives: [
 					{ title: "Bash", value: "bash" },
+					{ title: "GraphQL", value: "graphql" },
 					{ title: "GROQ", value: "groq" },
 					{ title: "JSON", value: "json" },
 					{ title: "Shell", value: "sh" },

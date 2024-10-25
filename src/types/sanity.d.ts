@@ -67,18 +67,29 @@ declare global {
 			title: string;
 			slug: Slug;
 			excerpt: string;
-			tags: Array<string>;
 			category: Category;
+			tags: Array<string>;
 			date: string;
 			sourceCode?: string;
 			content: Array<Block>;
-			navigation: {
-				enabled: boolean;
-				position: "left" | "right";
-				headings: Array<Heading>;
-			};
+			navigation: Navigation;
 			featured?: boolean;
+			relatedPosts: Array<PostPartial>;
 		}
+
+		interface PostPartial
+			extends Pick<
+				Post,
+				| "coverImage"
+				| "title"
+				| "slug"
+				| "excerpt"
+				| "category"
+				| "tags"
+				| "date"
+				| "sourceCode"
+				| "featured"
+			> {}
 
 		interface Project extends SanityDocument {
 			_type: "project";
@@ -114,7 +125,6 @@ declare global {
 			_key: string;
 			label: string;
 			href: string;
-			// hex: string;
 			color: string;
 		}
 
@@ -122,6 +132,12 @@ declare global {
 			_type: "duration";
 			start: string;
 			end: string;
+		}
+
+		interface Navigation {
+			enabled: boolean;
+			position: "left" | "right";
+			headings: Array<Heading>;
 		}
 
 		interface Skill extends TypedObject {
@@ -142,6 +158,14 @@ declare global {
 			href: string;
 		}
 
+		interface Code extends TypedObject {
+			_type: "code";
+			language: string;
+			code: string;
+			filename?: string;
+			highlightedLines?: Array<number>;
+		}
+
 		interface Image extends SanityImageObject {
 			_type: "image";
 			asset: SanityImage;
@@ -160,7 +184,7 @@ declare global {
 			| "spoken-languages";
 
 		interface Heading {
-			style: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+			style: "h2" | "h3" | "h4" | "h5" | "h6";
 			text: string;
 		}
 	}

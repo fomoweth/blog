@@ -41,3 +41,7 @@ export function isExternal(url: string | UrlObject): boolean {
 
 	return url.protocol === "https:" || url.protocol === "mailto:";
 }
+
+export function sleep(ms: number): Promise<void> {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
