@@ -1,24 +1,21 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { AnimatePresence } from "framer-motion";
 
-import PageTransition from "./PageTransition";
+import { cn } from "@/lib/utils";
 
 export default function AppLayout({
 	children,
-}: Readonly<{
-	children: React.ReactNode;
-}>) {
+	className,
+	...props
+}: React.ComponentProps<"main">) {
 	return (
-		<AnimatePresence mode="wait">
-			<PageTransition />
-			<main
-				key={usePathname()}
-				className="relative mx-auto grid min-h-[calc(100vh-128px)] w-full max-w-screen-2xl grid-cols-1"
-			>
-				<div className="mx-auto w-full max-w-screen-xl">{children}</div>
-			</main>
-		</AnimatePresence>
+		<main
+			key={usePathname()}
+			className={cn("relative z-10 grow", className)}
+			{...props}
+		>
+			{children}
+		</main>
 	);
 }
