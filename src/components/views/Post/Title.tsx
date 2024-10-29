@@ -26,44 +26,29 @@ export default function Title({
 	title,
 }: Props) {
 	return (
-		<div className="relative flex flex-col space-y-3">
-			<div className="ml-1">
-				<Badge className="pointer-events-none" variant="secondary">
-					{category.title}
-				</Badge>
-			</div>
-
-			<h1 className="font-orbiter text-3xl font-bold md:text-4xl lg:text-5xl xl:text-6xl">
+		<div className="relative flex flex-col space-y-3 lg:px-4">
+			<h1 className="text-balance text-center font-inter text-3xl font-bold tracking-tight md:text-4xl lg:text-pretty lg:text-5xl xl:text-start">
 				{title}
 			</h1>
 
-			<div
-				className={cn(
-					"grid w-full grid-cols-1 items-center lg:grid-cols-2",
-					"[&>div]:flex [&>div]:px-4 [&>div]:py-2",
-				)}
-			>
-				<div className="my-2 inline-flex w-full items-center justify-center gap-x-5 lg:justify-start">
-					{tags.map((tag, idx) => (
+			<div className="flex flex-wrap items-start justify-center gap-x-2 md:gap-x-4 xl:justify-start xl:gap-x-6">
+				<div className="my-2 inline-flex items-center gap-x-2 xl:gap-x-4">
+					<Badge className="pointer-events-none" variant="outline">
+						{category.title}
+					</Badge>
+
+					{tags?.map((tag, idx) => (
 						<Badge
 							key={idx}
 							className="pointer-events-none"
-							variant="secondary"
+							variant="default"
 						>
 							{tag}
 						</Badge>
 					))}
 				</div>
 
-				<div
-					className={cn(
-						"mx-auto w-full lg:w-fit",
-						"grid items-center",
-						"justify-end",
-						sourceCode ? "grid-cols-3" : "grid-cols-2",
-						"[&>*]:mx-auto [&>*]:flex [&>*]:px-4 [&>*]:py-2",
-					)}
-				>
+				<div className="my-2 inline-flex items-center gap-x-3 xl:gap-x-5">
 					{sourceCode && (
 						<Link
 							className="inline-flex items-center gap-x-2 text-sm"

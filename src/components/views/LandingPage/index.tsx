@@ -51,7 +51,7 @@ export default function LandingPage({
 					<Hero />
 				</Parallax>
 				<Parallax
-					className="bg-zinc-200"
+					className="bg-slate-200"
 					index={1}
 					progress={scrollYProgress}
 					total={4}
@@ -59,7 +59,7 @@ export default function LandingPage({
 					<Profile author={author} />
 				</Parallax>
 				<Parallax
-					className="bg-zinc-100"
+					className="bg-slate-100"
 					index={2}
 					progress={scrollYProgress}
 					total={4}

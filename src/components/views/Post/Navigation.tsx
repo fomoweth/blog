@@ -5,10 +5,11 @@ import { cn, sluggify } from "@/lib/utils";
 import styles from "./Navigation.module.css";
 
 interface Props {
+	className?: string;
 	value: Sanity.Navigation;
 }
 
-export default function Navigation({ value }: Props) {
+export default function Navigation({ className, value }: Props) {
 	if (!value.enabled) return null;
 
 	const headings = useMemo(
@@ -59,12 +60,12 @@ export default function Navigation({ value }: Props) {
 	return (
 		<aside
 			className={cn(
-				"top-[calc(var(--header-height)_+_48px)] mx-auto hidden self-start bg-transparent px-4 py-6 md:sticky md:order-1 md:block md:w-[250px]",
-				"top-[var(--header-height)]",
+				"top-[var(--header-height)] mx-auto hidden self-start bg-transparent px-4 pb-14 md:sticky md:order-1 md:block md:w-[250px]",
+				className,
 			)}
 		>
 			<details className="space-y-2" open>
-				<summary className="grid font-orbiter text-xl font-semibold md:text-2xl">
+				<summary className="mb-4 grid font-orbiter text-xl font-semibold md:text-2xl">
 					Table of Contents
 				</summary>
 

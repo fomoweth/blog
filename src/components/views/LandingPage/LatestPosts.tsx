@@ -6,7 +6,6 @@ import Callout from "@/components/global/Callout";
 import { Badge } from "@/components/ui/badge";
 
 import useImageUrlBuilder from "@/hooks/useImageUrlBuilder";
-import { cn } from "@/lib/utils";
 
 interface Props {
 	className: string;
@@ -38,7 +37,10 @@ export default function LatestPosts({ className, items }: Props) {
 								title,
 							} = item;
 
-							const source = builder.image(coverImage).url();
+							const source = builder
+								.image(coverImage)
+								.fit("crop")
+								.url();
 
 							return (
 								<motion.a
@@ -51,9 +53,7 @@ export default function LatestPosts({ className, items }: Props) {
 									}}
 								>
 									<div
-										className={cn(
-											"absolute inset-0 aspect-auto h-full w-full saturate-100 transition-all duration-500 group-hover:scale-110 lg:group-hover:saturate-0",
-										)}
+										className="absolute inset-0 aspect-auto h-full w-full saturate-100 transition-all duration-500 group-hover:scale-110 lg:group-hover:saturate-0"
 										style={{
 											backgroundImage: `url(${source})`,
 											backgroundSize: "cover",
@@ -111,7 +111,7 @@ export default function LatestPosts({ className, items }: Props) {
 					<Callout
 						className="bg-[#1D1D1E]"
 						content={
-							<h3 className="text-lg font-medium tracking-wide md:flex md:flex-col md:text-2xl lg:text-3xl xl:flex-row">
+							<h3 className="text-center text-lg font-medium tracking-wide md:flex md:flex-col md:text-start md:text-xl xl:flex-row xl:text-2xl">
 								<span className="mr-1.5 text-zinc-200">
 									Explore the Technical Foundations of
 								</span>

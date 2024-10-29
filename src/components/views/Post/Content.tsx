@@ -16,7 +16,7 @@ export default function Content({ value }: Props) {
 	return (
 		<div
 			className={cn(
-				"portable-text relative mx-auto w-full space-y-[1em] px-12 py-14",
+				"portable-text relative mx-auto w-full space-y-[1em] px-4 py-14 md:px-12",
 				"[&>:first-child]:!mt-0",
 			)}
 		>
