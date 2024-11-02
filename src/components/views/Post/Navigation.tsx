@@ -60,7 +60,7 @@ export default function Navigation({ className, value }: Props) {
 	return (
 		<aside
 			className={cn(
-				"top-[var(--header-height)] mx-auto hidden self-start bg-transparent px-4 pb-14 md:sticky md:order-1 md:block md:w-[250px]",
+				"top-[var(--header-height)] mx-auto hidden self-start bg-transparent md:sticky md:order-1 md:block md:w-[250px]",
 				className,
 			)}
 		>

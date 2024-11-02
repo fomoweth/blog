@@ -3,7 +3,7 @@ import type {
 	PortableTextComponentProps,
 } from "next-sanity";
 
-import { cn, sluggify } from "@/lib/utils";
+import { sluggify } from "@/lib/utils";
 
 interface Props extends PortableTextComponentProps<PortableTextBlock> {
 	as: keyof JSX.IntrinsicElements;
@@ -18,7 +18,7 @@ export default function Heading({ as: Tag, children, color, value }: Props) {
 	return (
 		<Tag
 			id={id}
-			className={cn("group")}
+			className="group"
 			style={{ "--highlight": color || "#3B82F6" } as React.CSSProperties}
 		>
 			{children}
