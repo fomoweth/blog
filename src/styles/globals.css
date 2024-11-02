@@ -29,6 +29,19 @@
 		--chart-3: 197 37% 24%;
 		--chart-4: 43 74% 66%;
 		--chart-5: 27 87% 67%;
+
+		--custom-red: #ed5565;
+		--custom-pink: #ec87c0;
+		--custom-orange: #fb6e51;
+		--custom-yellow: #ffce54;
+		--custom-lime: #a0d468;
+		--custom-teal: #48cfad;
+		--custom-cyan: #4fc1e9;
+		--custom-blue: #5e9beb;
+		--custom-violet: #ac92ec;
+		--custom-neutral: #656d78;
+		--custom-slate: #ccd1d9;
+		--custom-white: #f6f7fa;
 	}
 
 	.dark {
@@ -56,6 +69,19 @@
 		--chart-3: 30 80% 55%;
 		--chart-4: 280 65% 60%;
 		--chart-5: 340 75% 55%;
+
+		--custom-red: #da4453;
+		--custom-orange: #e9573f;
+		--custom-pink: #d772ad;
+		--custom-yellow: #f6bb42;
+		--custom-lime: #8cc152;
+		--custom-teal: #37bc9b;
+		--custom-cyan: #3bafda;
+		--custom-blue: #4a89dc;
+		--custom-violet: #967bdc;
+		--custom-neutral: #434a54;
+		--custom-slate: #aab2bd;
+		--custom-white: #e6e9ed;
 	}
 
 	* {
@@ -97,6 +123,7 @@
 		0%,
 		50% {
 			background-color: var(--highlight);
+			color: #fff;
 		}
 	}
 }
@@ -201,6 +228,11 @@
 		/* Hide scrollbar for IE, Edge and Firefox */
 		-ms-overflow-style: none; /* IE and Edge */
 		scrollbar-width: none; /* Firefox */
+	}
+
+	.full-bleed {
+		width: 100vw;
+		margin-inline: calc(50% - 50vw);
 	}
 
 	@keyframes animate-fade-to {

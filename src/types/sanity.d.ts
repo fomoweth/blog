@@ -167,6 +167,7 @@ declare global {
 			asset: SanityImage;
 			alt?: string;
 			caption?: string;
+			float?: "left" | "right" | "none";
 		}
 
 		type Block = PortableTextBlock;
