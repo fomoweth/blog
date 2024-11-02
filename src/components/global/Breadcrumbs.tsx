@@ -1,56 +1,60 @@
-"use client";
-
 import { useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { Chevron } from "@/components/icons";
-import { cn } from "@/lib/utils";
+import { capitalize, cn, sluggify } from "@/lib/utils";
 
 interface Props {
-	canGoBack?: boolean;
 	className?: string;
-	pathname?: string;
+	title?: string;
 }
 
-export default function Breadcrumbs({
-	className,
-	pathname = usePathname(),
-}: Props) {
-	const routes = useMemo(() => {
-		const paths = pathname.split("/").slice(1);
+export default function Breadcrumbs({ className, title }: Props) {
+	const pathname = usePathname();
+
+	const paths = useMemo(() => {
+		const paths = pathname.split("/").filter(Boolean);
+
+		if (title) {
+			paths.splice(paths.length - 1, 1, title);
+		}
 
 		return paths.reduce<Array<{ href: string; label: string }>>(
 			(acc, path, idx) =>
 				acc.concat({
 					href:
 						idx !== 0
-							? acc[idx].href.concat("/" + path)
-							: "/" + path,
-					label: path,
+							? acc[idx].href.concat("/" + sluggify(path))
+							: "/" + sluggify(path),
+					label: idx < paths.length - 1 ? capitalize(path) : path,
 				}),
-			[{ href: "/", label: "home" }],
+			[{ href: "/", label: "Home" }],
 		);
 	}, [pathname]);
 
 	return (
-		<nav
-			className={cn(
-				"relative mx-auto w-full max-w-screen-2xl p-3",
-				className,
-			)}
-		>
-			<ul className="inline-flex list-none items-center">
-				{routes.map(({ href, label }, idx) => (
-					<li key={idx} className="group inline-flex items-center">
+		<nav className={cn("relative mx-auto w-full px-6 py-3", className)}>
+			<ul className="inline-flex w-full list-none items-center space-x-1">
+				{paths.map(({ href, label }, idx) => (
+					<li
+						key={idx}
+						className={cn(
+							"group inline-flex items-center space-x-1",
+							idx === paths.length - 1 && "truncate",
+						)}
+					>
 						<Link
-							className="z-10 capitalize opacity-70 hover:underline group-last:opacity-100"
+							className={cn(
+								"truncate underline-offset-2 opacity-70 hover:underline hover:opacity-100 group-last:opacity-100 hover:group-last:opacity-70",
+							)}
 							href={href}
 						>
 							{label}
 						</Link>
+
 						<Chevron
-							className="mx-1.5 mt-0.5 group-last:hidden"
+							className="mt-0.5 group-last:hidden"
 							direction="right"
 							size={16}
 							variant="single"
