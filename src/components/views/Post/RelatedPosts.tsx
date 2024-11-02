@@ -33,14 +33,19 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 		position >= idx ? idx * 100 : idx * 100 - 100 * (idx - position);
 
 	return (
-		<div className={cn("pb-12", className)}>
+		<div className={cn("mx-auto w-full", className)}>
 			<div className="mx-8 overflow-hidden md:mx-12 xl:mx-6">
 				<div className="mx-auto mb-8 flex items-center justify-between gap-4">
 					<h3 className="text-3xl font-bold leading-relaxed md:ml-8 md:text-4xl">
 						Related Posts
 					</h3>
 
-					<div className="flex gap-2">
+					<div
+						className={cn(
+							"flex gap-2",
+							items.length < 2 && "hidden",
+						)}
+					>
 						<Button
 							className="h-fit rounded-none bg-zinc-950 p-2 md:p-4"
 							disabled={position === 0}
@@ -59,7 +64,7 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 					</div>
 				</div>
 
-				<div className="flex gap-4 p-1">
+				<div className="flex gap-4 p-2">
 					{items.map((item, idx) => {
 						const {
 							category,
@@ -70,10 +75,7 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 							title,
 						} = item;
 
-						const source = builder
-							.image(coverImage)
-							.fit("crop")
-							.url();
+						const source = builder.image(coverImage).url();
 
 						return (
 							<motion.a
@@ -111,7 +113,7 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 									<div className="inline-flex items-center gap-x-2">
 										<Badge
 											className="pointer-events-none"
-											variant="default"
+											variant="outline"
 										>
 											{category.title}
 										</Badge>

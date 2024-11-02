@@ -68,7 +68,7 @@ export default function LatestPosts({ className, items }: Props) {
 													<Badge
 														key={idx}
 														className="pointer-events-none"
-														variant="secondary"
+														variant="default"
 													>
 														{tag}
 													</Badge>
@@ -81,14 +81,14 @@ export default function LatestPosts({ className, items }: Props) {
 										<div>
 											<div className="mb-4 inline-flex items-center gap-x-4">
 												<Badge
-													className="pointer-events-none"
-													variant="secondary"
+													className="pointer-events-none text-zinc-200"
+													variant="outline"
 												>
 													{category.title}
 												</Badge>
 
 												<DateTime
-													className="text-zinc-50"
+													className="text-zinc-200"
 													month="short"
 													day="numeric"
 													year="numeric"
@@ -132,7 +132,7 @@ function TextFlip({ value }: { value: string }) {
 	return value.split("").map((char, idx) => (
 		<div
 			key={idx}
-			className="inline-block h-[36px] overflow-hidden text-3xl font-semibold"
+			className="inline-block h-[36px] overflow-hidden text-2xl font-semibold"
 		>
 			<motion.span
 				className="flex min-w-[4px] flex-col"
