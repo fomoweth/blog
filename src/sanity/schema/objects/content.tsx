@@ -91,6 +91,16 @@ export default defineField({
 					name: "caption",
 					type: "string",
 				}),
+				defineField({
+					title: "Float",
+					name: "float",
+					type: "string",
+					options: {
+						layout: "radio",
+						list: ["left", "right", "none"],
+					},
+					initialValue: "none",
+				}),
 			],
 			options: { hotspot: true },
 		}),
