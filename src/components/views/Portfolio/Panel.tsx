@@ -20,7 +20,7 @@ import { Badge } from "@/components/ui/badge";
 interface Props {
 	className: string;
 	index: number;
-	item: Sanity.Project;
+	project: Sanity.Project;
 	offset: number;
 	setter: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -28,11 +28,11 @@ interface Props {
 export default function Panel({
 	className,
 	index,
-	item,
+	project,
 	offset,
 	setter,
 }: Props) {
-	const { protocols, sourceCode, stacks } = item;
+	const { protocols, sourceCode, stacks } = project;
 
 	const ref = useRef<HTMLDivElement>(null);
 	const isInView = useInView(ref, { margin: `${-offset}px` });
@@ -145,7 +145,7 @@ export default function Panel({
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.5, ease: "easeInOut" }}
 				>
-					<Terminal className="mx-auto" value={item} />
+					<Terminal className="mx-auto" value={project} />
 				</motion.div>
 			</div>
 		</div>

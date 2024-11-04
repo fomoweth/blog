@@ -3,25 +3,26 @@
 import { useMemo } from "react";
 import Link from "next/link";
 
+import siteConfig from "@/config";
 import { cn, isExternal } from "@/lib/utils";
 
 interface Props {
-	author: Sanity.Author;
 	className: string;
-	paths: Array<{ href: string; label: string }>;
+	contacts: Array<Sanity.Contact>;
+	resume: Sanity.Asset;
 }
 
-export default function Navigation({ author, className, paths }: Props) {
+export default function Navigation({ className, contacts, resume }: Props) {
 	const { email, github, linkedin, telegram, x } = useMemo(
 		() =>
-			author.contacts.reduce<{ [key: string]: Sanity.Contact }>(
+			contacts.reduce<{ [key: string]: Sanity.Contact }>(
 				(acc, contact) => ({
 					...acc,
 					[contact.label.toLowerCase()]: contact,
 				}),
 				{},
 			),
-		[author],
+		[contacts],
 	);
 
 	return (
@@ -31,13 +32,13 @@ export default function Navigation({ author, className, paths }: Props) {
 				className,
 			)}
 		>
-			<Column title="Directory" links={paths} />
+			<Column
+				title="Directory"
+				links={[{ href: "/", label: "home" }, ...siteConfig.paths]}
+			/>
 			<Column
 				title="Resources"
-				links={[
-					github,
-					{ href: author.resume.asset.url, label: "Resumé" },
-				]}
+				links={[github, { href: resume.asset.url, label: "Resumé" }]}
 			/>
 			<Column title="Contact" links={[linkedin, x, telegram, email]} />
 		</nav>

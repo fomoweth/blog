@@ -1,4 +1,4 @@
-import View from "@/components/views/Projects";
+import View from "@/components/views/Portfolio";
 
 import { constructMetadata } from "@/lib/utils";
 import { loadAuthor, loadProjects, loadProtocols } from "@/sanity/lib/queries";

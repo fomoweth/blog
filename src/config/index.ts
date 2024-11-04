@@ -29,7 +29,7 @@ const siteConfig = {
 		x: "https://x.com/fomoweth",
 	},
 	paths: [
-		{ href: "/projects", label: "projects" },
+		{ href: "/portfolio", label: "portfolio" },
 		{ href: "/blog", label: "blog" },
 	],
 };

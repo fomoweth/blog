@@ -19,7 +19,7 @@ interface Props {
 	protocols: Array<Sanity.Protocol>;
 }
 
-export default function View({ author, projects, protocols }: Props) {
+export default function Portfolio({ author, projects, protocols }: Props) {
 	const [current, setCurrent] = useState<number>(0);
 
 	const github = useMemo(
@@ -75,7 +75,7 @@ export default function View({ author, projects, protocols }: Props) {
 								"mb-20 lg:mb-0 lg:mt-20",
 						)}
 						index={idx}
-						item={project}
+						project={project}
 						offset={400}
 						setter={setCurrent}
 					/>

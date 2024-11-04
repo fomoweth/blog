@@ -60,7 +60,7 @@ export default function TechnicalProjects({ className, items }: Props) {
 
 					<Link
 						className="btn transform bg-gray-900 px-5 py-2 tracking-wider transition-colors duration-300 hover:bg-gray-700"
-						href="/projects"
+						href="/portfolio"
 					>
 						View All Projects
 					</Link>
