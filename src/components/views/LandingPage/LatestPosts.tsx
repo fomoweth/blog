@@ -23,7 +23,7 @@ export default function LatestPosts({ className, items }: Props) {
 				<div className="relative mx-auto px-8 md:px-12 lg:px-14 xl:px-16">
 					<h2 className="title h2 mb-8 inline-block md:mb-14">
 						Latest Posts
-						<span className="ml-1 inline-block size-2 bg-[#0847F7] md:size-2.5 lg:size-3" />
+						<span className="bg-cobalt-blue ml-1 inline-block size-2 md:size-2.5 lg:size-3" />
 					</h2>
 
 					<div className="mx-auto grid w-full grid-cols-1 gap-4 md:gap-8 lg:grid-cols-2">
@@ -107,7 +107,7 @@ export default function LatestPosts({ className, items }: Props) {
 				</div>
 
 				<Callout
-					className="my-14 max-w-screen-xl bg-[#1D1D1E] text-primary-foreground"
+					className="my-14 w-4/5 max-w-screen-xl bg-[#1D1D1E] text-primary-foreground md:w-full"
 					level={2}
 					title={
 						<h3 className="flex flex-col text-center text-lg font-medium tracking-tight md:text-start md:text-xl md:tracking-wide lg:flex-row xl:text-2xl">

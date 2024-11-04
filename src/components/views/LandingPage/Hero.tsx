@@ -88,14 +88,14 @@ export default function Hero() {
 					target="_blank"
 				>
 					<GoldBar
-						className="link font-roboto-mono text-base group-hover:underline"
+						className="link font-roboto-mono text-base underline-offset-2 group-hover:underline"
 						value={slice(WBTC_ADDRESS)}
 					/>
 				</Link>
 			</motion.div>
 
 			<Link
-				className="link text-center font-inter text-xl font-semibold md:text-end md:text-4xl lg:text-5xl"
+				className="link text-center font-inter text-xl font-semibold underline-offset-4 hover:underline md:text-end md:text-4xl lg:text-5xl"
 				href="https://www.linkedin.com/posts/chainlink-labs_the-future-runs-on-tokens-activity-7232131282103590912-4Zim"
 				rel="noopener noreferrer"
 				target="_blank"

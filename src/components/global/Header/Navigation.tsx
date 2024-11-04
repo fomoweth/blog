@@ -4,8 +4,6 @@ import { useCallback } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import { cn } from "@/lib/utils";
-
 interface Props {
 	className: string;
 	paths: Array<{ href: string; label: string }>;
@@ -29,7 +27,7 @@ export default function Navigation({ className, paths, title }: Props) {
 						<span className="flex h-5 items-center text-slate-600">
 							{path.label}
 						</span>
-						<span className="flex h-5 items-center text-slate-500">
+						<span className="flex h-5 items-center text-slate-400">
 							{path.label}
 						</span>
 					</motion.div>

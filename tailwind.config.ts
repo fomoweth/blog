@@ -95,6 +95,9 @@ const config: Config = {
 					DEFAULT: "hsl(var(--card))",
 					foreground: "hsl(var(--card-foreground))",
 				},
+				"cobalt-blue": {
+					DEFAULT: "#0847F7",
+				},
 				"chart-1": "hsl(var(--chart-1))",
 				"chart-2": "hsl(var(--chart-2))",
 				"chart-3": "hsl(var(--chart-3))",

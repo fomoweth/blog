@@ -1,5 +1,4 @@
 import DateTime from "@/components/elements/DateTime";
-import { cn } from "@/lib/utils";
 
 type Props = Pick<Intl.DateTimeFormatOptions, "month" | "day" | "year"> & {
 	className?: string;

@@ -82,6 +82,14 @@
 
 	* {
 		@apply border-border;
+
+		scroll-behavior: smooth;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
 	}
 
 	body {
@@ -94,14 +102,6 @@
 		-ms-font-feature-settings: "kern" 1;
 		font-feature-settings: "kern";
 		font-synthesis-weight: none;
-
-		scroll-behavior: smooth;
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-
-		-webkit-scrollbar {
-			display: none;
-		}
 	}
 
 	[hidden] {

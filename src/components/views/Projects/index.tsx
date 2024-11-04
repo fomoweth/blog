@@ -30,11 +30,15 @@ export default function View({ author, projects, protocols }: Props) {
 		[author],
 	);
 
-	const icons = protocols.map(({ icon, label, link }) => ({
-		href: link,
-		label,
-		src: icon.asset.url,
-	}));
+	const icons = useMemo(
+		() =>
+			protocols.map(({ icon, label, link }) => ({
+				href: link,
+				label,
+				src: icon.asset.url,
+			})),
+		[protocols],
+	);
 
 	return (
 		<AppLayout className="w-screen bg-background pb-20">
@@ -42,13 +46,7 @@ export default function View({ author, projects, protocols }: Props) {
 				<IconCloud items={icons} />
 			</div>
 
-			<section
-				className={cn(
-					"relative top-0 mx-auto px-4 lg:px-10",
-					"max-w-screen-xl",
-					"max-w-6xl",
-				)}
-			>
+			<section className="relative top-10 mx-auto max-w-6xl px-4 md:top-0 lg:px-10">
 				<SlidingDisplay
 					className="w-3/5 max-w-screen-md"
 					index={current}
@@ -78,14 +76,10 @@ export default function View({ author, projects, protocols }: Props) {
 			</section>
 
 			<Callout
-				className="relative max-w-screen-xl bg-[#1D1D1E] text-primary-foreground"
+				className="relative w-4/5 max-w-screen-xl bg-[#1D1D1E] text-primary-foreground md:w-full"
 				level={2}
 				title={
-					<h3
-						className={cn(
-							"text-balance text-center text-lg font-medium tracking-wide md:text-start md:text-xl lg:text-pretty xl:text-2xl",
-						)}
-					>
+					<h3 className="text-balance text-center text-lg font-medium tracking-wide md:text-start md:text-xl lg:text-pretty xl:text-2xl">
 						Explore My GitHub for Source Code and More Details of My
 						Projects.
 					</h3>

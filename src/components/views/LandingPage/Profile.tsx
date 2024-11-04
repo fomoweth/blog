@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import Link from "next/link";
-import type { Asset } from "sanity";
 import { motion, Variants } from "framer-motion";
 
 import SocialButton from "@/components/elements/SocialButton";
@@ -44,7 +43,7 @@ export default function Profile({ author }: Props) {
 						Ryan Kim
 					</h1>
 
-					<h3 className="title h3 md:h2 text-center text-[#0847F7] lg:text-start">
+					<h3 className="title h3 md:h2 text-cobalt-blue text-center lg:text-start">
 						Smart Contract Engineer
 					</h3>
 
@@ -103,7 +102,7 @@ function CTAList({
 			<motion.div className="lg:w-1/5" variants={variants}>
 				<Link
 					className={cn(
-						"btn group relative min-h-[40px] min-w-[135px] rounded-full bg-[#006FEE] px-8 transition duration-500 ease-in-out dark:bg-[#0847F7] [&>span]:inline-flex [&>span]:items-center [&>span]:justify-center [&>span]:gap-2 [&>span]:text-white",
+						"btn dark:bg-cobalt-blue group relative min-h-[40px] min-w-[135px] rounded-full bg-[#006FEE] px-8 transition duration-500 ease-in-out [&>span]:inline-flex [&>span]:items-center [&>span]:justify-center [&>span]:gap-2 [&>span]:text-white",
 					)}
 					href={resume.asset.url}
 					media={resume.asset.mimeType}

@@ -50,7 +50,7 @@ export default function TechnicalProjects({ className, items }: Props) {
 				<div className="top-0 mx-auto my-20 flex w-[85%] flex-col items-center justify-center space-y-8 text-center lg:sticky lg:col-span-2 lg:my-0 lg:h-screen lg:w-[95%]">
 					<h2 className="title h2 inline-block tracking-tight text-gray-700">
 						Technical Projects
-						<span className="ml-1 inline-block size-2 bg-[#0847F7] md:size-2.5 lg:size-3" />
+						<span className="bg-cobalt-blue ml-1 inline-block size-2 md:size-2.5 lg:size-3" />
 					</h2>
 
 					<p className="text-pretty text-center font-inter text-lg font-medium leading-relaxed tracking-wide text-gray-600 md:text-xl lg:text-2xl xl:text-3xl">

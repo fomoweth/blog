@@ -19,7 +19,7 @@ export default function BulletPoints({ classNames, items }: Props) {
 				<li
 					key={idx}
 					className={cn(
-						"ml-5 text-balance tracking-tight marker:text-[#0847F7] md:text-pretty",
+						"marker:text-cobalt-blue ml-5 text-balance tracking-tight md:text-pretty",
 						classNames?.li,
 					)}
 				>

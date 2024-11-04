@@ -26,15 +26,12 @@ export default function Parallax({
 
 	return (
 		<div
-			className={cn(
-				"sticky inset-x-0 top-32 flex h-screen items-center justify-center md:h-[calc(100vh_-_160px)] md:max-h-[900px]",
-				"top-40 md:h-[calc(100vh_-_192px)]",
-			)}
+			className="relative inset-x-0 top-[calc(var(--header-height)_+_40px)] flex items-center justify-center md:sticky md:top-40 md:h-[calc(100vh_-_192px)] md:max-h-[900px]"
 			ref={ref}
 		>
 			<motion.section
 				className={cn(
-					"relative mx-auto h-full w-full origin-top overflow-hidden rounded-6xl",
+					"relative mx-auto h-full w-full overflow-hidden md:origin-top md:rounded-6xl",
 					className,
 				)}
 				style={{

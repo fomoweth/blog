@@ -6,7 +6,6 @@ import Footer from "@/components/global/Footer";
 import Header from "@/components/global/Header";
 import Providers from "@/components/providers";
 import VisualEditor from "@/components/VisualEditor";
-import TailwindIndicator from "@/components/TailwindIndicator";
 
 import { cn } from "@/lib/utils";
 import { inter, orbiter, roboto_flex, roboto_mono } from "@/styles/fonts";
@@ -45,7 +44,6 @@ export default async function RootLayout({
 						<Footer />
 					</div>
 
-					<TailwindIndicator />
 					<VisualEditor />
 				</Providers>
 			</body>

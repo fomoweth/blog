@@ -3,6 +3,7 @@ import { FiArrowRight as ArrowRight } from "react-icons/fi";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+
 import { cn, isExternal } from "@/lib/utils";
 
 interface Props {

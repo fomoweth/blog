@@ -37,13 +37,13 @@ export default function LandingPage({
 	});
 
 	return (
-		<AppLayout className="w-screen bg-zinc-50">
+		<AppLayout className="w-screen space-y-40">
 			<motion.div
-				className="relative mx-auto max-w-screen-2xl space-y-40 bg-zinc-50 md:h-[400vh] md:px-5 md:py-10"
+				className="relative mx-auto max-w-screen-2xl md:h-[400vh] md:space-y-40 md:px-5 md:py-10"
 				ref={ref}
 			>
 				<Parallax
-					className="bg-[#0847F7] text-white"
+					className="bg-cobalt-blue text-white"
 					index={0}
 					progress={scrollYProgress}
 					total={4}

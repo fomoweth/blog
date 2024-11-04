@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { FiArrowDown as ArrowDown } from "react-icons/fi";
 import { Terminal as TerminalIcon } from "lucide-react";
 
 import Terminal from "@/components/global/Terminal";
@@ -10,10 +9,8 @@ import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
-	CardDescription,
 	CardFooter,
 	CardHeader,
-	CardTitle,
 } from "@/components/ui/card";
 
 import useImageUrlBuilder from "@/hooks/useImageUrlBuilder";
@@ -34,7 +31,7 @@ export default function Panel({
 	offset,
 	setter,
 }: Props) {
-	const { protocols, sourceCode, title } = item;
+	const { protocols, sourceCode } = item;
 
 	const ref = useRef<HTMLDivElement>(null);
 	const isInView = useInView(ref, { margin: `${-offset}px` });
@@ -48,10 +45,7 @@ export default function Panel({
 
 	return (
 		<div
-			className={cn(
-				"relative mx-auto flex h-fit w-full max-w-screen-2xl items-center lg:h-screen",
-				// "border border-red-500",
-			)}
+			className="relative mx-auto flex h-fit w-full max-w-screen-2xl items-center lg:h-screen"
 			ref={ref}
 			style={{
 				justifyContent: index % 2 ? "flex-end" : "flex-start",
@@ -59,44 +53,12 @@ export default function Panel({
 		>
 			<div
 				className={cn(
-					"relative grid h-full w-full",
-					// "overflow-hidden",
-					// "h-1/2",
-					// "h-1/3",
-					"place-items-center",
-					// "place-content-center",
+					"relative grid h-full w-full place-items-center",
 					className,
 				)}
 			>
-				{/* <motion.div
-					className={cn(
-						"hidden md:block",
-						// "",
-						// "border border-yellow-500",
-					)}
-					initial={{ opacity: 0, y: 25 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.5, ease: "easeInOut" }}
-				>
-					<TerminalIcon className="h-12 w-12 rotate-90" />
-					<span
-						className={cn(
-							// "mt-1 font-semibold tracking-tight md:text-2xl lg:text-5xl",
-							"mt-1 text-5xl font-semibold tracking-tight",
-						)}
-						style={{
-							writingMode: "vertical-lr",
-						}}
-					>
-						{item.title}
-					</span>
-				</motion.div> */}
-
 				<Card className="relative z-10 hidden w-full bg-transparent backdrop-blur-sm lg:block">
 					<CardHeader>
-						{/* <CardTitle className="text-pretty leading-snug">
-							{title}
-						</CardTitle> */}
 						<div className="flex items-center space-x-2 rounded-md border p-4 text-slate-600">
 							<TerminalIcon size={20} />
 							<div className="flex-1 space-y-1">
@@ -105,7 +67,6 @@ export default function Panel({
 								</p>
 							</div>
 						</div>
-						{/* <CardDescription>Protocols Integrated:</CardDescription> */}
 					</CardHeader>
 					<CardContent className="grid gap-4">
 						<div className="ml-4 flex w-full flex-col items-start gap-1 lg:gap-3">
@@ -152,10 +113,7 @@ export default function Panel({
 				</Card>
 
 				<motion.div
-					className={cn(
-						"relative mx-auto mb-8 block w-full max-w-screen-md overflow-hidden lg:hidden",
-						// "border border-red-500",
-					)}
+					className="relative mx-auto mb-8 block w-full max-w-screen-md overflow-hidden lg:hidden"
 					initial={{ opacity: 0, y: 25 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.5, ease: "easeInOut" }}

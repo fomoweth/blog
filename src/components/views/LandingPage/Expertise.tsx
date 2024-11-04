@@ -22,7 +22,7 @@ export default function Expertise({ className, items, range }: Props) {
 			<section className="sticky top-0 mx-auto flex h-screen max-w-screen-2xl flex-col place-content-center items-start space-y-8 overflow-hidden p-8 md:space-y-12">
 				<h2 className="title h2 inline-block text-zinc-200">
 					Expertise
-					<span className="ml-2 inline-block size-2 bg-[#0847F7] md:size-2.5 lg:size-3" />
+					<span className="bg-cobalt-blue ml-2 inline-block size-2 md:size-2.5 lg:size-3" />
 				</h2>
 
 				<motion.div className="flex gap-5 px-5 md:px-10" style={{ x }}>

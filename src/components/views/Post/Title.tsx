@@ -6,8 +6,6 @@ import ReadTime from "@/components/elements/ReadTime";
 import { Github } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 
-import { cn } from "@/lib/utils";
-
 interface Props {
 	title: string;
 	tags: Array<string>;

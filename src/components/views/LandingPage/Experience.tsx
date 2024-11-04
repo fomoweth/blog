@@ -126,7 +126,7 @@ export default function Experience({ items }: Props) {
 			<div className="mb-8 flex items-center justify-between gap-4 md:mb-16">
 				<h2 className="title h2 inline-block text-gray-700">
 					Experience
-					<span className="ml-1 inline-block size-2 bg-[#0847F7] md:size-2.5 lg:size-3" />
+					<span className="bg-cobalt-blue ml-1 inline-block size-2 md:size-2.5 lg:size-3" />
 				</h2>
 
 				<div className="hidden gap-2 md:flex lg:hidden">

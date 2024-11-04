@@ -22,7 +22,7 @@ export function parseBlocks(value?: Array<PortableTextBlock>): string {
 
 export function parseDate(value?: string): string {
 	return value
-		? new Date(value).toLocaleDateString("en-US", {
+		? new Date(value + "T00:00:00").toLocaleDateString("en-US", {
 				month: "short",
 				day: "numeric",
 				year: "numeric",
