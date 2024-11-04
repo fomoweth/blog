@@ -19,9 +19,9 @@ export default function LatestPosts({ className, items }: Props) {
 
 	return (
 		<div className={className}>
-			<motion.section className="mx-auto mt-10 min-h-fit w-full max-w-screen-2xl place-content-start md:h-[calc(100vh_-_120px)]">
+			<motion.section className="mx-auto mt-10 min-h-fit w-full max-w-screen-2xl place-content-start text-primary-foreground md:h-[calc(100vh_-_120px)]">
 				<div className="relative mx-auto px-8 md:px-12 lg:px-14 xl:px-16">
-					<h2 className="title h2 mb-8 inline-block text-zinc-200 md:mb-14">
+					<h2 className="title h2 mb-8 inline-block md:mb-14">
 						Latest Posts
 						<span className="ml-1 inline-block size-2 bg-[#0847F7] md:size-2.5 lg:size-3" />
 					</h2>
@@ -53,7 +53,7 @@ export default function LatestPosts({ className, items }: Props) {
 									}}
 								>
 									<div
-										className="absolute inset-0 aspect-auto h-full w-full saturate-100 transition-all duration-500 group-hover:scale-110 lg:group-hover:saturate-0"
+										className="absolute inset-0 aspect-auto h-full w-full rounded-3xl saturate-100 transition-all duration-500 group-hover:scale-110 lg:group-hover:saturate-0"
 										style={{
 											backgroundImage: `url(${source})`,
 											backgroundSize: "cover",
@@ -61,7 +61,7 @@ export default function LatestPosts({ className, items }: Props) {
 										}}
 									/>
 
-									<div className="relative z-20 flex h-full flex-col justify-between px-5 py-4 text-zinc-200">
+									<div className="relative z-20 flex h-full flex-col justify-between px-5 py-4">
 										<div className="inline-flex items-center justify-between">
 											<div className="inline-flex items-center gap-x-4">
 												{tags?.map((tag, idx) => (
@@ -81,14 +81,13 @@ export default function LatestPosts({ className, items }: Props) {
 										<div>
 											<div className="mb-4 inline-flex items-center gap-x-4">
 												<Badge
-													className="pointer-events-none text-zinc-200"
-													variant="outline"
+													className="pointer-events-none"
+													variant="secondary"
 												>
 													{category.title}
 												</Badge>
 
 												<DateTime
-													className="text-zinc-200"
 													month="short"
 													day="numeric"
 													year="numeric"
@@ -107,22 +106,27 @@ export default function LatestPosts({ className, items }: Props) {
 					</div>
 				</div>
 
-				<div className="mt-10 px-8 md:mt-20 md:px-8 lg:px-10 xl:px-10">
-					<Callout
-						className="bg-[#1D1D1E]"
-						content={
-							<h3 className="text-center text-lg font-medium tracking-wide md:flex md:flex-col md:text-start md:text-xl xl:flex-row xl:text-2xl">
-								<span className="mr-1.5 text-zinc-200">
-									Explore the Technical Foundations of
-								</span>
-								<span className="text-slate-400">
-									My Smart Contract Development.
-								</span>
-							</h3>
-						}
-						cta={{ href: "/blog", label: "View All Posts" }}
-					/>
-				</div>
+				<Callout
+					className="my-14 max-w-screen-xl bg-[#1D1D1E] text-primary-foreground"
+					level={2}
+					title={
+						<h3 className="flex flex-col text-center text-lg font-medium tracking-tight md:text-start md:text-xl md:tracking-wide lg:flex-row xl:text-2xl">
+							<span className="mr-1.5">
+								Explore the Technical Foundations of
+							</span>
+							<span className="text-slate-400">
+								My Smart Contract Development.
+							</span>
+						</h3>
+					}
+					links={[
+						{
+							href: "/blog",
+							text: "View All Posts",
+							variant: "secondary",
+						},
+					]}
+				/>
 			</motion.section>
 		</div>
 	);

@@ -87,7 +87,7 @@ export default function LandingPage({
 					items={projects}
 				/>
 				<LatestPosts
-					className="relative rounded-b-6xl bg-[#161617] py-8 md:py-8 lg:py-10"
+					className="relative rounded-b-6xl bg-[#161617] pt-8 md:pt-8 lg:pt-10"
 					items={posts}
 				/>
 			</motion.div>

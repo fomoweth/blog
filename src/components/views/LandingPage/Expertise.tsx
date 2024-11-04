@@ -105,7 +105,7 @@ function Panel({ domain, skills }: Sanity.Expertise) {
 			className="relative flex h-[350px] w-[350px] flex-col gap-y-8 rounded-2xl p-8"
 			style={{ ...resolveColor(domain) }}
 		>
-			<h3 className="relative font-roboto-mono text-3xl uppercase leading-snug">
+			<h3 className="relative font-roboto-mono text-3xl uppercase leading-snug tracking-wide">
 				{format(domain)}
 			</h3>
 
