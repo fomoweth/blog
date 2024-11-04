@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/pagination";
 
 interface Props {
+	className?: string;
 	index: number;
 	length: number;
 	offset: number;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export default function ({
+	className,
 	index,
 	setIndex,
 	length,
@@ -69,7 +71,7 @@ export default function ({
 	const onNext = () => setIndex(Math.min(lastPage - 1, index + 1));
 
 	return (
-		<Pagination>
+		<Pagination className={className}>
 			<PaginationContent>
 				<PaginationItem>
 					<Button
