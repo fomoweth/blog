@@ -53,14 +53,14 @@ function Column({
 }) {
 	return (
 		<div className="flex flex-col items-start justify-center space-y-2">
-			<div className="text-lg font-medium capitalize text-zinc-200">
+			<div className="-ml-1 text-lg font-medium capitalize text-zinc-50">
 				{title}
 			</div>
-			<div className="ml-1 flex flex-col items-start justify-center space-y-2">
+			<div className="flex flex-col items-start justify-center space-y-2">
 				{links.map(({ href, label }, idx) => (
 					<Link
 						key={idx}
-						className="z-10 capitalize text-neutral-500 transition-all duration-200 hover:text-zinc-200 hover:opacity-80"
+						className="z-10 capitalize text-gray-400 transition-all duration-200 hover:text-zinc-200 hover:opacity-80"
 						href={href}
 						{...(isExternal(href) && {
 							target: "_blank",
