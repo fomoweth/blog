@@ -65,7 +65,7 @@ export default function Post({ post, prev, next }: Props) {
 				<hr className="mx-auto h-0.5 max-w-screen-xl border-zinc-300" />
 
 				<Pagination
-					className="max-w-screen-lg px-10 py-5 md:py-10 xl:px-0"
+					className="min-h-20 max-w-screen-lg px-10 py-5 md:py-10 xl:px-0"
 					prev={prev}
 					next={next}
 				/>

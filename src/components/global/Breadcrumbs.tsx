@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { Chevron } from "@/components/icons";
-import { capitalize, cn, sluggify } from "@/lib/utils";
+import { cn, sluggify } from "@/lib/utils";
 
 interface Props {
 	className?: string;
@@ -27,7 +27,7 @@ export default function Breadcrumbs({ className, title }: Props) {
 						idx !== 0
 							? acc[idx].href.concat("/" + sluggify(path))
 							: "/" + sluggify(path),
-					label: idx < paths.length - 1 ? capitalize(path) : path,
+					label: path,
 				}),
 			[{ href: "/", label: "Home" }],
 		);
@@ -46,7 +46,7 @@ export default function Breadcrumbs({ className, title }: Props) {
 					>
 						<Link
 							className={cn(
-								"truncate underline-offset-2 opacity-70 hover:underline hover:opacity-100 group-last:opacity-100 hover:group-last:opacity-70",
+								"truncate capitalize underline-offset-2 opacity-70 hover:underline hover:opacity-100 group-last:opacity-100 hover:group-last:opacity-70",
 							)}
 							href={href}
 						>
