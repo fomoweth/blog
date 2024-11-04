@@ -1,22 +1,14 @@
-import { TooltipProvider } from "@/components/ui";
-import JotaiProvider from "./JotaiProvider";
-import ThemeProvider from "./ThemeProvider";
+"use client";
 
-export default function Providers({
-	children,
-}: Readonly<{
-	children: React.ReactNode;
-}>) {
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import type { ThemeProviderProps } from "next-themes/dist/types";
+
+import { TooltipProvider } from "@/components/ui";
+
+export default function Providers({ children, ...props }: ThemeProviderProps) {
 	return (
-		<JotaiProvider>
-			<ThemeProvider
-				attribute="class"
-				defaultTheme="system"
-				enableSystem
-				disableTransitionOnChange
-			>
-				<TooltipProvider delayDuration={0}>{children}</TooltipProvider>
-			</ThemeProvider>
-		</JotaiProvider>
+		<NextThemesProvider {...props}>
+			<TooltipProvider delayDuration={0}>{children}</TooltipProvider>
+		</NextThemesProvider>
 	);
 }
