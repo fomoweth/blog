@@ -1,7 +1,10 @@
-import { clsx, type ClassValue } from "clsx";
+import { Metadata } from "next";
 import type { ImageUrlBuilder } from "sanity";
+import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { UrlObject } from "url";
+
+import siteConfig from "@/config";
 
 export function cn(...values: ClassValue[]): string {
 	return twMerge(clsx(values));
@@ -28,10 +31,73 @@ export function truncate(value: string, length: number = 10): string {
 	return value.slice(0, length) + "...";
 }
 
-export function parseYears(value: string): number {
-	const parsed = new Date().getFullYear() - new Date(value).getFullYear();
+export function absoluteUrl(path: string): string {
+	return `${siteConfig.url}${path}`;
+}
 
-	return parsed > 0 ? parsed : 0;
+export function constructMetadata({
+	title = siteConfig.title,
+	description = siteConfig.description,
+	image = absoluteUrl("/og"),
+	...props
+}: {
+	title?: string;
+	description?: string;
+	image?: string;
+	[key: string]: Metadata[keyof Metadata];
+}): Metadata {
+	return {
+		metadataBase: new URL(siteConfig.url),
+		authors: [
+			{
+				name: siteConfig.author,
+				url: siteConfig.url,
+			},
+		],
+		creator: siteConfig.author,
+		title: {
+			template: title,
+			default: siteConfig.title,
+		},
+		applicationName: siteConfig.title,
+		description,
+		keywords: siteConfig.keywords,
+		openGraph: {
+			title,
+			description,
+			url: siteConfig.url,
+			siteName: siteConfig.title,
+			images: [
+				{
+					url: image,
+					width: 1200,
+					height: 630,
+					alt: title,
+				},
+			],
+			type: "website",
+			locale: "en_US",
+		},
+		twitter: {
+			card: "summary_large_image",
+			creator: siteConfig.twitter,
+			site: siteConfig.twitter,
+			description: siteConfig.description,
+		},
+		icons: "/favicon.ico",
+		robots: {
+			index: true,
+			follow: true,
+			googleBot: {
+				index: true,
+				follow: true,
+				"max-video-preview": -1,
+				"max-image-preview": "large",
+				"max-snippet": -1,
+			},
+		},
+		...props,
+	};
 }
 
 export function isExternal(url: string | UrlObject = "#"): boolean {
@@ -41,6 +107,12 @@ export function isExternal(url: string | UrlObject = "#"): boolean {
 	}
 
 	return url.protocol === "https:" || url.protocol === "mailto:";
+}
+
+export function parseYears(value: string): number {
+	const parsed = new Date().getFullYear() - new Date(value).getFullYear();
+
+	return parsed > 0 ? parsed : 0;
 }
 
 export function sleep(ms: number): Promise<void> {
@@ -62,7 +134,7 @@ export function generateSrcset(
 		width?: number;
 		sizes?: Array<number>;
 	},
-) {
+): { srcSet: string | undefined; sizes: string | undefined } {
 	const filtered = sizes.filter((size) => !width || size <= width);
 
 	return {
