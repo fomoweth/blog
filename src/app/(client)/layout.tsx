@@ -26,7 +26,7 @@ export default async function RootLayout({
 		<html lang="en" suppressHydrationWarning>
 			<body
 				className={cn(
-					"font-inter text-gray-700 antialiased",
+					"mx-auto min-h-screen w-full scroll-smooth bg-background font-inter text-gray-700 antialiased",
 					inter.variable,
 					orbiter.variable,
 					roboto_flex.variable,
@@ -34,8 +34,12 @@ export default async function RootLayout({
 				)}
 				suppressHydrationWarning
 			>
-				<Providers>
-					<div className="relative min-h-screen bg-black">
+				<Providers
+					attribute="class"
+					defaultTheme="light"
+					enableSystem={false}
+				>
+					<div className="relative">
 						<Header />
 						{children}
 						<Footer />
