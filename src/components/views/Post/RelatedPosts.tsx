@@ -15,11 +15,11 @@ interface Props {
 }
 
 export default function RelatedPosts({ className, items = [] }: Props) {
-	if (!items.length) return null;
-
 	const [position, setPosition] = useState<number>(0);
 
 	const builder = useImageUrlBuilder();
+
+	const urlFor = (source: Sanity.Image) => builder.image(source).url();
 
 	const shiftLeft = () => {
 		if (position > 0) setPosition((prev) => prev - 1);
@@ -40,47 +40,36 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 						Related Posts
 					</h3>
 
-					<div
-						className={cn(
-							"flex gap-2",
-							items.length < 2 && "hidden",
-						)}
-					>
-						<Button
-							className="h-fit rounded-none bg-zinc-950 p-2 md:p-4"
-							disabled={position === 0}
-							onClick={shiftLeft}
-						>
-							<Chevron direction="left" variant="single" />
-						</Button>
+					{items.length > 1 && (
+						<div className="flex gap-2">
+							<Button
+								className="h-fit rounded-none bg-zinc-950 p-2 md:p-4"
+								disabled={position === 0}
+								onClick={shiftLeft}
+							>
+								<Chevron direction="left" variant="single" />
+							</Button>
 
-						<Button
-							className="h-fit rounded-none bg-zinc-950 p-2 md:p-4"
-							disabled={position === items.length - 1}
-							onClick={shiftRight}
-						>
-							<Chevron direction="right" variant="single" />
-						</Button>
-					</div>
+							<Button
+								className="h-fit rounded-none bg-zinc-950 p-2 md:p-4"
+								disabled={position === items.length - 1}
+								onClick={shiftRight}
+							>
+								<Chevron direction="right" variant="single" />
+							</Button>
+						</div>
+					)}
 				</div>
 
-				<div className="flex gap-4 p-2">
-					{items.map((item, idx) => {
-						const {
-							category,
-							coverImage,
-							date,
-							slug,
-							tags,
-							title,
-						} = item;
-
-						const source = builder.image(coverImage).url();
-
-						return (
+				<div className="ml-4 flex gap-4 p-2">
+					{items.map(
+						(
+							{ category, coverImage, date, slug, tags, title },
+							idx,
+						) => (
 							<motion.a
 								key={slug.current}
-								className="relative flex h-[350px] w-10/12 max-w-lg shrink-0 flex-col justify-between overflow-hidden rounded-2xl bg-zinc-50 text-zinc-50 shadow-md md:w-[45%]"
+								className="relative flex h-[340px] w-10/12 max-w-lg shrink-0 flex-col justify-between overflow-hidden rounded-2xl bg-background shadow-md md:w-[45%]"
 								href={`/blog/${slug.current}`}
 								animate={{ x: `${-translate(idx)}%` }}
 								transition={{
@@ -90,36 +79,27 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 							>
 								<div className="absolute left-4 top-5 inline-flex items-center gap-x-2">
 									{tags?.map((tag, idx) => (
-										<Badge
-											key={idx}
-											className="pointer-events-none"
-											variant="default"
-										>
-											{tag}
-										</Badge>
+										<Badge key={idx}>{tag}</Badge>
 									))}
 								</div>
 
 								<div
 									className="aspect-video h-[225px] w-full"
 									style={{
-										backgroundImage: `url(${source})`,
+										backgroundImage: `url(${urlFor(coverImage)})`,
 										backgroundSize: "cover",
 										backgroundPosition: "center",
 									}}
 								/>
 
-								<div className="flex h-[125px] w-full flex-col justify-center gap-y-2 px-4 py-2">
+								<div className="flex h-[125px] w-full flex-col justify-center gap-y-2 px-6 py-2">
 									<div className="inline-flex items-center gap-x-2">
-										<Badge
-											className="pointer-events-none"
-											variant="outline"
-										>
+										<Badge variant="outline">
 											{category.title}
 										</Badge>
 
 										<DateTime
-											className="text-zinc-600"
+											className="text-muted-foreground"
 											month="short"
 											day="numeric"
 											year="numeric"
@@ -127,13 +107,13 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 										/>
 									</div>
 
-									<h3 className="text-pretty font-bold text-zinc-950 md:text-lg lg:text-xl xl:text-xl">
+									<h3 className="text-pretty font-bold text-primary md:text-lg lg:text-xl xl:text-xl">
 										{title}
 									</h3>
 								</div>
 							</motion.a>
-						);
-					})}
+						),
+					)}
 				</div>
 			</div>
 		</div>

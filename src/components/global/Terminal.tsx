@@ -50,7 +50,7 @@ export default function Terminal({
 				<div className="bg-green-500" />
 			</div>
 
-			<div className="relative space-y-2 p-2 text-slate-200 md:p-5">
+			<div className="relative space-y-2 p-2 text-primary-foreground md:p-5">
 				<p className="flex flex-col justify-center md:mr-5">
 					<span>
 						<span className="text-teal-400 md:mr-2">&#126;</span>

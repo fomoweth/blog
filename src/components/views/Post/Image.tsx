@@ -13,12 +13,12 @@ export default function ({ value }: Props) {
 			style={{ float }}
 		>
 			<Img
-				className="mx-auto max-h-svh w-auto bg-zinc-50"
+				className="mx-auto max-h-svh w-auto bg-background"
 				source={value}
 			/>
 
 			{caption && (
-				<figcaption className="mt-2 text-pretty text-center italic text-gray-500">
+				<figcaption className="mt-2 text-pretty text-center italic text-muted-foreground">
 					{caption}
 				</figcaption>
 			)}

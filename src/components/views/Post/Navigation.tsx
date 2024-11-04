@@ -10,8 +10,6 @@ interface Props {
 }
 
 export default function Navigation({ className, value }: Props) {
-	if (!value.enabled) return null;
-
 	const headings = useMemo(
 		() =>
 			value.headings.map(({ style, text }) => ({
@@ -65,7 +63,7 @@ export default function Navigation({ className, value }: Props) {
 			)}
 		>
 			<details className="space-y-2" open>
-				<summary className="mb-4 grid font-orbiter text-xl font-semibold md:text-2xl">
+				<summary className="mb-4 grid text-xl font-semibold md:text-2xl">
 					Table of Contents
 				</summary>
 

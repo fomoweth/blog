@@ -98,7 +98,7 @@ export default function Experience({ items }: Props) {
 
 					<p
 						className={cn(
-							"text-pretty font-inter text-sm md:text-base",
+							"text-pretty text-sm md:text-base",
 							textColor,
 						)}
 					>
@@ -159,10 +159,10 @@ export default function Experience({ items }: Props) {
 						<motion.div
 							key={idx}
 							className={cn(
-								"relative flex min-h-[300px] w-full shrink-0 flex-col justify-start gap-y-2.5 overflow-hidden p-4 shadow-md md:w-[80%] md:p-8 lg:w-[90%]",
+								"relative flex min-h-[300px] w-full shrink-0 flex-col justify-start gap-y-2.5 overflow-hidden rounded-lg p-4 shadow-md md:w-[80%] md:p-8 lg:w-[90%]",
 								idx % 2
-									? "bg-[#121212] text-zinc-200"
-									: "bg-zinc-50 text-gray-700",
+									? "bg-background text-gray-700"
+									: "bg-[#121212] text-primary-foreground",
 							)}
 							animate={{ x: `${-translate(idx)}%` }}
 							transition={{
@@ -172,7 +172,7 @@ export default function Experience({ items }: Props) {
 						>
 							{renderItem(
 								item,
-								idx % 2 ? "text-gray-400" : "text-zinc-800",
+								idx % 2 ? "text-zinc-800" : "text-gray-400",
 							)}
 						</motion.div>
 					))}
@@ -212,7 +212,7 @@ function CTA({
 					]),
 				level === 2 &&
 					cn([
-						"h-fit bg-primary p-1.5 text-2xl text-white transition-colors",
+						"h-fit bg-primary p-1.5 text-2xl text-primary-foreground transition-colors",
 						!disabled ? "hover:opacity-80" : "opacity-70",
 					]),
 			)}

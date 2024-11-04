@@ -64,7 +64,7 @@ export default function LandingPage({
 					progress={scrollYProgress}
 					total={4}
 				>
-					<About items={expertise} />
+					<About />
 				</Parallax>
 				<Parallax
 					className="bg-[#E4EAFB]"

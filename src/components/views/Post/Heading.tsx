@@ -11,13 +11,11 @@ interface Props extends PortableTextComponentProps<PortableTextBlock> {
 }
 
 export default function Heading({ as: Tag, children, color, value }: Props) {
-	const id = sluggify(
-		value.children.reduce<string>((acc, { text }) => acc + text, ""),
-	);
+	const id = value.children.reduce<string>((acc, { text }) => acc + text, "");
 
 	return (
 		<Tag
-			id={id}
+			id={sluggify(id)}
 			className="group"
 			style={{ "--highlight": color || "#3B82F6" } as React.CSSProperties}
 		>

@@ -47,7 +47,7 @@ export default function Profile({ author }: Props) {
 						Smart Contract Engineer
 					</h3>
 
-					<h5 className="h5 mb-4 text-pretty text-center font-inter font-medium leading-tight text-gray-700 lg:text-start">
+					<h5 className="h5 mb-4 text-pretty text-center font-medium leading-tight text-gray-700 lg:text-start">
 						I craft the building blocks of a decentralized future.
 					</h5>
 

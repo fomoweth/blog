@@ -53,7 +53,7 @@ export default function TechnicalProjects({ className, items }: Props) {
 						<span className="bg-cobalt-blue ml-1 inline-block size-2 md:size-2.5 lg:size-3" />
 					</h2>
 
-					<p className="text-pretty text-center font-inter text-lg font-medium leading-relaxed tracking-wide text-gray-600 md:text-xl lg:text-2xl xl:text-3xl">
+					<p className="text-pretty text-center text-lg font-medium leading-relaxed tracking-wide text-gray-600 md:text-xl lg:text-2xl xl:text-3xl">
 						Building smart contracts to shape a decentralized
 						future.
 					</p>

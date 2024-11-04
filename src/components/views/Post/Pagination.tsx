@@ -18,12 +18,12 @@ export default function Pagination({ className, prev, next }: Props) {
 				className,
 			)}
 		>
-			<CTA className="justify-start" post={prev}>
+			<CTA className="justify-start" slug={prev?.slug}>
 				<Chevron direction="left" variant="single" />
 				<span className="truncate">{prev?.title}</span>
 			</CTA>
 
-			<CTA className="justify-end" post={next}>
+			<CTA className="justify-end" slug={next?.slug}>
 				<span className="truncate">{next?.title}</span>
 				<Chevron direction="right" variant="single" />
 			</CTA>
@@ -34,25 +34,23 @@ export default function Pagination({ className, prev, next }: Props) {
 function CTA({
 	children,
 	className,
-	post,
+	slug,
 }: {
 	children: React.ReactNode;
 	className?: string;
-	post?: Sanity.PostPartial;
+	slug?: Sanity.Slug;
 }) {
-	const Tag: JSX.ElementType = !!post ? Link : "div";
-
 	return (
-		<Tag
+		<Link
 			className={cn(
 				"inline-flex w-1/2 items-center space-x-2 text-lg font-semibold",
 				"[&>span]:hidden [&>span]:md:block",
-				post ? "hover:opacity-80" : "opacity-50",
+				!!slug ? "hover:opacity-80" : "pointer-events-none opacity-50",
 				className,
 			)}
-			href={post && `/blog/${post.slug.current}`}
+			href={!!slug ? `/blog/${slug.current}` : "#"}
 		>
 			{children}
-		</Tag>
+		</Link>
 	);
 }

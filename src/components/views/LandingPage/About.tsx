@@ -1,51 +1,12 @@
-import { useCallback, useMemo } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { parseYears } from "@/lib/utils";
 
-interface Props {
-	items: Array<Sanity.Expertise>;
-}
-
-export default function About({ items }: Props) {
-	// const skills = useMemo(
-	// 	() =>
-	// 		items
-	// 			.flatMap(({ skills }) => skills)
-	// 			.filter(
-	// 				({ label, link }) =>
-	// 					!!link &&
-	// 					!["english", "korean"].includes(label.toLowerCase()),
-	// 			) as Array<Required<Sanity.Skill>>,
-	// 	[items],
-	// );
-
-	// const renderItem = useCallback(
-	// 	(target: string) => {
-	// 		const skill = skills.find(
-	// 			({ label }) => label.toLowerCase() === target.toLowerCase(),
-	// 		);
-
-	// 		if (!skill) return null;
-
-	// 		return (
-	// 			<Link
-	// 				className="z-10 text-cobalt-blue decoration-[0.1em] underline-offset-2 hover:underline"
-	// 				href={skill.link}
-	// 				rel="noopener noreferrer"
-	// 				target="_blank"
-	// 			>
-	// 				{skill.label}
-	// 			</Link>
-	// 		);
-	// 	},
-	// 	[skills],
-	// );
-
+export default function About() {
 	return (
 		<div className="mx-auto flex h-full w-full max-w-screen-2xl flex-col space-y-4 p-8 md:p-16">
-			<div className="mb-4 inline-flex items-center md:mb-8 md:after:ml-4 md:after:block md:after:h-[1px] md:after:w-[75%] md:after:bg-black/80">
+			<div className="mb-4 inline-flex items-center md:mb-8 md:after:ml-4 md:after:block md:after:h-[1px] md:after:w-[60%] md:after:bg-primary/80 lg:after:w-[70%]">
 				<h2 className="title h2 inline-block text-gray-700">
 					About
 					<span className="bg-cobalt-blue ml-1 inline-block size-2 md:size-2.5 lg:size-3" />

@@ -6,7 +6,7 @@ type Props = Pick<Intl.DateTimeFormatOptions, "month" | "day" | "year"> & {
 };
 
 export default function Duration({
-	className = "text-sm text-black/60 dark:text-white/60",
+	className = "text-sm text-primary/60",
 	month,
 	day,
 	year,

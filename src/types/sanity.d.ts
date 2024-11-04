@@ -65,7 +65,7 @@ declare global {
 			slug: Slug;
 			excerpt: string;
 			category: Category;
-			tags: Array<string>;
+			tags?: Array<string>;
 			date: string;
 			sourceCode?: string;
 			content: Array<Block>;
@@ -133,7 +133,6 @@ declare global {
 
 		interface Navigation {
 			enabled: boolean;
-			position: "left" | "right";
 			headings: Array<Heading>;
 		}
 

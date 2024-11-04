@@ -1,9 +1,15 @@
 "use client";
 
+import Link from "next/link";
+
+import DateTime from "@/components/elements/DateTime";
+import ReadTime from "@/components/elements/ReadTime";
 import Banner from "@/components/elements/Banner";
 import Img from "@/components/elements/Img";
 import Breadcrumbs from "@/components/global/Breadcrumbs";
+import { Github } from "@/components/icons";
 import AppLayout from "@/components/layouts/AppLayout";
+import { Badge } from "@/components/ui/badge";
 
 import { cn } from "@/lib/utils";
 
@@ -11,7 +17,6 @@ import Content from "./Content";
 import Navigation from "./Navigation";
 import Pagination from "./Pagination";
 import RelatedPosts from "./RelatedPosts";
-import Title from "./Title";
 
 interface Props {
 	post: Sanity.Post;
@@ -20,10 +25,21 @@ interface Props {
 }
 
 export default function Post({ post, prev, next }: Props) {
-	const { content, coverImage, navigation, relatedPosts, slug, title } = post;
+	const {
+		category,
+		content,
+		coverImage,
+		date,
+		navigation,
+		relatedPosts,
+		sourceCode,
+		slug,
+		tags,
+		title,
+	} = post;
 
 	return (
-		<AppLayout className="w-screen bg-zinc-50 pt-20 dark:bg-[#161617]">
+		<AppLayout className="w-screen pt-20">
 			<Breadcrumbs className="my-5 max-w-screen-lg" title={title} />
 
 			<div className="relative mx-auto max-w-screen-2xl">
@@ -34,10 +50,9 @@ export default function Post({ post, prev, next }: Props) {
 						navigation.enabled && "md:grid-cols-[1fr,auto]",
 					)}
 				>
-					<Navigation
-						className="px-4 pb-14"
-						value={post.navigation}
-					/>
+					{!!navigation.enabled && !!navigation.headings.length && (
+						<Navigation className="px-4 pb-14" value={navigation} />
+					)}
 
 					<article
 						id={slug.current}
@@ -51,16 +66,60 @@ export default function Post({ post, prev, next }: Props) {
 							width={1200}
 						/>
 
-						<Title {...post} />
+						<div className="relative flex flex-col space-y-3 lg:px-4">
+							<h1 className="text-balance text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-pretty lg:text-5xl xl:text-start">
+								{title}
+							</h1>
+
+							<div className="flex flex-wrap items-start justify-center gap-x-2 md:gap-x-4 xl:justify-start xl:gap-x-6">
+								<div className="my-2 inline-flex items-center gap-x-2 xl:gap-x-4">
+									<Badge variant="outline">
+										{category.title}
+									</Badge>
+
+									{tags?.map((tag, idx) => (
+										<Badge key={idx}>{tag}</Badge>
+									))}
+								</div>
+
+								<div className="my-2 inline-flex items-center gap-x-3 xl:gap-x-5">
+									{sourceCode && (
+										<Link
+											className="inline-flex items-center gap-x-2 text-sm"
+											href={sourceCode}
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											<Github className="h-5 w-5" />
+										</Link>
+									)}
+
+									<ReadTime
+										className="text-sm text-primary/70"
+										content={content}
+									/>
+
+									<DateTime
+										className="text-sm text-primary/70"
+										month="short"
+										day="numeric"
+										year="numeric"
+										value={date}
+									/>
+								</div>
+							</div>
+						</div>
 
 						<Content value={content} />
 					</article>
 				</div>
 
-				<RelatedPosts
-					className="max-w-screen-lg pb-12"
-					items={relatedPosts || []}
-				/>
+				{!!relatedPosts && !!relatedPosts.length && (
+					<RelatedPosts
+						className="max-w-screen-lg pb-12"
+						items={relatedPosts}
+					/>
+				)}
 
 				<hr className="mx-auto h-0.5 max-w-screen-xl border-zinc-300" />
 
@@ -72,7 +131,7 @@ export default function Post({ post, prev, next }: Props) {
 			</div>
 
 			<Banner
-				className="bg-blue-500 text-zinc-50"
+				className="bg-blue-500"
 				content="Explore more posts"
 				href="/blog"
 			/>

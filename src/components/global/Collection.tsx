@@ -55,7 +55,7 @@ export default function Collection({ className, items }: Props) {
 									</Badge>
 
 									<DateTime
-										className="text-gray-600"
+										className="text-muted-foreground"
 										month="short"
 										day="numeric"
 										year="numeric"
