@@ -8,9 +8,26 @@ const config: Config = {
 	],
 	darkMode: ["class"],
 	theme: {
+		container: {
+			center: true,
+			padding: "2rem",
+			screens: {
+				"2xl": "1440px",
+				"3xl": "1536px",
+			},
+		},
 		extend: {
 			animation: {
+				"accordion-down": "accordion-down 0.2s ease-out",
+				"accordion-up": "accordion-up 0.2s ease-out",
+				"fade-in":
+					"fade-in 1000ms var(--animation-delay, 0ms) ease forwards",
+				"fade-up":
+					"fade-up 1000ms var(--animation-delay, 0ms) ease forwards",
 				"infinite-scroll": "infinite-scroll 25s linear infinite",
+				marquee: "marquee var(--duration) infinite linear",
+				"marquee-vertical":
+					"marquee-vertical var(--duration) linear infinite",
 			},
 			borderRadius: {
 				sm: "calc(var(--radius) - 4px)",
@@ -35,10 +52,20 @@ const config: Config = {
 					DEFAULT: "hsl(var(--secondary))",
 					foreground: "hsl(var(--secondary-foreground))",
 				},
+				success: {
+					DEFAULT: "hsl(var(--success))",
+					foreground: "hsl(var(--success-foreground))",
+				},
+				warning: {
+					DEFAULT: "hsl(var(--warning))",
+					foreground: "hsl(var(--warning-foreground))",
+				},
+				error: {
+					DEFAULT: "hsl(var(--error))",
+				},
 				destructive: {
-					DEFAULT: "hsl(var(--destructive) / <alpha-value>)",
-					foreground:
-						"hsl(var(--destructive-foreground) / <alpha-value>)",
+					DEFAULT: "hsl(var(--destructive))",
+					foreground: "hsl(var(--destructive-foreground))",
 				},
 				muted: {
 					DEFAULT: "hsl(var(--muted))",
@@ -48,6 +75,18 @@ const config: Config = {
 					DEFAULT: "hsl(var(--accent))",
 					foreground: "hsl(var(--accent-foreground))",
 				},
+				"accent-blue": {
+					DEFAULT: "hsl(var(--accent-blue))",
+					foreground: "hsl(var(--accent-blue-foreground))",
+				},
+				"accent-red": {
+					DEFAULT: "hsl(var(--accent-red))",
+					foreground: "hsl(var(--accent-red-foreground))",
+				},
+				"accent-violet": {
+					DEFAULT: "hsl(var(--accent-violet))",
+					foreground: "hsl(var(--accent-violet-foreground))",
+				},
 				popover: {
 					DEFAULT: "hsl(var(--popover))",
 					foreground: "hsl(var(--popover-foreground))",
@@ -56,18 +95,11 @@ const config: Config = {
 					DEFAULT: "hsl(var(--card))",
 					foreground: "hsl(var(--card-foreground))",
 				},
-				"custom-red": "var(--custom-red)",
-				"custom-pink": "var(--custom-pink)",
-				"custom-orange": "var(--custom-orange)",
-				"custom-yellow": "var(--custom-yellow)",
-				"custom-lime": "var(--custom-lime)",
-				"custom-teal": "var(--custom-teal)",
-				"custom-cyan": "var(--custom-cyan)",
-				"custom-blue": "var(--custom-blue)",
-				"custom-violet": "var(--custom-violet)",
-				"custom-neutral": "var(--custom-neutral)",
-				"custom-slate": "var(--custom-slate)",
-				"custom-white": "var(--custom-white)",
+				"chart-1": "hsl(var(--chart-1))",
+				"chart-2": "hsl(var(--chart-2))",
+				"chart-3": "hsl(var(--chart-3))",
+				"chart-4": "hsl(var(--chart-4))",
+				"chart-5": "hsl(var(--chart-5))",
 			},
 			fontFamily: {
 				display: ["var(--font-orbiter)", "sans-serif"],
@@ -77,12 +109,52 @@ const config: Config = {
 				"roboto-mono": ["var(--font-roboto-mono)", "monospace"],
 			},
 			keyframes: {
+				"accordion-down": {
+					from: {
+						height: "0",
+					},
+					to: {
+						height: "var(--radix-accordion-content-height)",
+					},
+				},
+				"accordion-up": {
+					from: {
+						height: "var(--radix-accordion-content-height)",
+					},
+					to: {
+						height: "0",
+					},
+				},
+				"fade-in": {
+					from: { opacity: "0", transform: "translateY(-10px)" },
+					to: { opacity: "1", transform: "none" },
+				},
+				"fade-up": {
+					from: { opacity: "0", transform: "translateY(20px)" },
+					to: { opacity: "1", transform: "none" },
+				},
 				"infinite-scroll": {
 					from: {
 						transform: "translateX(0)",
 					},
 					to: {
 						transform: "translateX(-100%)",
+					},
+				},
+				marquee: {
+					from: {
+						transform: "translateX(0)",
+					},
+					to: {
+						transform: "translateX(calc(-100% - var(--gap)))",
+					},
+				},
+				"marquee-vertical": {
+					from: {
+						transform: "translateY(0)",
+					},
+					to: {
+						transform: "translateY(calc(-100% - var(--gap)))",
 					},
 				},
 			},
@@ -100,7 +172,10 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		require("tailwindcss-animate"),
+		require("@tailwindcss/typography"),
+	],
 };
 
 export default config;
