@@ -18,7 +18,7 @@ const NAVIGATION = groq`
 `;
 
 export const POSTS_COUNT = groq`
-	count(*[_type == "post" && references(^._id) && !(_id in path("drafts.**"))])
+	count(*[_type == "post" && references(^._id)])
 `;
 
 export const POST_PARTIAL = groq`
@@ -55,6 +55,7 @@ export const PROJECT = groq`
 	category,
 	duration,
 	sourceCode,
+	stacks[],
 	protocols[] -> {
 		icon { ${ASSET} },
 		label,
@@ -66,11 +67,7 @@ export const PROJECT = groq`
 	featured
 `;
 
-export async function loadLandingPage({
-	slice = { start: 0, end: 4 },
-}: {
-	slice?: { start: number; end: number };
-} = {}) {
+export async function loadLandingPage() {
 	return await fetch<{
 		settings: Sanity.Settings;
 		author: Sanity.Author;
@@ -117,11 +114,11 @@ export async function loadLandingPage({
 				duration,
 				roles[]
 			},
-			"projects": *[_type == "project" && defined(slug.current)] | order(duration.start desc) {
+			"projects": *[_type == "project" && defined(slug.current) && featured == true] | order(duration.start desc) {
 				...,
 				${PROJECT}
 			},
-			"posts": *[_type == "post" && defined(slug.current)] | order(date, desc) {
+			"posts": *[_type == "post" && defined(slug.current) && category.slug != "misc"] | order(date, asc) {
 				${POST_PARTIAL}
 			}
 		}`,
@@ -184,31 +181,7 @@ export async function loadProjects() {
 	});
 }
 
-export async function loadProject(slug: string) {
-	return await fetch<Array<Sanity.Project>>({
-		query: groq`
-			*[_type == "project" && slug.current == $slug][0] {
-				...,
-				${PROJECT}
-			}
-		`,
-		params: { slug },
-		tags: [`project:${slug}`],
-	});
-}
-
-interface QueryOption {
-	order?: { field: string; direction: "asc" | "desc" };
-	slice?: { start: number; end: number };
-}
-
-export async function loadPosts({
-	order = { field: "date", direction: "desc" },
-	slice,
-}: {
-	order?: { field: string; direction: "asc" | "desc" };
-	slice?: { start: number; end: number };
-} = {}) {
+export async function loadPosts() {
 	const query = groq`
 			*[_type == "post" && defined(slug.current)] | order(date, desc) {
 				...,
@@ -218,7 +191,7 @@ export async function loadPosts({
 
 	return await fetch<Array<Sanity.Post>>({
 		query,
-		params: { ...order, ...slice },
+		params: {},
 		tags: ["post"],
 	});
 }
@@ -251,9 +224,9 @@ export async function loadPost(slug: string) {
 export async function loadCategories() {
 	return await fetch<Array<Sanity.Category>>({
 		query: groq`
-			*[_type == "category" && defined(slug.current)] | order(id asc) {
+			*[_type == "category" && defined(slug.current)] | order(title) {
 				...,
-				"numberOfPosts": count(*[_type == "post" && references(^._id)]),
+				"numberOfPosts": ${POSTS_COUNT},
 			}
 		`,
 		params: {},

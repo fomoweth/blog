@@ -15,6 +15,7 @@ import {
 
 import useImageUrlBuilder from "@/hooks/useImageUrlBuilder";
 import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 interface Props {
 	className: string;
@@ -31,7 +32,7 @@ export default function Panel({
 	offset,
 	setter,
 }: Props) {
-	const { protocols, sourceCode } = item;
+	const { protocols, sourceCode, stacks } = item;
 
 	const ref = useRef<HTMLDivElement>(null);
 	const isInView = useInView(ref, { margin: `${-offset}px` });
@@ -58,46 +59,72 @@ export default function Panel({
 				)}
 			>
 				<Card className="relative z-10 hidden w-full bg-transparent backdrop-blur-sm lg:block">
-					<CardHeader>
-						<div className="flex items-center space-x-2 rounded-md border p-4 text-slate-600">
-							<TerminalIcon size={20} />
-							<div className="flex-1 space-y-1">
-								<p className="text-lg font-medium leading-none">
-									Protocols Integrated:
-								</p>
+					<CardContent className="grid gap-y-5 p-6">
+						{stacks && (
+							<div className="space-y-4">
+								<div className="flex items-center space-x-2 rounded-md border px-4 py-3 text-slate-600">
+									<TerminalIcon size={20} />
+									<div className="flex-1 space-y-1">
+										<p className="text-lg font-medium leading-none">
+											Built With:
+										</p>
+									</div>
+								</div>
+
+								<div className="ml-4 flex w-full flex-wrap items-start gap-1 lg:gap-3">
+									{stacks.map((stack) => (
+										<Badge key={stack} variant="default">
+											{stack}
+										</Badge>
+									))}
+								</div>
 							</div>
-						</div>
-					</CardHeader>
-					<CardContent className="grid gap-4">
-						<div className="ml-4 flex w-full flex-col items-start gap-1 lg:gap-3">
-							{protocols.map(({ icon, label, link, slug }) => (
-								<Link
-									key={slug.current}
-									className="group inline-flex items-center gap-x-2"
-									href={link}
-									rel="noopener noreferrer"
-									target="_blank"
-								>
-									<img
-										src={builder
-											.image(icon)
-											.width(30)
-											.height(30)
-											.url()}
-										alt={label}
-										height={30}
-										width={30}
-									/>
-									<span className="underline-offset-2 group-hover:underline">
-										{label}
-									</span>
-								</Link>
-							))}
-						</div>
+						)}
+
+						{protocols && (
+							<div className="space-y-4">
+								<div className="flex items-center space-x-2 rounded-md border px-4 py-3 text-slate-600">
+									<TerminalIcon size={20} />
+									<div className="flex-1 space-y-1">
+										<p className="text-lg font-medium leading-none">
+											Protocols Integrated:
+										</p>
+									</div>
+								</div>
+
+								<div className="ml-4 flex w-full flex-col items-start gap-1 lg:gap-3">
+									{protocols.map(
+										({ icon, label, link, slug }) => (
+											<Link
+												key={slug.current}
+												className="group inline-flex items-center gap-x-2"
+												href={link}
+												rel="noopener noreferrer"
+												target="_blank"
+											>
+												<img
+													src={builder
+														.image(icon)
+														.width(30)
+														.height(30)
+														.url()}
+													alt={label}
+													height={30}
+													width={30}
+												/>
+												<span className="underline-offset-2 group-hover:underline">
+													{label}
+												</span>
+											</Link>
+										),
+									)}
+								</div>
+							</div>
+						)}
 					</CardContent>
-					<CardFooter>
+					<CardFooter className="flex justify-center">
 						{sourceCode && (
-							<Button className="w-full" asChild>
+							<Button asChild>
 								<Link
 									className="ml-1 inline-flex items-center gap-x-2"
 									href={sourceCode}

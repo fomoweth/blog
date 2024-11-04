@@ -8,6 +8,7 @@ type ProjectKey =
 	| "description"
 	| "duration"
 	| "sourceCode"
+	| "stacks"
 	| "protocols"
 	| "bulletPoints";
 
@@ -24,6 +25,7 @@ export default function Terminal({
 		"description",
 		"duration",
 		"sourceCode",
+		"stacks",
 		"protocols",
 		"bulletPoints",
 	],
@@ -123,23 +125,53 @@ function Block({
 				</span>
 			);
 
-		case "protocols":
-			const length = property[field].length;
+		case "stacks":
+			const stacks = property[field];
+			if (!stacks) return;
 
 			return (
 				<span
 					className={cn(
 						"ml-6 flex md:ml-10",
-						length < 3
+						stacks.length < 3
 							? "flex-row items-center"
 							: "flex-col items-start",
 					)}
 				>
 					<span>{field}&#58;&#32; &#91;</span>
-					{property[field].map((protocol, idx) => (
+					{stacks.map((stack, idx) => (
 						<span
 							key={idx}
-							className={cn(length < 3 ? "mx-1" : "mx-10")}
+							className={cn(stacks.length < 3 ? "mx-1" : "mx-10")}
+						>
+							<span className="text-teal-500">{stack}</span>
+							{idx < stacks.length - 1 && <span>&sbquo;</span>}
+						</span>
+					))}
+					<span>&#93;&sbquo;</span>
+				</span>
+			);
+
+		case "protocols":
+			const protocols = property[field];
+			if (!protocols) return;
+
+			return (
+				<span
+					className={cn(
+						"ml-6 flex md:ml-10",
+						protocols.length < 3
+							? "flex-row items-center"
+							: "flex-col items-start",
+					)}
+				>
+					<span>{field}&#58;&#32; &#91;</span>
+					{protocols.map((protocol, idx) => (
+						<span
+							key={idx}
+							className={cn(
+								protocols.length < 3 ? "mx-1" : "mx-10",
+							)}
 						>
 							<Link
 								className="text-sky-400 hover:underline hover:opacity-70"
@@ -149,7 +181,7 @@ function Block({
 							>
 								{protocol.label}
 							</Link>
-							{idx < length - 1 && <span>&sbquo;</span>}
+							{idx < protocols.length - 1 && <span>&sbquo;</span>}
 						</span>
 					))}
 					<span>&#93;&sbquo;</span>

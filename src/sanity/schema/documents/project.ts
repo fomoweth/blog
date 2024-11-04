@@ -59,6 +59,16 @@ export default defineType({
 			validation: (rule) => rule.uri({ scheme: ["https"] }),
 		}),
 		defineField({
+			title: "Stacks",
+			name: "stacks",
+			type: "array",
+			of: [
+				defineArrayMember({
+					type: "string",
+				}),
+			],
+		}),
+		defineField({
 			title: "Protocols",
 			name: "protocols",
 			type: "array",

@@ -53,6 +53,13 @@ export default function View({ author, projects, protocols }: Props) {
 				>
 					<Terminal
 						className="mx-auto w-full max-w-screen-lg"
+						keys={[
+							"title",
+							"description",
+							"duration",
+							"sourceCode",
+							"bulletPoints",
+						]}
 						value={projects[current]}
 					/>
 				</SlidingDisplay>

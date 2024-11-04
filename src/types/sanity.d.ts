@@ -97,7 +97,8 @@ declare global {
 			category: "personal" | "work";
 			duration: Duration;
 			sourceCode?: string;
-			protocols: Array<Protocol>;
+			stacks?: Array<string>;
+			protocols?: Array<Protocol>;
 			bulletPoints: Array<string>;
 			featured?: boolean;
 		}
