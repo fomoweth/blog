@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 
-import { cn } from "@/lib/utils";
-
 interface Props {
 	children: React.ReactNode;
 	className: string;
@@ -11,7 +9,7 @@ interface Props {
 export default function SlidingDisplay({ children, className, index }: Props) {
 	return (
 		<div
-			className="pointer-events-none sticky top-0 z-10 mx-auto hidden h-screen w-full max-w-screen-2xl items-center justify-center md:flex"
+			className="sticky top-0 z-10 mx-auto hidden h-screen w-full items-center justify-center lg:flex"
 			style={{
 				justifyContent: index % 2 ? "flex-start" : "flex-end",
 			}}

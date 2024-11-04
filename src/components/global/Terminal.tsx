@@ -28,17 +28,15 @@ export default function Terminal({
 		"bulletPoints",
 	],
 	value,
-	style,
 	...props
 }: Props) {
 	return (
 		<motion.div
 			id={value.slug.current}
 			className={cn(
-				"shrink-0 place-content-center overflow-hidden rounded-2xl bg-neutral-900 shadow-xl",
+				"relative place-content-center overflow-hidden rounded-2xl bg-neutral-900 shadow-xl",
 				className,
 			)}
-			style={style}
 			{...props}
 		>
 			<div
@@ -52,18 +50,18 @@ export default function Terminal({
 				<div className="bg-green-500" />
 			</div>
 
-			<div className="space-y-2 p-5 text-slate-200">
-				<p className="mr-5 flex flex-col justify-center">
+			<div className="relative space-y-2 p-2 text-slate-200 md:p-5">
+				<p className="flex flex-col justify-center md:mr-5">
 					<span>
-						<span className="mr-2 text-teal-400">&#126;</span>
+						<span className="text-teal-400 md:mr-2">&#126;</span>
 						<span> &#123;</span>
 					</span>
 
 					{keys.map((key, idx) => (
-						<Block key={idx} property={value} field={key} />
+						<Block key={idx} field={key} property={value} />
 					))}
 
-					<span className="ml-5"> &#125; </span>
+					<span className="ml-2 md:ml-4"> &#125; </span>
 				</p>
 			</div>
 		</motion.div>
@@ -71,17 +69,17 @@ export default function Terminal({
 }
 
 function Block({
-	property,
 	field,
+	property,
 }: {
-	property: Sanity.Project;
 	field: ProjectKey;
+	property: Sanity.Project;
 }) {
 	switch (field) {
 		case "title":
 		case "description":
 			return (
-				<span className="ml-10">
+				<span className="ml-6 md:ml-10">
 					<span>{field}&#58;&#32;</span>
 					<span className="text-teal-500">
 						&apos;{property[field]}&apos;
@@ -92,7 +90,7 @@ function Block({
 
 		case "duration":
 			return (
-				<span className="ml-10">
+				<span className="ml-6 md:ml-10">
 					<span>{field}&#58; &#123; start&#58; </span>
 					<span className="text-amber-300">
 						&apos;{property[field].start}&apos;
@@ -107,7 +105,7 @@ function Block({
 
 		case "sourceCode":
 			return (
-				<span className="ml-10">
+				<span className="ml-6 md:ml-10">
 					<span>{field}&#58;&#32;</span>
 					{property[field] ? (
 						<Link
@@ -131,7 +129,7 @@ function Block({
 			return (
 				<span
 					className={cn(
-						"ml-10 flex",
+						"ml-6 flex md:ml-10",
 						length < 3
 							? "flex-row items-center"
 							: "flex-col items-start",
@@ -160,10 +158,10 @@ function Block({
 
 		case "bulletPoints":
 			return (
-				<span className="ml-10 flex flex-col items-start justify-center">
+				<span className="ml-6 flex flex-col items-start justify-center md:ml-10">
 					<span>{field}&#58;&#32; &#91;</span>
 					{property[field].map((bulletPoint, idx) => (
-						<span key={idx} className="ml-10 mr-5">
+						<span key={idx} className="ml-6 mr-5 md:ml-10">
 							<span className="text-teal-500">
 								&apos;{bulletPoint}&apos;
 							</span>
