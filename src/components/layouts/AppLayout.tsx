@@ -12,7 +12,7 @@ export default function AppLayout({
 	return (
 		<main
 			key={usePathname()}
-			className={cn("relative z-10 grow", className)}
+			className={cn("relative grow", className)}
 			{...props}
 		>
 			{children}

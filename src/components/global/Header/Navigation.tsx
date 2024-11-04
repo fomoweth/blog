@@ -26,10 +26,10 @@ export default function Navigation({ className, paths, title }: Props) {
 						whileHover={{ y: -20 }}
 						transition={{ duration: 0.5, ease: "backInOut" }}
 					>
-						<span className="flex h-5 items-center text-slate-500">
+						<span className="flex h-5 items-center text-slate-600">
 							{path.label}
 						</span>
-						<span className="flex h-5 items-center text-slate-400">
+						<span className="flex h-5 items-center text-slate-500">
 							{path.label}
 						</span>
 					</motion.div>
