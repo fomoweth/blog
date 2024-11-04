@@ -5,7 +5,10 @@ import type { ThemeProviderProps } from "next-themes/dist/types";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-export default function Providers({ children, ...props }: ThemeProviderProps) {
+export default function ThemeProvider({
+	children,
+	...props
+}: ThemeProviderProps) {
 	return (
 		<NextThemesProvider {...props}>
 			<TooltipProvider delayDuration={0}>{children}</TooltipProvider>

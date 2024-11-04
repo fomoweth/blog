@@ -98,6 +98,9 @@ const config: Config = {
 				"cobalt-blue": {
 					DEFAULT: "#0847F7",
 				},
+				onyx: {
+					DEFAULT: "#353839",
+				},
 				"chart-1": "hsl(var(--chart-1))",
 				"chart-2": "hsl(var(--chart-2))",
 				"chart-3": "hsl(var(--chart-3))",

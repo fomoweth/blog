@@ -4,7 +4,7 @@ import { draftMode } from "next/headers";
 
 import Footer from "@/components/global/Footer";
 import Header from "@/components/global/Header";
-import Providers from "@/components/providers";
+import ThemeProvider from "@/components/ThemeProvider";
 import VisualEditor from "@/components/VisualEditor";
 
 import { cn } from "@/lib/utils";
@@ -33,7 +33,7 @@ export default async function RootLayout({
 				)}
 				suppressHydrationWarning
 			>
-				<Providers
+				<ThemeProvider
 					attribute="class"
 					defaultTheme="light"
 					enableSystem={false}
@@ -45,7 +45,7 @@ export default async function RootLayout({
 					</div>
 
 					<VisualEditor />
-				</Providers>
+				</ThemeProvider>
 			</body>
 		</html>
 	);
