@@ -7,7 +7,6 @@ import Collection from "@/components/global/Collection";
 import AppLayout from "@/components/layouts/AppLayout";
 import { Button } from "@/components/ui/button";
 
-import { cn } from "@/lib/utils";
 import { useCategoryStore } from "@/stores/category";
 
 import Categories from "./Categories";
@@ -20,9 +19,9 @@ interface Props {
 const POSTS_PER_LOAD = 9;
 
 export default function Blog({ categories, posts }: Props) {
-	const [loaded, setLoaded] = useState<number>(POSTS_PER_LOAD);
-
 	const { category: selected, reset } = useCategoryStore();
+
+	const [loaded, setLoaded] = useState<number>(POSTS_PER_LOAD);
 
 	useEffect(reset, [usePathname()]);
 
@@ -50,7 +49,7 @@ export default function Blog({ categories, posts }: Props) {
 	return (
 		<AppLayout className="w-screen space-y-10 pt-20 md:space-y-16">
 			<Categories
-				className="mt-5 flex max-w-screen-xl justify-center md:mt-10 md:justify-end"
+				className="mt-5 flex max-w-screen-xl justify-center md:mt-10 md:justify-end md:pr-4"
 				items={categories}
 				total={posts.length}
 			/>
@@ -59,14 +58,7 @@ export default function Blog({ categories, posts }: Props) {
 
 			{loaded < filtered.length ? (
 				<div className="mx-auto flex max-w-screen-xl justify-center pb-10 md:pb-16">
-					<Button
-						type="button"
-						className={cn("")}
-						variant="default"
-						onClick={handleClick}
-					>
-						Load More
-					</Button>
+					<Button onClick={handleClick}>Load More</Button>
 				</div>
 			) : (
 				<div className="h-20 w-full" />

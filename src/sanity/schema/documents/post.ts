@@ -66,7 +66,7 @@ export default defineType({
 				}),
 			],
 			group: "seo",
-			validation: (rule) => rule.required().max(3),
+			validation: (rule) => rule.max(3),
 		}),
 		defineField({
 			title: "Category",

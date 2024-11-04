@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { FiArrowRight as ArrowRight } from "react-icons/fi";
 
 import DateTime from "@/components/elements/DateTime";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 import useImageUrlBuilder from "@/hooks/useImageUrlBuilder";
 import { cn } from "@/lib/utils";
@@ -17,6 +17,8 @@ export default function Collection({ className, items }: Props) {
 
 	const builder = useImageUrlBuilder();
 
+	const urlFor = (source: Sanity.Image) => builder.image(source).url();
+
 	return (
 		<div
 			className={cn(
@@ -24,52 +26,36 @@ export default function Collection({ className, items }: Props) {
 				className,
 			)}
 		>
-			{items.map((item, idx) => {
-				const { category, coverImage, date, slug, tags, title } = item;
-
-				const source = builder.image(coverImage).url();
-
-				return (
-					<Link
-						key={idx}
-						className="group relative h-64 w-full overflow-hidden rounded-3xl bg-zinc-200"
-						href={`/blog/${slug.current}`}
-					>
-						<div
-							className="absolute inset-0 aspect-auto h-full w-full saturate-100 transition-all duration-500 group-hover:scale-110 group-hover:saturate-0"
+			{items.map(({ category, coverImage, date, slug, tags, title }) => (
+				<Link
+					key={slug.current}
+					className="group h-[340px]"
+					href={`/blog/${slug.current}`}
+				>
+					<Card className="h-full w-full rounded-xl !p-0">
+						<CardContent
+							className="aspect-video rounded-t-xl px-4 pt-3 saturate-100 transition-all duration-500 group-hover:saturate-0"
 							style={{
-								backgroundImage: `url(${source})`,
+								backgroundImage: `url(${urlFor(coverImage)})`,
 								backgroundSize: "cover",
 								backgroundPosition: "center",
 							}}
-						/>
-
-						<div className="absolute left-5 top-5 inline-flex items-center gap-x-4 transition-all duration-700 group-hover:-left-72">
-							{tags.map((tag, idx) => (
-								<Badge
-									key={idx}
-									className="pointer-events-none"
-									variant="default"
-								>
-									{tag}
-								</Badge>
-							))}
-						</div>
-
-						<div className="relative z-20 flex h-full flex-col justify-between p-4 text-zinc-50">
-							<ArrowRight className="ml-auto -rotate-45 text-3xl transition-transform duration-500 group-hover:rotate-0" />
-
-							<div className="flex flex-col gap-5">
-								<div className="inline-flex items-center gap-x-4 transition-opacity duration-700 group-hover:opacity-0">
-									<Badge
-										className="pointer-events-none"
-										variant="default"
-									>
+						>
+							<div className="inline-flex items-center gap-x-2">
+								{tags?.map((tag, idx) => (
+									<Badge key={idx}>{tag}</Badge>
+								))}
+							</div>
+						</CardContent>
+						<CardFooter className="px-6 py-4">
+							<div className="flex flex-col items-start gap-y-2.5">
+								<div className="-ml-1 inline-flex items-center gap-x-3">
+									<Badge variant="outline">
 										{category.title}
 									</Badge>
 
 									<DateTime
-										className="text-zinc-50"
+										className="text-gray-600"
 										month="short"
 										day="numeric"
 										year="numeric"
@@ -77,14 +63,14 @@ export default function Collection({ className, items }: Props) {
 									/>
 								</div>
 
-								<h3 className="text-balance text-xl font-semibold text-zinc-200 transition-all duration-500 group-hover:text-2xl">
+								<h3 className="text-wrap text-xl font-bold text-primary">
 									{title}
 								</h3>
 							</div>
-						</div>
-					</Link>
-				);
-			})}
+						</CardFooter>
+					</Card>
+				</Link>
+			))}
 		</div>
 	);
 }

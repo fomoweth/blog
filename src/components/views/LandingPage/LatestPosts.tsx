@@ -65,11 +65,7 @@ export default function LatestPosts({ className, items }: Props) {
 										<div className="inline-flex items-center justify-between">
 											<div className="inline-flex items-center gap-x-4">
 												{tags?.map((tag, idx) => (
-													<Badge
-														key={idx}
-														className="pointer-events-none"
-														variant="default"
-													>
+													<Badge key={idx}>
 														{tag}
 													</Badge>
 												))}
@@ -80,10 +76,7 @@ export default function LatestPosts({ className, items }: Props) {
 
 										<div>
 											<div className="mb-4 inline-flex items-center gap-x-4">
-												<Badge
-													className="pointer-events-none"
-													variant="secondary"
-												>
+												<Badge variant="secondary">
 													{category.title}
 												</Badge>
 
