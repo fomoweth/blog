@@ -6,8 +6,8 @@ import { Chevron } from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-import useImageUrlBuilder from "@/hooks/useImageUrlBuilder";
 import { cn } from "@/lib/utils";
+import { urlForCoverImage } from "@/sanity/lib/utils";
 
 interface Props {
 	className?: string;
@@ -16,10 +16,6 @@ interface Props {
 
 export default function RelatedPosts({ className, items = [] }: Props) {
 	const [position, setPosition] = useState<number>(0);
-
-	const builder = useImageUrlBuilder();
-
-	const urlFor = (source: Sanity.Image) => builder.image(source).url();
 
 	const shiftLeft = () => {
 		if (position > 0) setPosition((prev) => prev - 1);
@@ -62,11 +58,10 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 				</div>
 
 				<div className="ml-4 flex gap-4 p-2">
-					{items.map(
-						(
-							{ category, coverImage, date, slug, tags, title },
-							idx,
-						) => (
+					{items.map((item, idx) => {
+						const { category, date, slug, tags, title } = item;
+
+						return (
 							<motion.a
 								key={slug.current}
 								className="relative flex h-[340px] w-10/12 max-w-lg shrink-0 flex-col justify-between overflow-hidden rounded-2xl bg-background shadow-md md:w-[45%]"
@@ -86,7 +81,7 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 								<div
 									className="aspect-video h-[225px] w-full"
 									style={{
-										backgroundImage: `url(${urlFor(coverImage)})`,
+										backgroundImage: `url(${urlForCoverImage(item)})`,
 										backgroundSize: "cover",
 										backgroundPosition: "center",
 									}}
@@ -112,8 +107,8 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 									</h3>
 								</div>
 							</motion.a>
-						),
-					)}
+						);
+					})}
 				</div>
 			</div>
 		</div>

@@ -32,7 +32,7 @@ export function truncate(value: string, length: number = 10): string {
 }
 
 export function absoluteUrl(path: string): string {
-	return `${siteConfig.url}${path}`;
+	return new URL(path, siteConfig.url).href;
 }
 
 export function constructMetadata({
@@ -81,8 +81,10 @@ export function constructMetadata({
 		twitter: {
 			card: "summary_large_image",
 			creator: siteConfig.twitter,
-			site: siteConfig.twitter,
+			site: siteConfig.url,
+			title: siteConfig.title,
 			description: siteConfig.description,
+			images: [image],
 		},
 		icons: "/favicon.ico",
 		robots: {

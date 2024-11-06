@@ -10,18 +10,18 @@ const ASSET = groq`
 const NAVIGATION = groq`
 	enabled,
 	"headings": select(
-		enabled => ^.content[style in ["h2"]] {
+		enabled => ^.content[style in ["h2", "h3"]] {
 			style,
 			"text": pt::text(@)
 		}
 	),
 `;
 
-export const POSTS_COUNT = groq`
+const POSTS_COUNT = groq`
 	count(*[_type == "post" && references(^._id)])
 `;
 
-export const POST_PARTIAL = groq`
+const POST_PARTIAL = groq`
 	coverImage { ${ASSET} },
 	title,
 	slug,
@@ -33,7 +33,7 @@ export const POST_PARTIAL = groq`
 	featured,
 `;
 
-export const POST = groq`
+const POST = groq`
 	coverImage { ${ASSET} },
 	title,
 	slug,
@@ -48,7 +48,7 @@ export const POST = groq`
 	relatedPosts[] -> { ${POST_PARTIAL} }
 `;
 
-export const PROJECT = groq`
+const PROJECT = groq`
 	title,
 	slug,
 	description,
@@ -226,7 +226,7 @@ export async function loadCategories() {
 		query: groq`
 			*[_type == "category" && defined(slug.current)] | order(title) {
 				...,
-				"numberOfPosts": ${POSTS_COUNT},
+				"numberOfPosts": count(*[_type == "post" && references(^._id)]),
 			}
 		`,
 		params: {},
@@ -243,11 +243,6 @@ export async function loadProtocols() {
 				slug,
 				ticker,
 				link,
-				logo {
-					default { ${ASSET} },
-					light { ${ASSET} },
-					dark { ${ASSET} },
-				},
 				icon { ${ASSET} }
 			}
 		`,

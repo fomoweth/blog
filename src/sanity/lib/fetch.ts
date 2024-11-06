@@ -1,3 +1,5 @@
+"only server";
+
 import { draftMode } from "next/headers";
 import type { QueryParams } from "next-sanity";
 import { stegaClean } from "@sanity/client/stega";

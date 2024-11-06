@@ -2,7 +2,7 @@
 
 import { PortableText, type PortableTextBlock } from "next-sanity";
 
-import { cn } from "@/lib/utils";
+import { cn, isExternal } from "@/lib/utils";
 
 import Code from "./Code";
 import Heading from "./Heading";
@@ -31,8 +31,23 @@ export default function Content({ value }: Props) {
 						h6: (node) => <Heading as="h6" {...node} />,
 						blockquote: ({ children }) => (
 							<blockquote className="border-l-2 pl-4">
-								<p>{children}</p>
+								<p className="text-sm text-gray-500">
+									{children}
+								</p>
 							</blockquote>
+						),
+					},
+					marks: {
+						link: ({ children, value }) => (
+							<a
+								href={value.href}
+								{...(isExternal(value.href) && {
+									target: "_blank",
+									rel: "noopener noreferrer",
+								})}
+							>
+								{children}
+							</a>
 						),
 					},
 					types: {

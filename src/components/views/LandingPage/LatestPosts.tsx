@@ -5,7 +5,8 @@ import DateTime from "@/components/elements/DateTime";
 import Callout from "@/components/global/Callout";
 import { Badge } from "@/components/ui/badge";
 
-import useImageUrlBuilder from "@/hooks/useImageUrlBuilder";
+import { cn } from "@/lib/utils";
+import { urlForCoverImage } from "@/sanity/lib/utils";
 
 interface Props {
 	className: string;
@@ -15,15 +16,13 @@ interface Props {
 export default function LatestPosts({ className, items }: Props) {
 	if (!items.length) return null;
 
-	const builder = useImageUrlBuilder();
-
 	return (
 		<div className={className}>
 			<motion.section className="mx-auto mt-10 min-h-fit w-full max-w-screen-2xl place-content-start text-primary-foreground md:h-[calc(100vh_-_120px)]">
 				<div className="relative mx-auto px-8 md:px-12 lg:px-14 xl:px-16">
 					<h2 className="title h2 mb-8 inline-block md:mb-14">
 						Latest Posts
-						<span className="bg-cobalt-blue ml-1 inline-block size-2 md:size-2.5 lg:size-3" />
+						<span className="ml-1 inline-block size-2 bg-cobalt-blue md:size-2.5 lg:size-3" />
 					</h2>
 
 					<div className="mx-auto grid w-full grid-cols-1 gap-4 md:gap-8 lg:grid-cols-2">
@@ -37,15 +36,10 @@ export default function LatestPosts({ className, items }: Props) {
 								title,
 							} = item;
 
-							const source = builder
-								.image(coverImage)
-								.fit("crop")
-								.url();
-
 							return (
 								<motion.a
 									key={slug.current}
-									className="group relative h-[300px] w-full overflow-hidden rounded-3xl lg:rounded-none"
+									className="group relative h-[300px] w-full overflow-hidden rounded-3xl"
 									href={`/blog/${slug.current}`}
 									whileHover="hover"
 									transition={{
@@ -55,7 +49,7 @@ export default function LatestPosts({ className, items }: Props) {
 									<div
 										className="absolute inset-0 aspect-auto h-full w-full rounded-3xl saturate-100 transition-all duration-500 group-hover:scale-110 lg:group-hover:saturate-0"
 										style={{
-											backgroundImage: `url(${source})`,
+											backgroundImage: `url(${urlForCoverImage(item)})`,
 											backgroundSize: "cover",
 											backgroundPosition: "center",
 										}}
@@ -74,7 +68,11 @@ export default function LatestPosts({ className, items }: Props) {
 											<ArrowRight className="-rotate-45 text-3xl transition-transform duration-500 group-hover:rotate-0" />
 										</div>
 
-										<div>
+										<div
+											className={cn(
+												!coverImage && "hidden",
+											)}
+										>
 											<div className="mb-4 inline-flex items-center gap-x-4">
 												<Badge variant="secondary">
 													{category.title}

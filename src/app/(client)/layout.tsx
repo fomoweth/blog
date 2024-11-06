@@ -1,15 +1,11 @@
-import type { Metadata } from "next";
-
 import Footer from "@/components/global/Footer";
 import Header from "@/components/global/Header";
 import ThemeProvider from "@/components/ThemeProvider";
 import VisualEditor from "@/components/VisualEditor";
 
-import { cn, constructMetadata } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { inter, orbiter, roboto_flex, roboto_mono } from "@/styles/fonts";
 import "@/styles/globals.css";
-
-export const metadata: Metadata = constructMetadata({});
 
 export default async function RootLayout({
 	children,

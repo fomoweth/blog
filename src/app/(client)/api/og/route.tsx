@@ -1,46 +1,68 @@
+import { NextRequest } from "next/server";
 import { ImageResponse } from "@vercel/og";
+
+import siteConfig from "@/config";
 
 export const runtime = "edge";
 
-const interBold = fetch(
-	new URL("../../../../../public/fonts/InterBold.ttf", import.meta.url),
+const interFont = fetch(
+	new URL("../../../../../public/fonts/InterSemiBold.ttf", import.meta.url),
 ).then((res) => res.arrayBuffer());
 
-const interExtraBold = fetch(
-	new URL("../../../../../public/fonts/InterExtraBold.ttf", import.meta.url),
+const orbiterFont = fetch(
+	new URL(
+		"../../../../../public/fonts/OrbiterDisplaySemiBold.otf",
+		import.meta.url,
+	),
 ).then((res) => res.arrayBuffer());
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
 	try {
-		const [interBoldFont, interExtraBoldFont] = await Promise.all([
-			interBold,
-			interExtraBold,
-		]);
+		const {
+			nextUrl: { searchParams },
+		} = request;
 
-		const { searchParams } = new URL(request.url);
+		const title = searchParams.get("title");
+		const subtitle = searchParams.get("subtitle");
+		const category = searchParams.get("category");
 
-		const title = searchParams.get("title")?.slice(0, 100) || "";
+		const font = await (!!title ? interFont : orbiterFont);
 
 		return new ImageResponse(
 			(
-				<div tw="h-full w-full flex items-start justify-start bg-white">
-					<div tw="flex items-start justify-start h-full">
-						<img
-							src={`https://cruip-tutorials-next.vercel.app/social-card-bg.jpg`}
-							height={256}
-							width={256}
-							style={{ objectFit: "cover" }}
-							tw="absolute inset-0 w-full h-full"
-						/>
-						<div tw="bg-black absolute inset-0 bg-opacity-60"></div>
-						<div tw="flex items-center justify-center w-full h-full relative">
-							<div tw="text-[80px] text-white font-bold text-center mx-20">
-								{title}
+				<div tw="relative flex h-full w-full flex-col items-center justify-center bg-gray-50">
+					<div tw="relative flex w-full bg-gray-50">
+						{title ? (
+							<div tw="flex w-full flex-col items-center justify-center px-4 py-12">
+								{category && (
+									<div tw="flex w-[85%] items-start justify-start px-4">
+										<div tw="flex rounded-full bg-[#0847F7] px-4 py-1">
+											<span
+												tw="text-xl"
+												style={{ color: "#fff" }}
+											>
+												{category}
+											</span>
+										</div>
+									</div>
+								)}
+								<h2
+									tw="flex flex-col font-bold text-gray-900"
+									style={{ textWrap: "pretty" }}
+								>
+									<span tw="mb-4 text-7xl">{title}</span>
+									<span tw="ml-1 w-2/3 text-4xl text-[#0847F7]">
+										{subtitle}
+									</span>
+								</h2>
 							</div>
-							<div tw="text-[80px] text-white font-extrabold text-center mx-20">
-								{title}
+						) : (
+							<div tw="flex w-full flex-col items-center justify-center px-4 py-12">
+								<h2 tw="flex flex-col text-9xl font-bold text-gray-900">
+									{siteConfig.title}
+								</h2>
 							</div>
-						</div>
+						)}
 					</div>
 				</div>
 			),
@@ -50,15 +72,9 @@ export async function GET(request: Request) {
 				fonts: [
 					{
 						name: "Inter",
-						data: interBoldFont,
+						data: font,
 						style: "normal",
-						weight: 700,
-					},
-					{
-						name: "Inter",
-						data: interExtraBoldFont,
-						style: "normal",
-						weight: 800,
+						weight: 600,
 					},
 				],
 			},

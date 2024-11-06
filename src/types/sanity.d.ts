@@ -60,7 +60,7 @@ declare global {
 
 		interface Post extends SanityDocument {
 			_type: "post";
-			coverImage: Image;
+			coverImage?: Image;
 			title: string;
 			slug: Slug;
 			excerpt: string;
@@ -109,11 +109,6 @@ declare global {
 			slug: Slug;
 			ticker: string;
 			link: string;
-			logo: {
-				default: Image;
-				light?: Image;
-				dark?: Image;
-			};
 			icon: Image;
 		}
 
