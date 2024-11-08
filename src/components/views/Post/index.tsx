@@ -12,7 +12,6 @@ import AppLayout from "@/components/layouts/AppLayout";
 import { Badge } from "@/components/ui/badge";
 
 import { cn } from "@/lib/utils";
-import { urlForCoverImage } from "@/sanity/lib/utils";
 
 import Content from "./Content";
 import Navigation from "./Navigation";
@@ -60,22 +59,12 @@ export default function Post({ post, prev, next }: Props) {
 						className="mx-auto w-full px-4 md:max-w-[486px] lg:max-w-[732px] xl:max-w-[792px]"
 						title={title}
 					>
-						{coverImage ? (
-							<Img
-								className="mb-8 aspect-video rounded-3xl"
-								source={coverImage}
-								alt={title}
-								width={1200}
-							/>
-						) : (
-							<img
-								className="mb-8 aspect-video rounded-3xl object-cover"
-								src={urlForCoverImage(post)}
-								alt={title}
-								width={1200}
-								decoding="async"
-							/>
-						)}
+						<Img
+							className="mb-8 aspect-video rounded-3xl"
+							source={coverImage}
+							alt={title}
+							width={1200}
+						/>
 
 						<div className="relative flex flex-col space-y-3 lg:px-4">
 							<h1 className="text-balance text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-pretty lg:text-5xl xl:text-start">

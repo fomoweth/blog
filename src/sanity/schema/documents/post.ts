@@ -29,6 +29,7 @@ export default defineType({
 			type: "image",
 			group: "seo",
 			options: { hotspot: true },
+			validation: (rule) => rule.required(),
 		}),
 		defineField({
 			title: "Title",

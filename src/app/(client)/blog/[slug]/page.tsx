@@ -8,7 +8,6 @@ import siteConfig from "@/config";
 import { constructMetadata } from "@/lib/utils";
 import client from "@/sanity/lib/client";
 import { loadPost } from "@/sanity/lib/queries";
-import { urlForCoverImage } from "@/sanity/lib/utils";
 
 interface Props {
 	params: { slug: string };
@@ -19,9 +18,14 @@ export async function generateMetadata({
 }: Props): Promise<Metadata | undefined> {
 	const { post } = await loadPost(slug);
 
-	const { title, date: publishedTime, excerpt: description } = post;
-
-	const image = urlForCoverImage(post);
+	const {
+		coverImage: {
+			asset: { url: image },
+		},
+		title,
+		date: publishedTime,
+		excerpt: description,
+	} = post;
 
 	return constructMetadata({
 		title,

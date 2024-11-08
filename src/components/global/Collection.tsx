@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 import { cn } from "@/lib/utils";
-import { urlForCoverImage } from "@/sanity/lib/utils";
+import { urlForImage } from "@/sanity/lib/utils";
 
 interface Props {
 	className?: string;
@@ -23,7 +23,7 @@ export default function Collection({ className, items }: Props) {
 			)}
 		>
 			{items.map((item) => {
-				const { category, date, slug, tags, title } = item;
+				const { category, coverImage, date, slug, tags, title } = item;
 
 				return (
 					<Link
@@ -35,7 +35,7 @@ export default function Collection({ className, items }: Props) {
 							<CardContent
 								className="aspect-video rounded-t-xl px-4 pt-3 saturate-100 transition-all duration-500 group-hover:saturate-0"
 								style={{
-									backgroundImage: `url(${urlForCoverImage(item)})`,
+									backgroundImage: `url(${urlForImage(coverImage.asset)})`,
 									backgroundSize: "cover",
 									backgroundPosition: "center",
 								}}

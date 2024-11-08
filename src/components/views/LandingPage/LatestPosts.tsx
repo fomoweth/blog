@@ -6,7 +6,7 @@ import Callout from "@/components/global/Callout";
 import { Badge } from "@/components/ui/badge";
 
 import { cn } from "@/lib/utils";
-import { urlForCoverImage } from "@/sanity/lib/utils";
+import { urlForImage } from "@/sanity/lib/utils";
 
 interface Props {
 	className: string;
@@ -49,7 +49,7 @@ export default function LatestPosts({ className, items }: Props) {
 									<div
 										className="absolute inset-0 aspect-auto h-full w-full rounded-3xl saturate-100 transition-all duration-500 group-hover:scale-110 lg:group-hover:saturate-0"
 										style={{
-											backgroundImage: `url(${urlForCoverImage(item)})`,
+											backgroundImage: `url(${urlForImage(coverImage.asset)})`,
 											backgroundSize: "cover",
 											backgroundPosition: "center",
 										}}
@@ -68,11 +68,7 @@ export default function LatestPosts({ className, items }: Props) {
 											<ArrowRight className="-rotate-45 text-3xl transition-transform duration-500 group-hover:rotate-0" />
 										</div>
 
-										<div
-											className={cn(
-												!coverImage && "hidden",
-											)}
-										>
+										<div>
 											<div className="mb-4 inline-flex items-center gap-x-4">
 												<Badge variant="secondary">
 													{category.title}

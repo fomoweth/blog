@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 import { cn } from "@/lib/utils";
-import { urlForCoverImage } from "@/sanity/lib/utils";
+import { urlForImage } from "@/sanity/lib/utils";
 
 interface Props {
 	className?: string;
@@ -59,7 +59,14 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 
 				<div className="ml-4 flex gap-4 p-2">
 					{items.map((item, idx) => {
-						const { category, date, slug, tags, title } = item;
+						const {
+							category,
+							coverImage,
+							date,
+							slug,
+							tags,
+							title,
+						} = item;
 
 						return (
 							<motion.a
@@ -81,7 +88,7 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 								<div
 									className="aspect-video h-[225px] w-full"
 									style={{
-										backgroundImage: `url(${urlForCoverImage(item)})`,
+										backgroundImage: `url(${urlForImage(coverImage.asset)})`,
 										backgroundSize: "cover",
 										backgroundPosition: "center",
 									}}
