@@ -19,11 +19,11 @@ export default function Img({
 }: Props) {
 	if (!source.asset) return null;
 
-	const builder = useImageUrlBuilder();
-
 	if (!height || !width) {
 		({ height, width } = getImageDimensions(source.asset));
 	}
+
+	const builder = useImageUrlBuilder();
 
 	const src = builder.image(source).width(width).height(height).url();
 

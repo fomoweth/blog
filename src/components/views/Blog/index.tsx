@@ -23,7 +23,7 @@ export default function Blog({ categories, posts }: Props) {
 
 	const [loaded, setLoaded] = useState<number>(POSTS_PER_LOAD);
 
-	useEffect(reset, [usePathname()]);
+	useEffect(() => reset(), [usePathname()]);
 
 	useEffect(() => setLoaded(POSTS_PER_LOAD), [selected]);
 

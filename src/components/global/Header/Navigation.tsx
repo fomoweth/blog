@@ -34,7 +34,7 @@ export default function Navigation({ className, paths, title }: Props) {
 				</Link>
 			);
 		},
-		[paths],
+		[],
 	);
 
 	return (

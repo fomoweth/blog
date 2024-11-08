@@ -4,7 +4,7 @@ interface Props {
 	value: Sanity.Image;
 }
 
-export default function ({ value }: Props) {
+export default function Image({ value }: Props) {
 	const { caption, float } = value;
 
 	return (

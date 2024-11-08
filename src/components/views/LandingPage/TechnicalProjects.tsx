@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -19,30 +19,23 @@ export default function TechnicalProjects({ className, items }: Props) {
 
 	const step = 1 / (items.length || 1);
 
-	const renderItem = useCallback(
-		(item: Sanity.Project, idx: number) => {
-			const end = step * (idx + 1);
-			const start = end - step;
+	const renderedItems = items.map((item, idx) => {
+		const end = step * (idx + 1);
+		const start = end - step;
 
-			const opacity = useTransform(scrollYProgress, [start, end], [1, 0]);
+		const opacity = useTransform(scrollYProgress, [start, end], [1, 0]);
 
-			const scale = useTransform(
-				scrollYProgress,
-				[start, end],
-				[1, 0.75],
-			);
+		const scale = useTransform(scrollYProgress, [start, end], [1, 0.75]);
 
-			return (
-				<Terminal
-					key={item._id}
-					className="mx-auto w-full max-w-screen-md"
-					value={item}
-					style={{ opacity, scale }}
-				/>
-			);
-		},
-		[items],
-	);
+		return (
+			<Terminal
+				key={item._id}
+				className="mx-auto w-full max-w-screen-md"
+				value={item}
+				style={{ opacity, scale }}
+			/>
+		);
+	});
 
 	return (
 		<div className={className}>
@@ -50,7 +43,7 @@ export default function TechnicalProjects({ className, items }: Props) {
 				<div className="top-0 mx-auto my-20 flex w-[85%] flex-col items-center justify-center space-y-8 text-center lg:sticky lg:col-span-2 lg:my-0 lg:h-screen lg:w-[95%]">
 					<h2 className="title h2 inline-block tracking-tight text-gray-700">
 						Technical Projects
-						<span className="bg-cobalt-blue ml-1 inline-block size-2 md:size-2.5 lg:size-3" />
+						<span className="ml-1 inline-block size-2 bg-cobalt-blue md:size-2.5 lg:size-3" />
 					</h2>
 
 					<p className="text-pretty text-center text-lg font-medium leading-relaxed tracking-wide text-gray-600 md:text-xl lg:text-2xl xl:text-3xl">
@@ -73,7 +66,7 @@ export default function TechnicalProjects({ className, items }: Props) {
 						className="relative z-0 mx-auto flex flex-col gap-6 lg:gap-12"
 						ref={ref}
 					>
-						{items.map(renderItem)}
+						{renderedItems}
 					</div>
 
 					<div className="h-24 w-full lg:h-48" />

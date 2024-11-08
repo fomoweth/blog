@@ -25,7 +25,7 @@ export default async function Footer() {
 				<div className="mx-auto flex h-full w-full flex-col gap-y-5 pb-10 md:flex-row">
 					<div className="mx-auto flex flex-col items-start gap-y-2 pt-8 lg:gap-y-4">
 						<span className="mt-0.5 text-xl text-primary-foreground lg:text-3xl">
-							Ryan Kim's Portfolio | Dev Blog.
+							Ryan Kim&apos;s Portfolio | Dev Blog.
 						</span>
 
 						<span className="text-lg text-gray-400 md:ml-1">

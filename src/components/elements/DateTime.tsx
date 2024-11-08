@@ -9,7 +9,7 @@ type Props = Pick<
 	value: string;
 };
 
-const isDateString = (value: any): boolean => {
+const isDateString = (value: string): boolean => {
 	return !isNaN(Date.parse(value));
 };
 

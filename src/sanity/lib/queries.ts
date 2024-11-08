@@ -17,10 +17,6 @@ const NAVIGATION = groq`
 	),
 `;
 
-const POSTS_COUNT = groq`
-	count(*[_type == "post" && references(^._id)])
-`;
-
 const POST_PARTIAL = groq`
 	coverImage { ${ASSET} },
 	title,

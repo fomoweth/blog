@@ -56,7 +56,7 @@ export default function SocialButton({
 					}
 			}
 		}
-	}, [href]);
+	}, []);
 
 	if (!icon) return null;
 
@@ -99,7 +99,7 @@ export default function SocialButton({
 			default:
 				return <span className="[&>svg]:h-5 [&>svg]:w-5">{icon}</span>;
 		}
-	}, [icon, transition, variant]);
+	}, [href, icon, transition, variant]);
 
 	return (
 		<Link

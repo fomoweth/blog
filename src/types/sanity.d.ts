@@ -5,7 +5,6 @@ import type {
 	SanityDocument,
 	TypedObject,
 } from "sanity";
-import type { ColorValue } from "@sanity/color-input";
 import type { SanityImageObject } from "@sanity/image-url/lib/types/types";
 
 declare global {
@@ -74,19 +73,18 @@ declare global {
 			relatedPosts: Array<PostPartial>;
 		}
 
-		interface PostPartial
-			extends Pick<
-				Post,
-				| "coverImage"
-				| "title"
-				| "slug"
-				| "excerpt"
-				| "category"
-				| "tags"
-				| "date"
-				| "sourceCode"
-				| "featured"
-			> {}
+		type PostPartial = Pick<
+			Post,
+			| "coverImage"
+			| "title"
+			| "slug"
+			| "excerpt"
+			| "category"
+			| "tags"
+			| "date"
+			| "sourceCode"
+			| "featured"
+		>;
 
 		interface Project extends SanityDocument {
 			_type: "project";

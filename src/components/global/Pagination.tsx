@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import {
 	Pagination,
 	PaginationContent,
@@ -63,7 +63,7 @@ export default function ({
 
 	useEffect(() => {
 		setPages(getPages(currentPage, lastPage, range));
-	}, [index, length]);
+	}, [currentPage, index, lastPage, length, range]);
 
 	if ((isFirst && isLast) || !pages.length) return null;
 

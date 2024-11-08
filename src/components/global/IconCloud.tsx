@@ -71,7 +71,7 @@ export default function IconCloud({ items, size = 42 }: Props) {
 				},
 			}),
 		);
-	}, [items]);
+	}, [items, size]);
 
 	return (
 		// @ts-ignore

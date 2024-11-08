@@ -1,8 +1,7 @@
 import { useMemo } from "react";
-import { TypeAnimation } from "react-type-animation";
+import { TypeAnimation as TA } from "react-type-animation";
 
-interface Props
-	extends Omit<React.ComponentProps<typeof TypeAnimation>, "sequence"> {
+interface Props extends Omit<React.ComponentProps<typeof TA>, "sequence"> {
 	clear?: boolean;
 	duration?: number;
 	intro?: number;
@@ -17,7 +16,7 @@ type SequenceElement =
 	| number
 	| ((element: HTMLElement | null) => void | Promise<void>);
 
-export default function ({
+export default function TypeAnimation({
 	className,
 	clear = true,
 	cursor = true,
@@ -54,7 +53,7 @@ export default function ({
 	}, [value, clear, duration, intro, outro]);
 
 	return (
-		<TypeAnimation
+		<TA
 			className={className}
 			sequence={sequence}
 			repeat={repeat}
