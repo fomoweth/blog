@@ -34,6 +34,8 @@ export default async function RootLayout({
 						{children}
 						<Footer />
 					</div>
+
+					<VisualEditor />
 				</ThemeProvider>
 			</body>
 		</html>
