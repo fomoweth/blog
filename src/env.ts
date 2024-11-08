@@ -1,8 +1,3 @@
-export const baseUrl = assertValue(
-	"NEXT_PUBLIC_BASE_URL",
-	process.env.NEXT_PUBLIC_BASE_URL,
-);
-
 export const apiVersion = assertValue(
 	"NEXT_PUBLIC_SANITY_API_VERSION",
 	process.env.NEXT_PUBLIC_SANITY_API_VERSION,

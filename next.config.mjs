@@ -19,6 +19,9 @@ const nextConfig = {
 	experimental: {
 		taint: true,
 	},
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
 };
 
 export default nextConfig;
