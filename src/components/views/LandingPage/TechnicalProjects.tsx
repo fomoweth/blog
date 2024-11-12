@@ -39,7 +39,7 @@ export default function TechnicalProjects({ className, items }: Props) {
 
 	return (
 		<div className={className}>
-			<motion.section className="relative mx-auto grid h-full w-[95%] grid-cols-1 lg:grid-cols-5 lg:gap-5">
+			<motion.section className="relative mx-auto grid h-full w-[95%] max-w-screen-2xl grid-cols-1 lg:grid-cols-5 lg:gap-5">
 				<div className="top-0 mx-auto my-20 flex w-[85%] flex-col items-center justify-center space-y-8 text-center lg:sticky lg:col-span-2 lg:my-0 lg:h-screen lg:w-[95%]">
 					<h2 className="title h2 inline-block tracking-tight text-gray-700">
 						Technical Projects
