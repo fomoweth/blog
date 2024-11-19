@@ -5,12 +5,12 @@ import { Terminal as TerminalIcon } from "lucide-react";
 
 import Terminal from "@/components/global/Terminal";
 import { Github } from "@/components/icons";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
-import useImageUrlBuilder from "@/hooks/useImageUrlBuilder";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
+import { urlForImage } from "@/sanity/lib/utils";
 
 interface Props {
 	className: string;
@@ -31,7 +31,6 @@ export default function Panel({
 
 	const ref = useRef<HTMLDivElement>(null);
 	const isInView = useInView(ref, { margin: `${-offset}px` });
-	const builder = useImageUrlBuilder();
 
 	useEffect(() => {
 		if (isInView) {
@@ -94,12 +93,11 @@ export default function Panel({
 												key={slug.current}
 												className="group inline-flex items-center gap-x-2"
 												href={link}
-												rel="noopener noreferrer"
 												target="_blank"
+												rel="noopener noreferrer"
 											>
 												<img
-													src={builder
-														.image(icon)
+													src={urlForImage(icon.asset)
 														.width(30)
 														.height(30)
 														.url()}

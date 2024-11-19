@@ -14,20 +14,17 @@ import Panel from "./Panel";
 import SlidingDisplay from "./SlidingDisplay";
 
 interface Props {
-	author: Sanity.Author;
+	contacts: Array<Sanity.Contact>;
 	projects: Array<Sanity.Project>;
 	protocols: Array<Sanity.Protocol>;
 }
 
-export default function Portfolio({ author, projects, protocols }: Props) {
+export default function Portfolio({ contacts, projects, protocols }: Props) {
 	const [current, setCurrent] = useState<number>(0);
 
 	const github = useMemo(
-		() =>
-			author.contacts.find(
-				(value) => value.label.toLowerCase() === "github",
-			)!,
-		[author],
+		() => contacts.find((value) => value.label.toLowerCase() === "github")!,
+		[contacts],
 	);
 
 	const icons = useMemo(
@@ -42,7 +39,7 @@ export default function Portfolio({ author, projects, protocols }: Props) {
 
 	return (
 		<AppLayout className="w-screen bg-background pb-20">
-			<div className="fixed inset-0 z-0 !m-0 mx-auto grid h-screen w-full place-content-center overflow-hidden bg-background lg:px-20">
+			<div className="pointer-events-none fixed inset-0 z-0 !m-0 mx-auto grid h-screen w-full place-content-center overflow-hidden bg-background lg:px-20">
 				<IconCloud items={icons} />
 			</div>
 
