@@ -1,3 +1,4 @@
+import type { PortableTextBlock } from "next-sanity";
 import type {
 	Asset as SanityAsset,
 	ImageAsset as SanityImage,
@@ -10,7 +11,7 @@ import { TableRow } from "@sanity/table";
 
 declare global {
 	namespace Sanity {
-		// singletons
+		// documents
 
 		interface Settings extends SanityDocument {
 			_type: "settings";
@@ -18,23 +19,15 @@ declare global {
 			title: string;
 			description: string;
 			keywords: Array<string>;
-			copyright: Array<Block>;
-		}
-
-		interface Author extends SanityDocument {
-			_type: "author";
-			name: string;
-			position: { title: string; startDate: string };
-			location: string;
+			paths: Array<{ label: string; href: string }>;
+			copyright: Array<PortableTextBlock>;
 			contacts: Array<Contact>;
+			location: string;
 			resume: Asset;
 		}
 
-		// documents
-
-		interface Category extends SanityDocument {
+		interface Category {
 			_type: "category";
-			id: number;
 			title: string;
 			slug: Slug;
 			numberOfPosts: number;
@@ -65,12 +58,12 @@ declare global {
 			slug: Slug;
 			excerpt: string;
 			category: Category;
-			tags?: Array<string>;
+			tags: Array<string>;
 			date: string;
 			sourceCode?: string;
-			content: Array<Block>;
+			featured: boolean;
 			navigation: Navigation;
-			featured?: boolean;
+			content: Array<PortableTextBlock>;
 			relatedPosts: Array<PostPartial>;
 		}
 
@@ -99,7 +92,7 @@ declare global {
 			stacks?: Array<string>;
 			protocols?: Array<Protocol>;
 			bulletPoints: Array<string>;
-			featured?: boolean;
+			featured: boolean;
 		}
 
 		interface Protocol extends SanityDocument {
@@ -113,6 +106,19 @@ declare global {
 
 		// objects
 
+		interface Asset {
+			_type: "file" | "image" | string;
+			asset: SanityAsset;
+		}
+
+		interface Code extends TypedObject {
+			_type: "code";
+			code: string;
+			filename?: string;
+			language: string;
+			highlightedLines?: Array<number>;
+		}
+
 		interface Contact {
 			_key: string;
 			label: string;
@@ -120,10 +126,31 @@ declare global {
 			color: string;
 		}
 
+		type Domain =
+			| "programming-languages"
+			| "web3"
+			| "front-end"
+			| "back-end"
+			| "database"
+			| "spoken-languages";
+
 		interface Duration {
 			_type: "duration";
 			start: string;
 			end: string;
+		}
+
+		interface Heading {
+			style: "h2" | "h3" | "h4" | "h5" | "h6";
+			text: string;
+		}
+
+		interface Image extends SanityImageObject {
+			_type: "image";
+			asset: SanityImage;
+			alt?: string;
+			caption?: string;
+			float?: "left" | "right" | "none";
 		}
 
 		interface Navigation {
@@ -141,40 +168,6 @@ declare global {
 		interface Slug {
 			_type: "slug";
 			current: string;
-		}
-
-		interface Asset {
-			_type: "file" | "image" | string;
-			asset: SanityAsset;
-		}
-
-		interface Code extends TypedObject {
-			_type: "code";
-			code: string;
-			filename?: string;
-			language: string;
-			highlightedLines?: Array<number>;
-		}
-
-		interface Image extends SanityImageObject {
-			_type: "image";
-			asset: SanityImage;
-			alt?: string;
-			caption?: string;
-			float?: "left" | "right" | "none";
-		}
-
-		type Domain =
-			| "programming-languages"
-			| "web3"
-			| "front-end"
-			| "back-end"
-			| "database"
-			| "spoken-languages";
-
-		interface Heading {
-			style: "h2" | "h3" | "h4" | "h5" | "h6";
-			text: string;
 		}
 
 		interface Table extends TypedObject {

@@ -62,11 +62,26 @@ export default defineType({
 			type: "array",
 			of: [
 				defineArrayMember({
-					type: "string",
+					title: "Tag",
+					name: "tag",
+					type: "object",
+					fields: [
+						defineField({
+							title: "Label",
+							name: "label",
+							type: "string",
+							validation: (rule) => rule.required(),
+						}),
+						defineField({
+							title: "Featured",
+							name: "featured",
+							type: "boolean",
+							initialValue: false,
+						}),
+					],
 				}),
 			],
 			group: "seo",
-			validation: (rule) => rule.max(3),
 		}),
 		defineField({
 			title: "Category",
@@ -114,32 +129,11 @@ export default defineType({
 			group: "editorial",
 		}),
 		defineField({
-			title: "Navigation",
-			name: "navigation",
-			type: "object",
+			title: "Navigated",
+			name: "navigated",
+			type: "boolean",
 			group: "options",
-			fields: [
-				defineField({
-					title: "Enabled",
-					name: "enabled",
-					type: "boolean",
-					initialValue: true,
-				}),
-				defineField({
-					title: "Position",
-					name: "position",
-					type: "string",
-					options: {
-						layout: "radio",
-						list: [
-							{ title: "Left", value: "left" },
-							{ title: "Right", value: "right" },
-						],
-					},
-					initialValue: "right",
-					hidden: ({ parent }) => !parent?.enabled,
-				}),
-			],
+			initialValue: true,
 		}),
 		defineField({
 			title: "Featured",

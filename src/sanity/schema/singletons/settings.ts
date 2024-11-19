@@ -63,11 +63,26 @@ export default defineType({
 			type: "array",
 			of: [
 				defineArrayMember({
-					type: "string",
+					title: "Path",
+					name: "path",
+					type: "object",
+					fields: [
+						defineField({
+							title: "Label",
+							name: "label",
+							type: "string",
+							validation: (rule) => rule.required(),
+						}),
+						defineField({
+							title: "Link",
+							name: "href",
+							type: "string",
+							validation: (rule) => rule.required(),
+						}),
+					],
 				}),
 			],
 			group: "editorial",
-			// validation: (rule) => rule.required(),
 		}),
 		defineField({
 			title: "Introduction",
@@ -80,7 +95,6 @@ export default defineType({
 				}),
 			],
 			group: "editorial",
-			validation: (rule) => rule.required(),
 		}),
 		defineField({
 			title: "Copyright",
@@ -96,8 +110,8 @@ export default defineType({
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
-			title: "Contact",
-			name: "contact",
+			title: "Contacts",
+			name: "contacts",
 			type: "array",
 			of: [
 				defineArrayMember({
@@ -110,14 +124,14 @@ export default defineType({
 							options: {
 								layout: "radio",
 								list: [
-									{ title: "Email", value: "email" },
-									{ title: "Github", value: "github" },
-									{ title: "LinkedIn", value: "linkedin" },
-									{ title: "Telegram", value: "telegram" },
-									{ title: "X", value: "x" },
+									"Email",
+									"Github",
+									"LinkedIn",
+									"Telegram",
+									"X",
 								],
 							},
-							initialValue: "email",
+							initialValue: "Email",
 							validation: (rule) => rule.required(),
 						}),
 						defineField({
@@ -133,7 +147,7 @@ export default defineType({
 											{}) as any;
 
 										const protocol =
-											label === "email"
+											label === "Email"
 												? "mailto:"
 												: "https:";
 
@@ -166,7 +180,6 @@ export default defineType({
 			name: "location",
 			type: "string",
 			group: "general",
-			initialValue: "California",
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
