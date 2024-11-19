@@ -3,6 +3,7 @@ import { structureTool } from "sanity/structure";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 import { codeInput } from "@sanity/code-input";
 import { colorInput } from "@sanity/color-input";
+import { table } from "@sanity/table";
 import { visionTool } from "@sanity/vision";
 
 import { apiVersion } from "@/env";
@@ -45,6 +46,7 @@ const plugins = [
 		],
 	}),
 	colorInput(),
+	table(),
 	unsplashImageAsset(),
 ];
 

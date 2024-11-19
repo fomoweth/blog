@@ -1,9 +1,14 @@
 import { defineArrayMember, defineField } from "sanity";
-import { BlockElementIcon, CodeBlockIcon, ImageIcon } from "@sanity/icons";
+import {
+	BlockContentIcon,
+	CodeBlockIcon,
+	ImageIcon,
+	ThListIcon,
+} from "@sanity/icons";
 import { FaYoutube } from "react-icons/fa6";
 
 export default defineField({
-	icon: BlockElementIcon,
+	icon: BlockContentIcon,
 	title: "Content",
 	name: "content",
 	type: "array",
@@ -123,6 +128,30 @@ export default defineField({
 				],
 				withFilename: true,
 			},
+		}),
+		defineArrayMember({
+			icon: ThListIcon,
+			title: "Table",
+			name: "table",
+			type: "object",
+			fields: [
+				defineField({
+					title: "Label",
+					name: "label",
+					type: "string",
+				}),
+				defineField({
+					title: "Caption",
+					name: "caption",
+					type: "string",
+				}),
+				defineField({
+					title: "Schema",
+					name: "schema",
+					type: "table",
+					validation: (rule) => rule.required(),
+				}),
+			],
 		}),
 		defineArrayMember({
 			icon: FaYoutube,

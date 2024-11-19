@@ -38,7 +38,16 @@ const POST = groq`
 	category ->,
 	date,
 	sourceCode,
-	"content": select(_type == "image" => asset ->, content),
+	content[] {
+		...,
+		asset ->,
+		markDefs[] {
+			...,
+			_type == "internalLink" => {
+				"slug": @.reference -> slug
+			}
+		}
+	},
 	navigation { ${NAVIGATION} },
 	featured,
 	relatedPosts[] -> { ${POST_PARTIAL} }
