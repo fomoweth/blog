@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 
-import DateTime from "@/components/elements/DateTime";
-import ReadTime from "@/components/elements/ReadTime";
 import Banner from "@/components/elements/Banner";
+import DateTime from "@/components/elements/DateTime";
 import Img from "@/components/elements/Img";
+import ReadTime from "@/components/elements/ReadTime";
 import Breadcrumbs from "@/components/global/Breadcrumbs";
 import { Github } from "@/components/icons";
 import AppLayout from "@/components/layouts/AppLayout";
@@ -33,8 +33,7 @@ export default function Post({ post, prev, next }: Props) {
 		navigation,
 		relatedPosts,
 		sourceCode,
-		slug,
-		tags,
+		tags = [],
 		title,
 	} = post;
 
@@ -47,7 +46,7 @@ export default function Post({ post, prev, next }: Props) {
 					className={cn(
 						"relative mx-auto max-w-screen-2xl",
 						"grid grid-cols-1",
-						navigation.enabled && "md:grid-cols-[1fr,auto]",
+						!!navigation.enabled && "md:grid-cols-[1fr,auto]",
 					)}
 				>
 					{!!navigation.enabled && !!navigation.headings.length && (
@@ -55,8 +54,6 @@ export default function Post({ post, prev, next }: Props) {
 					)}
 
 					<article
-						id={slug.current}
-						// className="mx-auto w-full px-4 md:max-w-[486px] lg:max-w-[732px] xl:max-w-[792px]"
 						className="mx-auto w-full max-w-screen-lg px-4"
 						title={title}
 					>
@@ -78,7 +75,7 @@ export default function Post({ post, prev, next }: Props) {
 										{category.title}
 									</Badge>
 
-									{tags?.map((tag, idx) => (
+									{tags.map((tag, idx) => (
 										<Badge key={idx}>{tag}</Badge>
 									))}
 								</div>
@@ -86,12 +83,15 @@ export default function Post({ post, prev, next }: Props) {
 								<div className="my-2 inline-flex items-center gap-x-3 xl:gap-x-5">
 									{sourceCode && (
 										<Link
-											className="inline-flex items-center gap-x-2 text-sm"
+											className="group inline-flex items-center gap-x-2 text-sm"
 											href={sourceCode}
-											rel="noopener noreferrer"
 											target="_blank"
+											rel="noopener noreferrer"
 										>
 											<Github className="h-5 w-5" />
+											<span className="hidden group-hover:underline md:block">
+												Source Code
+											</span>
 										</Link>
 									)}
 

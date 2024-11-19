@@ -41,19 +41,19 @@ export default function Content({ value }: Props) {
 					},
 					marks: {
 						link: ({ children, value }) => (
-							<a
+							<Link
 								href={value.href}
 								target="_blank"
 								rel="noopener noreferrer"
 							>
 								{children}
-							</a>
+							</Link>
 						),
 						internalLink: ({ children, value }) => {
-							const { slug = {} } = value;
+							if (!value.slug) return null;
 
 							return (
-								<Link href={`/blog/${slug.current || ""}`}>
+								<Link href={`/blog/${value.slug.current}`}>
 									{children}
 								</Link>
 							);
