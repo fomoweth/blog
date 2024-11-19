@@ -7,37 +7,29 @@ const ASSET = groq`
 	asset ->,
 `;
 
-const NAVIGATION = groq`
-	enabled,
-	"headings": select(
-		enabled => ^.content[style in ["h2", "h3", "h4", "h5", "h6"]] {
-			style,
-			"text": pt::text(@)
-		}
-	),
+const DOCUMENT = groq`
+	_id,
+	_type,
+	_createdAt,
+	_updatedAt,
+	_rev
 `;
 
 const POST_PARTIAL = groq`
+	${DOCUMENT},
 	coverImage { ${ASSET} },
 	title,
 	slug,
 	excerpt,
 	category ->,
-	tags[],
+	"tags": coalesce(tags[featured == true].label, []) [0...3],
 	date,
 	sourceCode,
-	featured,
+	featured
 `;
 
 const POST = groq`
-	coverImage { ${ASSET} },
-	title,
-	slug,
-	excerpt,
-	tags[],
-	category ->,
-	date,
-	sourceCode,
+	${POST_PARTIAL},
 	content[] {
 		...,
 		asset ->,
@@ -48,12 +40,20 @@ const POST = groq`
 			}
 		}
 	},
-	navigation { ${NAVIGATION} },
-	featured,
+	"navigation": { 
+		"enabled": navigated,
+		"headings": select(
+			navigated => content[style in ["h2", "h3", "h4", "h5", "h6"]] {
+				style,
+				"text": pt::text(@)
+			}
+		),
+	},
 	relatedPosts[] -> { ${POST_PARTIAL} }
 `;
 
 const PROJECT = groq`
+	${DOCUMENT},
 	title,
 	slug,
 	description,
@@ -75,31 +75,26 @@ const PROJECT = groq`
 export async function loadLandingPage() {
 	return await fetch<{
 		settings: Sanity.Settings;
-		author: Sanity.Author;
 		expertise: Array<Sanity.Expertise>;
 		experiences: Array<Sanity.Experience>;
 		projects: Array<Sanity.Project>;
-		posts: Array<Sanity.Post>;
+		posts: Array<Sanity.PostPartial>;
 	}>({
 		query: groq`{
 			"settings": *[_type == "settings"][0] {
-				...,
+				${DOCUMENT},
 				ogImage { ${ASSET} },
 				title,
 				description,
 				keywords[],
+				paths[],
 				copyright,
-			},
-			"author": *[_type == "author"][0] {
-				...,
-				name,
-				position,
-				location,
 				contacts[] { ..., "color": upper(color.hex) },
+				location,
 				resume { ${ASSET} }
 			},
 			"expertise": *[_type == "expertise"] | order(id asc) {
-				...,
+				${DOCUMENT},
 				id,
 				domain,
 				skills[] {
@@ -110,7 +105,7 @@ export async function loadLandingPage() {
 				}
 			},
 			"experiences": *[_type == "experience"] | order(duration.start desc) {
-				...,
+				${DOCUMENT},
 				logo { ${ASSET} },
 				title,
 				description,
@@ -119,11 +114,10 @@ export async function loadLandingPage() {
 				duration,
 				roles[]
 			},
-			"projects": *[_type == "project" && defined(slug.current) && featured == true] | order(duration.start desc) {
-				...,
+			"projects": *[_type == "project" && defined(slug.current) && featured == true] | order(duration.start desc) [0...4] {
 				${PROJECT}
 			},
-			"posts": *[_type == "post" && defined(slug.current) && category.slug != "misc"] | order(date, asc) {
+			"posts": *[_type == "post" && defined(slug.current) && category -> slug.current != "misc"] | order(date desc) [0...4] {
 				${POST_PARTIAL}
 			}
 		}`,
@@ -143,12 +137,16 @@ export async function loadSettings() {
 	return await fetch<Sanity.Settings>({
 		query: groq`
 			*[_type == "settings"][0] {
-				...,
+				${DOCUMENT},
 				ogImage { ${ASSET} },
 				title,
 				description,
 				keywords[],
+				paths[],
 				copyright,
+				contacts[] { ..., "color": upper(color.hex) },
+				location,
+				resume { ${ASSET} }
 			}
 		`,
 		params: {},
@@ -156,28 +154,10 @@ export async function loadSettings() {
 	});
 }
 
-export async function loadAuthor() {
-	return await fetch<Sanity.Author>({
-		query: groq`
-			*[_type == "author"][0] {
-				...,
-				name,
-				position,
-				location,
-				contacts[] { ..., "color": upper(color.hex) },
-				resume { ${ASSET} },
-			}
-		`,
-		params: {},
-		tags: ["author"],
-	});
-}
-
 export async function loadProjects() {
 	return await fetch<Array<Sanity.Project>>({
 		query: groq`
 			*[_type == "project" && defined(slug.current)] | order(duration.start desc) {
-				...,
 				${PROJECT}
 			}
 		`,
@@ -187,15 +167,12 @@ export async function loadProjects() {
 }
 
 export async function loadPosts() {
-	const query = groq`
-			*[_type == "post" && defined(slug.current)] | order(date, desc) {
-				...,
+	return await fetch<Array<Sanity.Post>>({
+		query: groq`
+			*[_type == "post" && defined(slug.current)] | order(date desc) {
 				${POST}
 			}
-		`;
-
-	return await fetch<Array<Sanity.Post>>({
-		query,
+		`,
 		params: {},
 		tags: ["post"],
 	});
@@ -210,7 +187,6 @@ export async function loadPost(slug: string) {
 		query: groq`
 			*[_type == "post" && slug.current == $slug][0] {
 				"post": {
-					...,
 					${POST}
 				},
 				"prev": *[_type == "post" && ^.date > date] | order(date desc)[0] { 
@@ -230,7 +206,9 @@ export async function loadCategories() {
 	return await fetch<Array<Sanity.Category>>({
 		query: groq`
 			*[_type == "category" && defined(slug.current)] | order(title) {
-				...,
+				_type,
+				title,
+				slug,
 				"numberOfPosts": count(*[_type == "post" && references(^._id)]),
 			}
 		`,
@@ -242,13 +220,13 @@ export async function loadCategories() {
 export async function loadProtocols() {
 	return await fetch<Array<Sanity.Protocol>>({
 		query: groq`
-			*[_type == "protocol" && defined(slug.current)] {
-				...,
+			*[_type == "protocol" && defined(slug.current)] | order(label) {
+				${DOCUMENT},
 				label,
 				slug,
 				ticker,
-				link,
-				icon { ${ASSET} }
+				icon { ${ASSET} },
+				link
 			}
 		`,
 		params: {},
