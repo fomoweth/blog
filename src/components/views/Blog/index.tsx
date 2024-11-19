@@ -13,10 +13,10 @@ import Categories from "./Categories";
 
 interface Props {
 	categories: Array<Sanity.Category>;
-	posts: Array<Sanity.Post>;
+	posts: Array<Sanity.PostPartial>;
 }
 
-const POSTS_PER_LOAD = 9;
+const POSTS_PER_LOAD = 6;
 
 export default function Blog({ categories, posts }: Props) {
 	const { category: selected, reset } = useCategoryStore();
