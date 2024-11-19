@@ -1,10 +1,19 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import type { ImageUrlBuilder } from "sanity";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { UrlObject } from "url";
 
 import siteConfig from "@/config";
+
+const {
+	author,
+	description: siteDescription,
+	keywords,
+	title: siteName,
+	twitter,
+	url,
+} = siteConfig;
 
 export function cn(...values: ClassValue[]): string {
 	return twMerge(clsx(values));
@@ -32,59 +41,67 @@ export function truncate(value: string, length: number = 10): string {
 }
 
 export function absoluteUrl(path: string): string {
-	return new URL(path, siteConfig.url).href;
+	return new URL(path, url).href;
 }
 
 export function constructMetadata({
-	title = siteConfig.title,
-	description = siteConfig.description,
+	title = siteName,
+	description = siteDescription,
 	image = absoluteUrl("/og"),
+	tags = [],
+	openGraph = {},
 	...props
 }: {
 	title?: string;
 	description?: string;
 	image?: string;
+	tags?: Array<string>;
+	openGraph?: Metadata["openGraph"];
 	[key: string]: Metadata[keyof Metadata];
 }): Metadata {
+	const images = [
+		{
+			url: image,
+			alt: title,
+			width: 1200,
+			height: 630,
+		},
+	];
+
 	return {
-		metadataBase: new URL(siteConfig.url),
+		metadataBase: new URL(url),
 		authors: [
 			{
-				name: siteConfig.author,
-				url: siteConfig.url,
+				name: author,
+				url,
 			},
 		],
-		creator: siteConfig.author,
+		creator: author,
 		title: {
+			default: siteName,
 			template: title,
-			default: siteConfig.title,
 		},
-		applicationName: siteConfig.title,
+		applicationName: siteName,
 		description,
-		keywords: siteConfig.keywords,
-		openGraph: {
-			title,
-			description,
-			url: siteConfig.url,
-			siteName: siteConfig.title,
-			images: [
-				{
-					url: image,
-					width: 1200,
-					height: 630,
-					alt: title,
-				},
-			],
-			type: "website",
-			locale: "en_US",
-		},
+		keywords: keywords.concat(tags),
+		openGraph: Object.assign(
+			{
+				title,
+				description,
+				url,
+				siteName,
+				images,
+				type: "website",
+				locale: "en_US",
+			},
+			openGraph,
+		),
 		twitter: {
 			card: "summary_large_image",
-			creator: siteConfig.twitter,
-			site: siteConfig.url,
-			title: siteConfig.title,
-			description: siteConfig.description,
-			images: [image],
+			site: twitter,
+			title,
+			description,
+			images,
 		},
 		icons: "/favicon.ico",
 		robots: {
@@ -102,13 +119,13 @@ export function constructMetadata({
 	};
 }
 
-export function isExternal(url: string | UrlObject = "#"): boolean {
-	if (typeof url === "string") {
-		if (!URL.canParse(url)) return false;
-		url = new URL(url);
+export function isExternal(value: string | UrlObject = "#"): boolean {
+	if (typeof value === "string") {
+		if (!URL.canParse(value)) return false;
+		value = new URL(value);
 	}
 
-	return url.protocol === "https:" || url.protocol === "mailto:";
+	return value.protocol === "https:" || value.protocol === "mailto:";
 }
 
 export function parseYears(value: string): number {
