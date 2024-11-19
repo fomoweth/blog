@@ -33,9 +33,7 @@ export default function Callout({
 	const resolve = (
 		children: React.ReactNode | undefined,
 		wrapped: React.ReactNode,
-	) => {
-		return typeof children !== "string" ? children : wrapped;
-	};
+	) => (typeof children !== "string" ? children : wrapped);
 
 	switch (level) {
 		case 1:
@@ -49,6 +47,7 @@ export default function Callout({
 									{subtitle}
 								</h2>,
 							)}
+
 							{resolve(
 								title,
 								<h4 className="mx-auto mb-2 max-w-3xl text-balance text-[42px] font-medium tracking-tighter">

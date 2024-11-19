@@ -63,8 +63,8 @@ export default function Experience({ items }: Props) {
 						<Link
 							className="group z-10 flex items-center gap-x-2.5 hover:opacity-80"
 							href={link}
-							rel="noopener noreferrer"
 							target="_blank"
+							rel="noopener noreferrer"
 						>
 							<Image
 								className="h-[30px] w-[30px] rounded-full object-cover"
@@ -126,7 +126,7 @@ export default function Experience({ items }: Props) {
 			<div className="mb-8 flex items-center justify-between gap-4 md:mb-16">
 				<h2 className="title h2 inline-block text-gray-700">
 					Experience
-					<span className="bg-cobalt-blue ml-1 inline-block size-2 md:size-2.5 lg:size-3" />
+					<span className="ml-1 inline-block size-2 bg-cobalt-blue md:size-2.5 lg:size-3" />
 				</h2>
 
 				<div className="hidden gap-2 md:flex lg:hidden">

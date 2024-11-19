@@ -5,12 +5,11 @@ import DateTime from "@/components/elements/DateTime";
 import Callout from "@/components/global/Callout";
 import { Badge } from "@/components/ui/badge";
 
-import { cn } from "@/lib/utils";
 import { urlForImage } from "@/sanity/lib/utils";
 
 interface Props {
 	className: string;
-	items: Array<Sanity.Post>;
+	items: Array<Sanity.PostPartial>;
 }
 
 export default function LatestPosts({ className, items }: Props) {
@@ -26,17 +25,15 @@ export default function LatestPosts({ className, items }: Props) {
 					</h2>
 
 					<div className="mx-auto grid w-full grid-cols-1 gap-4 md:gap-8 lg:grid-cols-2">
-						{items.map((item) => {
-							const {
+						{items.map(
+							({
 								category,
 								coverImage,
 								date,
 								slug,
-								tags,
+								tags = [],
 								title,
-							} = item;
-
-							return (
+							}) => (
 								<motion.a
 									key={slug.current}
 									className="group relative h-[300px] w-full overflow-hidden rounded-3xl"
@@ -58,8 +55,11 @@ export default function LatestPosts({ className, items }: Props) {
 									<div className="relative z-20 flex h-full flex-col justify-between px-5 py-4">
 										<div className="inline-flex items-center justify-between">
 											<div className="inline-flex items-center gap-x-4">
-												{tags?.map((tag, idx) => (
-													<Badge key={idx}>
+												{tags.map((tag, idx) => (
+													<Badge
+														key={idx}
+														className="min-w-fit"
+													>
 														{tag}
 													</Badge>
 												))}
@@ -88,8 +88,8 @@ export default function LatestPosts({ className, items }: Props) {
 										</div>
 									</div>
 								</motion.a>
-							);
-						})}
+							),
+						)}
 					</div>
 				</div>
 

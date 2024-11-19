@@ -167,10 +167,10 @@ export async function loadProjects() {
 }
 
 export async function loadPosts() {
-	return await fetch<Array<Sanity.Post>>({
+	return await fetch<Array<Sanity.PostPartial>>({
 		query: groq`
 			*[_type == "post" && defined(slug.current)] | order(date desc) {
-				${POST}
+				${POST_PARTIAL}
 			}
 		`,
 		params: {},

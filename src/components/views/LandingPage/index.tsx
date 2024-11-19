@@ -15,15 +15,15 @@ import Profile from "./Profile";
 import TechnicalProjects from "./TechnicalProjects";
 
 interface Props {
-	author: Sanity.Author;
+	settings: Sanity.Settings;
 	experiences: Array<Sanity.Experience>;
 	expertise: Array<Sanity.Expertise>;
-	posts: Array<Sanity.Post>;
+	posts: Array<Sanity.PostPartial>;
 	projects: Array<Sanity.Project>;
 }
 
 export default function LandingPage({
-	author,
+	settings,
 	experiences,
 	expertise,
 	posts,
@@ -56,7 +56,10 @@ export default function LandingPage({
 					progress={scrollYProgress}
 					total={4}
 				>
-					<Profile author={author} />
+					<Profile
+						contacts={settings.contacts}
+						resume={settings.resume}
+					/>
 				</Parallax>
 				<Parallax
 					className="bg-slate-100"

@@ -22,10 +22,8 @@ export default function Collection({ className, items }: Props) {
 				className,
 			)}
 		>
-			{items.map((item) => {
-				const { category, coverImage, date, slug, tags, title } = item;
-
-				return (
+			{items.map(
+				({ category, coverImage, date, slug, tags = [], title }) => (
 					<Link
 						key={slug.current}
 						className="group h-[340px]"
@@ -41,12 +39,14 @@ export default function Collection({ className, items }: Props) {
 								}}
 							>
 								<div className="inline-flex items-center gap-x-2">
-									{tags?.map((tag, idx) => (
-										<Badge key={idx}>{tag}</Badge>
+									{tags.map((tag, idx) => (
+										<Badge key={idx} className="min-w-fit">
+											{tag}
+										</Badge>
 									))}
 								</div>
 							</CardContent>
-							<CardFooter className="px-6 py-4">
+							<CardFooter className="pt-6">
 								<div className="flex flex-col items-start gap-y-2.5">
 									<div className="-ml-1 inline-flex items-center gap-x-3">
 										<Badge variant="outline">
@@ -69,8 +69,8 @@ export default function Collection({ className, items }: Props) {
 							</CardFooter>
 						</Card>
 					</Link>
-				);
-			})}
+				),
+			)}
 		</div>
 	);
 }
