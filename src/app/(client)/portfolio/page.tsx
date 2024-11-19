@@ -1,7 +1,11 @@
 import View from "@/components/views/Portfolio";
 
 import { constructMetadata } from "@/lib/utils";
-import { loadAuthor, loadProjects, loadProtocols } from "@/sanity/lib/queries";
+import {
+	loadProjects,
+	loadProtocols,
+	loadSettings,
+} from "@/sanity/lib/queries";
 
 export const metadata = constructMetadata({
 	title: "Portfolio",
@@ -9,11 +13,17 @@ export const metadata = constructMetadata({
 });
 
 export default async function Page() {
-	const [author, projects, protocols] = await Promise.all([
-		loadAuthor(),
+	const [projects, protocols, settings] = await Promise.all([
 		loadProjects(),
 		loadProtocols(),
+		loadSettings(),
 	]);
 
-	return <View author={author} projects={projects} protocols={protocols} />;
+	return (
+		<View
+			contacts={settings.contacts}
+			projects={projects}
+			protocols={protocols}
+		/>
+	);
 }

@@ -5,8 +5,9 @@ import { groq } from "next-sanity";
 import View from "@/components/views/Post";
 
 import siteConfig from "@/config";
-import { constructMetadata } from "@/lib/utils";
+import { absoluteUrl, constructMetadata } from "@/lib/utils";
 import client from "@/sanity/lib/client";
+import fetch from "@/sanity/lib/fetch";
 import { loadPost } from "@/sanity/lib/queries";
 
 interface Props {
@@ -16,32 +17,45 @@ interface Props {
 export async function generateMetadata({
 	params: { slug },
 }: Props): Promise<Metadata | undefined> {
-	const { post } = await loadPost(slug);
-
 	const {
-		coverImage: {
-			asset: { url: image },
-		},
+		coverImage: image,
+		description,
+		modifiedTime,
+		publishedTime,
+		tags = [],
 		title,
-		date: publishedTime,
-		excerpt: description,
-	} = post;
+	} = await fetch<{
+		coverImage: string;
+		description: string;
+		modifiedTime: string;
+		publishedTime: string;
+		tags: Array<string>;
+		title: string;
+	}>({
+		query: groq`*[_type == "post" && slug.current == $slug][0] {
+			"coverImage": coverImage.asset -> url,
+			title,
+			"description": excerpt,
+			"tags": tags[].label,
+			"publishedTime": date,
+			"modifiedTime": _updatedAt,
+		}`,
+		params: { slug },
+		tags: ["post"],
+	});
 
 	return constructMetadata({
 		title,
 		description,
+		tags,
 		image,
 		openGraph: {
-			title,
-			description,
 			type: "article",
+			url: absoluteUrl(`/blog/${slug}`),
+			authors: siteConfig.author,
 			publishedTime,
-			url: `${siteConfig.url}/blog/${post.slug.current}`,
-			images: [
-				{
-					url: image,
-				},
-			],
+			modifiedTime,
+			tags: siteConfig.keywords.concat(tags),
 		},
 	});
 }

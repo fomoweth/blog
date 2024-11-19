@@ -15,5 +15,5 @@ export default async function Page() {
 		loadPosts(),
 	]);
 
-	return <View categories={categories} posts={posts.reverse()} />;
+	return <View categories={categories} posts={posts} />;
 }

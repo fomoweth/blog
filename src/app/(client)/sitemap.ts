@@ -1,7 +1,8 @@
 import { MetadataRoute } from "next";
 import { headers } from "next/headers";
+import { groq } from "next-sanity";
 
-import { loadPosts } from "@/sanity/lib/queries";
+import fetch from "@/sanity/lib/fetch";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const headersList = headers();
@@ -10,12 +11,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 	const baseUrl = `${protocol}://${domain}`;
 
-	const posts = await loadPosts();
-
-	const postUrls = posts.map((post) => ({
-		url: `${baseUrl}/post/${post.slug.current}`,
-		lastModified: post._updatedAt,
-	}));
+	const postUrls = await fetch<Array<{ url: string; lastModified: string }>>({
+		query: groq`
+			*[_type == "post" && defined(slug.current)] {
+				"url": $baseUrl + slug.current,
+				"lastModified": _updatedAt
+			}
+		`,
+		params: { type: "post", baseUrl: `${baseUrl}/blog/` },
+		tags: ["post"],
+	});
 
 	return [
 		{

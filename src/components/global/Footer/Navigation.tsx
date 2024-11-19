@@ -1,18 +1,21 @@
-"use client";
-
 import { useMemo } from "react";
 import Link from "next/link";
 
-import siteConfig from "@/config";
 import { cn, isExternal } from "@/lib/utils";
 
 interface Props {
 	className: string;
 	contacts: Array<Sanity.Contact>;
+	paths: Array<{ href: string; label: string }>;
 	resume: Sanity.Asset;
 }
 
-export default function Navigation({ className, contacts, resume }: Props) {
+export default function Navigation({
+	className,
+	contacts,
+	paths,
+	resume,
+}: Props) {
 	const { email, github, linkedin, telegram, x } = useMemo(
 		() =>
 			contacts.reduce<{ [key: string]: Sanity.Contact }>(
@@ -34,7 +37,7 @@ export default function Navigation({ className, contacts, resume }: Props) {
 		>
 			<Column
 				title="Directory"
-				links={[{ href: "/", label: "home" }, ...siteConfig.paths]}
+				links={[{ href: "/", label: "Home" }, ...paths]}
 			/>
 			<Column
 				title="Resources"

@@ -7,6 +7,7 @@ import ThemeProvider from "@/components/ThemeProvider";
 import VisualEditor from "@/components/VisualEditor";
 
 import { cn } from "@/lib/utils";
+import { loadSettings } from "@/sanity/lib/queries";
 import { inter, orbiter, roboto_flex, roboto_mono } from "@/styles/fonts";
 import "@/styles/globals.css";
 
@@ -15,6 +16,8 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const settings = await loadSettings();
+
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body
@@ -33,9 +36,9 @@ export default async function RootLayout({
 					enableSystem={false}
 				>
 					<div className="relative">
-						<Header />
+						<Header settings={settings} />
 						{children}
-						<Footer />
+						<Footer settings={settings} />
 					</div>
 
 					<Analytics />
