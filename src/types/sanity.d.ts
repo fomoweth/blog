@@ -1,11 +1,12 @@
-import type { PortableTextBlock } from "next-sanity";
 import type {
 	Asset as SanityAsset,
 	ImageAsset as SanityImage,
 	SanityDocument,
 	TypedObject,
 } from "sanity";
+import { CodeInputValue } from "@sanity/code-input";
 import type { SanityImageObject } from "@sanity/image-url/lib/types/types";
+import { TableRow } from "@sanity/table";
 
 declare global {
 	namespace Sanity {
@@ -149,9 +150,9 @@ declare global {
 
 		interface Code extends TypedObject {
 			_type: "code";
-			language: string;
 			code: string;
 			filename?: string;
+			language: string;
 			highlightedLines?: Array<number>;
 		}
 
@@ -162,8 +163,6 @@ declare global {
 			caption?: string;
 			float?: "left" | "right" | "none";
 		}
-
-		type Block = PortableTextBlock;
 
 		type Domain =
 			| "programming-languages"
@@ -176,6 +175,14 @@ declare global {
 		interface Heading {
 			style: "h2" | "h3" | "h4" | "h5" | "h6";
 			text: string;
+		}
+
+		interface Table extends TypedObject {
+			_key: string;
+			_type: "table";
+			caption?: string;
+			label?: string;
+			schema: { rows: TableRow[] };
 		}
 	}
 }

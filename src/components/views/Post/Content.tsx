@@ -1,12 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { PortableText, type PortableTextBlock } from "next-sanity";
 
-import { cn, isExternal } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 import Code from "./Code";
 import Heading from "./Heading";
 import Image from "./Image";
+import Table from "./Table";
 
 interface Props {
 	value: Array<PortableTextBlock>;
@@ -41,18 +43,26 @@ export default function Content({ value }: Props) {
 						link: ({ children, value }) => (
 							<a
 								href={value.href}
-								{...(isExternal(value.href) && {
-									target: "_blank",
-									rel: "noopener noreferrer",
-								})}
+								target="_blank"
+								rel="noopener noreferrer"
 							>
 								{children}
 							</a>
 						),
+						internalLink: ({ children, value }) => {
+							const { slug = {} } = value;
+
+							return (
+								<Link href={`/blog/${slug.current || ""}`}>
+									{children}
+								</Link>
+							);
+						},
 					},
 					types: {
 						code: Code,
 						image: Image,
+						table: Table,
 					},
 				}}
 				value={value}
