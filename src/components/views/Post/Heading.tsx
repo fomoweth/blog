@@ -3,7 +3,7 @@ import type {
 	PortableTextComponentProps,
 } from "next-sanity";
 
-import { sluggify } from "@/lib/utils";
+import { slugify } from "@/lib/utils";
 
 interface Props extends PortableTextComponentProps<PortableTextBlock> {
 	as: keyof JSX.IntrinsicElements;
@@ -15,7 +15,7 @@ export default function Heading({ as: Tag, children, color, value }: Props) {
 
 	return (
 		<Tag
-			id={sluggify(id)}
+			id={slugify(id)}
 			className="group"
 			style={{ "--highlight": color || "#3B82F6" } as React.CSSProperties}
 		>

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 
-import { cn, sluggify } from "@/lib/utils";
+import { cn, slugify } from "@/lib/utils";
 
 import styles from "./Navigation.module.css";
 
@@ -13,7 +13,7 @@ export default function Navigation({ className, value }: Props) {
 	const headings = useMemo(
 		() =>
 			value.headings.map(({ style, text }) => ({
-				slug: sluggify(text),
+				slug: slugify(text),
 				style,
 				text,
 			})),
@@ -76,12 +76,12 @@ export default function Navigation({ className, value }: Props) {
 						>
 							<a
 								className={cn(
-									"block py-2 hover:underline",
+									"block py-1 hover:underline",
 									style == "h2" && "pl-4",
-									style == "h3" && "pl-6",
-									style == "h4" && "pl-8",
-									style == "h5" && "pl-10",
-									style == "h6" && "pl-12",
+									style == "h3" && "pl-6 text-sm",
+									style == "h4" && "pl-8 text-sm",
+									style == "h5" && "pl-10 text-xs",
+									style == "h6" && "pl-12 text-xs",
 								)}
 								href={`#${slug}`}
 							>

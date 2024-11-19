@@ -40,12 +40,12 @@ export default function Post({ post, prev, next }: Props) {
 
 	return (
 		<AppLayout className="w-screen pt-20">
-			<Breadcrumbs className="my-5 max-w-screen-lg" title={title} />
+			<Breadcrumbs className="my-5 max-w-screen-xl" title={title} />
 
 			<div className="relative mx-auto max-w-screen-2xl">
 				<div
 					className={cn(
-						"relative mx-auto max-w-screen-xl",
+						"relative mx-auto max-w-screen-2xl",
 						"grid grid-cols-1",
 						navigation.enabled && "md:grid-cols-[1fr,auto]",
 					)}
@@ -56,7 +56,8 @@ export default function Post({ post, prev, next }: Props) {
 
 					<article
 						id={slug.current}
-						className="mx-auto w-full px-4 md:max-w-[486px] lg:max-w-[732px] xl:max-w-[792px]"
+						// className="mx-auto w-full px-4 md:max-w-[486px] lg:max-w-[732px] xl:max-w-[792px]"
+						className="mx-auto w-full max-w-screen-lg px-4"
 						title={title}
 					>
 						<Img
@@ -67,11 +68,11 @@ export default function Post({ post, prev, next }: Props) {
 						/>
 
 						<div className="relative flex flex-col space-y-3 lg:px-4">
-							<h1 className="text-balance text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-pretty lg:text-5xl xl:text-start">
+							<h1 className="text-balance text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-pretty lg:text-start lg:text-5xl">
 								{title}
 							</h1>
 
-							<div className="flex flex-wrap items-start justify-center gap-x-2 md:gap-x-4 xl:justify-start xl:gap-x-6">
+							<div className="flex flex-wrap items-start justify-center gap-x-2 md:gap-x-4 lg:justify-start xl:gap-x-6">
 								<div className="my-2 inline-flex items-center gap-x-2 xl:gap-x-4">
 									<Badge variant="outline">
 										{category.title}
@@ -116,7 +117,7 @@ export default function Post({ post, prev, next }: Props) {
 
 				{!!relatedPosts && !!relatedPosts.length && (
 					<RelatedPosts
-						className="max-w-screen-lg pb-12"
+						className="max-w-screen-xl pb-12"
 						items={relatedPosts}
 					/>
 				)}

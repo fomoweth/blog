@@ -17,7 +17,7 @@ export function capitalize(value: string): string {
 		.join(" ");
 }
 
-export function sluggify(value: string): string {
+export function slugify(value: string): string {
 	return value
 		.replace(/[\s\W]+/g, "-")
 		.replace(/^-+/, "")

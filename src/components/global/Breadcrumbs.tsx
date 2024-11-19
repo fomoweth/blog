@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { Chevron } from "@/components/icons";
-import { cn, sluggify } from "@/lib/utils";
+import { cn, slugify } from "@/lib/utils";
 
 interface Props {
 	className?: string;
@@ -25,8 +25,8 @@ export default function Breadcrumbs({ className, title }: Props) {
 				acc.concat({
 					href:
 						idx !== 0
-							? acc[idx].href.concat("/" + sluggify(path))
-							: "/" + sluggify(path),
+							? acc[idx].href.concat("/" + slugify(path))
+							: "/" + slugify(path),
 					label: path,
 				}),
 			[{ href: "/", label: "Home" }],

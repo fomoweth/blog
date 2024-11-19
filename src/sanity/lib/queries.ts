@@ -10,7 +10,7 @@ const ASSET = groq`
 const NAVIGATION = groq`
 	enabled,
 	"headings": select(
-		enabled => ^.content[style in ["h2", "h3"]] {
+		enabled => ^.content[style in ["h2", "h3", "h4", "h5", "h6"]] {
 			style,
 			"text": pt::text(@)
 		}

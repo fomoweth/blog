@@ -30,9 +30,9 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 
 	return (
 		<div className={cn("mx-auto w-full", className)}>
-			<div className="mx-8 overflow-hidden md:mx-12 xl:mx-6">
+			<div className="overflow-hidden">
 				<div className="mx-auto mb-8 flex items-center justify-between gap-4">
-					<h3 className="text-3xl font-bold leading-relaxed md:ml-8 md:text-4xl">
+					<h3 className="ml-8 text-3xl font-bold leading-relaxed md:text-4xl">
 						Related Posts
 					</h3>
 
@@ -57,18 +57,12 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 					)}
 				</div>
 
-				<div className="ml-4 flex gap-4 p-2">
-					{items.map((item, idx) => {
-						const {
-							category,
-							coverImage,
-							date,
-							slug,
-							tags,
-							title,
-						} = item;
-
-						return (
+				<div className="ml-6 flex gap-4 p-2">
+					{items.map(
+						(
+							{ category, coverImage, date, slug, tags, title },
+							idx,
+						) => (
 							<motion.a
 								key={slug.current}
 								className="relative flex h-[340px] w-10/12 max-w-lg shrink-0 flex-col justify-between overflow-hidden rounded-2xl bg-background shadow-md md:w-[45%]"
@@ -114,8 +108,8 @@ export default function RelatedPosts({ className, items = [] }: Props) {
 									</h3>
 								</div>
 							</motion.a>
-						);
-					})}
+						),
+					)}
 				</div>
 			</div>
 		</div>
