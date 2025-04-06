@@ -26,11 +26,22 @@ declare global {
 			resume: Asset;
 		}
 
-		interface Category {
+		interface Category extends SanityDocument {
 			_type: "category";
 			title: string;
 			slug: Slug;
 			numberOfPosts: number;
+		}
+
+		interface Chain extends SanityDocument {
+			_type: "chain";
+			chainId: number;
+			label: string;
+			slug: Slug;
+			etherscan: string;
+			isTestnet: boolean;
+			icon: Image;
+			logo: Logo;
 		}
 
 		interface Experience extends SanityDocument {
@@ -88,8 +99,9 @@ declare global {
 			tags: Array<string>;
 			category: "personal" | "work";
 			duration: Duration;
+			deployments?: Array<Deployment>;
 			sourceCode?: string;
-			stacks?: Array<string>;
+			stacks: Array<string>;
 			protocols?: Array<Protocol>;
 			bulletPoints: Array<string>;
 			featured: boolean;
@@ -126,6 +138,16 @@ declare global {
 			color: string;
 		}
 
+		interface Deployment extends TypedObject {
+			_type: "deployment";
+			label: string;
+			address?: string;
+			addresses?: Array<{
+				chain: Chain;
+				address: string;
+			}>;
+		}
+
 		type Domain =
 			| "programming-languages"
 			| "web3"
@@ -151,6 +173,13 @@ declare global {
 			alt?: string;
 			caption?: string;
 			float?: "left" | "right" | "none";
+		}
+
+		interface Logo extends TypedObject {
+			_type: "logo";
+			default: SanityImageObject;
+			light?: SanityImageObject;
+			dark?: SanityImageObject;
 		}
 
 		interface Navigation {

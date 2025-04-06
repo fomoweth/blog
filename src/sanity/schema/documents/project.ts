@@ -53,6 +53,18 @@ export default defineType({
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
+			title: "Deployments",
+			name: "deployments",
+			type: "array",
+			of: [
+				defineArrayMember({
+					title: "Deployment",
+					name: "deployment",
+					type: "deployment",
+				}),
+			],
+		}),
+		defineField({
 			title: "Source Code",
 			name: "sourceCode",
 			type: "url",

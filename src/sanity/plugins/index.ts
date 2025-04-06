@@ -15,7 +15,7 @@ const plugins = [
 	structureTool({
 		structure: structure("Blog", [
 			[{ id: "post" }, { id: "category" }],
-			[{ id: "project" }, { id: "protocol" }],
+			[{ id: "project" }, { id: "chain" }, { id: "protocol" }],
 			[
 				{ id: "author", flag: true },
 				{ id: "expertise" },
