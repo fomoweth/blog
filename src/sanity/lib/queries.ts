@@ -60,6 +60,14 @@ const PROJECT = groq`
 	category,
 	duration,
 	sourceCode,
+	deployments[] {
+		label,
+		address,
+		addresses[] {
+			chain ->,
+			address,
+		},
+	},
 	stacks[],
 	protocols[] -> {
 		icon { ${ASSET} },
