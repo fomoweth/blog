@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
-import { cn } from "@/lib/utils";
+import { capitalize, cn } from "@/lib/utils";
 import { urlForImage } from "@/sanity/lib/utils";
 
 interface Props {
@@ -20,6 +20,29 @@ interface Props {
 	setter: React.Dispatch<React.SetStateAction<number>>;
 }
 
+function Item({
+	children,
+	title,
+}: {
+	children: React.ReactNode;
+	title: string;
+}) {
+	return (
+		<div className="space-y-4">
+			<div className="flex items-center space-x-2 rounded-md border px-4 py-3 text-slate-600">
+				<TerminalIcon size={20} />
+				<div className="flex-1 space-y-1">
+					<p className="text-lg font-medium leading-none">
+						{capitalize(title)}:
+					</p>
+				</div>
+			</div>
+
+			{children}
+		</div>
+	);
+}
+
 export default function Panel({
 	className,
 	index,
@@ -27,7 +50,7 @@ export default function Panel({
 	offset,
 	setter,
 }: Props) {
-	const { protocols, sourceCode, stacks } = project;
+	const { deployments, protocols, sourceCode, stacks } = project;
 
 	const ref = useRef<HTMLDivElement>(null);
 	const isInView = useInView(ref, { margin: `${-offset}px` });
@@ -55,16 +78,7 @@ export default function Panel({
 				<Card className="relative z-10 hidden w-full bg-transparent backdrop-blur-sm lg:block">
 					<CardContent className="grid gap-y-5 p-6">
 						{stacks && (
-							<div className="space-y-4">
-								<div className="flex items-center space-x-2 rounded-md border px-4 py-3 text-slate-600">
-									<TerminalIcon size={20} />
-									<div className="flex-1 space-y-1">
-										<p className="text-lg font-medium leading-none">
-											Built With:
-										</p>
-									</div>
-								</div>
-
+							<Item title="Built With">
 								<div className="ml-4 flex w-full flex-wrap items-start gap-1 lg:gap-3">
 									{stacks.map((stack) => (
 										<Badge key={stack} variant="default">
@@ -72,20 +86,11 @@ export default function Panel({
 										</Badge>
 									))}
 								</div>
-							</div>
+							</Item>
 						)}
 
 						{protocols && (
-							<div className="space-y-4">
-								<div className="flex items-center space-x-2 rounded-md border px-4 py-3 text-slate-600">
-									<TerminalIcon size={20} />
-									<div className="flex-1 space-y-1">
-										<p className="text-lg font-medium leading-none">
-											Protocols Integrated:
-										</p>
-									</div>
-								</div>
-
+							<Item title="Protocols Integrated">
 								<div className="ml-4 flex w-full flex-col items-start gap-1 lg:gap-3">
 									{protocols.map(
 										({ icon, label, link, slug }) => (
@@ -112,10 +117,56 @@ export default function Panel({
 										),
 									)}
 								</div>
-							</div>
+							</Item>
+						)}
+
+						{deployments && (
+							<Item title="Deployments">
+								<div className="ml-4 flex w-full flex-col items-start gap-1 lg:gap-3">
+									{deployments.map(
+										({ address, addresses, label }) => {
+											if (addresses) {
+												return addresses.map(
+													({
+														chain: {
+															etherscan,
+															label,
+														},
+														address,
+													}) => {
+														return (
+															<Link
+																key={address}
+																className="inline-flex items-center gap-x-2 underline-offset-2 hover:underline"
+																href={`${etherscan}/address/${address}`}
+																target="_blank"
+																rel="noopener noreferrer"
+															>
+																{label}
+															</Link>
+														);
+													},
+												);
+											} else if (address) {
+												return (
+													<Link
+														key={address}
+														className="group inline-flex items-center gap-x-2"
+														href={`https://contractscan.xyz/contract/${address}`}
+														target="_blank"
+														rel="noopener noreferrer"
+													>
+														{label}
+													</Link>
+												);
+											}
+										},
+									)}
+								</div>
+							</Item>
 						)}
 					</CardContent>
-					<CardFooter className="flex justify-center">
+					<CardFooter className="flex">
 						{sourceCode && (
 							<Button asChild>
 								<Link

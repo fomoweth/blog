@@ -23,7 +23,7 @@ export default function Portfolio({ contacts, projects, protocols }: Props) {
 	const [current, setCurrent] = useState<number>(0);
 
 	const github = useMemo(
-		() => contacts.find((value) => value.label.toLowerCase() === "github")!,
+		() => contacts.find(({ label }) => label.toLowerCase() === "github")!,
 		[contacts],
 	);
 
@@ -43,9 +43,9 @@ export default function Portfolio({ contacts, projects, protocols }: Props) {
 				<IconCloud items={icons} />
 			</div>
 
-			<section className="relative top-10 mx-auto max-w-6xl px-4 md:top-0 lg:px-10">
+			<section className="relative top-10 mx-auto max-w-6xl px-4 lg:top-0 lg:px-10">
 				<SlidingDisplay
-					className="w-3/5 max-w-screen-md"
+					className="w-[65%] max-w-screen-md"
 					index={current}
 				>
 					<Terminal
@@ -54,6 +54,7 @@ export default function Portfolio({ contacts, projects, protocols }: Props) {
 							"title",
 							"description",
 							"duration",
+							"deployments",
 							"sourceCode",
 							"bulletPoints",
 						]}
@@ -67,7 +68,7 @@ export default function Portfolio({ contacts, projects, protocols }: Props) {
 					<Panel
 						key={project._id}
 						className={cn(
-							"top-14 w-full lg:-top-10 lg:w-[35%]",
+							"top-14 w-full lg:-top-10 lg:w-[30%]",
 							idx === projects.length - 1 &&
 								"mb-20 lg:mb-0 lg:mt-20",
 						)}
