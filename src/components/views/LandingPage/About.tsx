@@ -9,7 +9,7 @@ export default function About() {
 			<div className="mb-4 inline-flex items-center md:mb-8 md:after:ml-4 md:after:block md:after:h-[1px] md:after:w-[60%] md:after:bg-primary/80 lg:after:w-[70%]">
 				<h2 className="title h2 inline-block text-gray-700">
 					About
-					<span className="bg-cobalt-blue ml-1 inline-block size-2 md:size-2.5 lg:size-3" />
+					<span className="ml-1 inline-block size-2 bg-cobalt-blue md:size-2.5 lg:size-3" />
 				</h2>
 			</div>
 
@@ -17,10 +17,10 @@ export default function About() {
 				<motion.p
 					initial={{ translateX: 200, opacity: 0 }}
 					whileInView={{ translateX: 0, opacity: 1 }}
-					transition={{ delay: 0.2, duration: 0.3 }}
+					transition={{ delay: 0.3, duration: 0.3 }}
 					viewport={{ once: true }}
 				>
-					I am a California-based Smart Contract Engineer with
+					I am a California-based Smart Contract Engineer with{" "}
 					{parseYears("06-01-2021")} years of professional experience
 					in designing and developing decentralized finance
 					applications and blockchain-related projects. Proficient in
@@ -48,7 +48,7 @@ export default function About() {
 				<motion.p
 					initial={{ translateX: 200, opacity: 0 }}
 					whileInView={{ translateX: 0, opacity: 1 }}
-					transition={{ delay: 0.2, duration: 0.3 }}
+					transition={{ delay: 0.5, duration: 0.5 }}
 					viewport={{ once: true }}
 				>
 					From on-clay to on-paper to online to onchain, the evolution
@@ -64,7 +64,7 @@ export default function About() {
 				<motion.p
 					initial={{ translateX: 200, opacity: 0 }}
 					whileInView={{ translateX: 0, opacity: 1 }}
-					transition={{ delay: 0.2, duration: 0.3 }}
+					transition={{ delay: 0.7, duration: 0.7 }}
 					viewport={{ once: true }}
 				>
 					Explore my portfolio to see how my expertise can drive
@@ -78,7 +78,7 @@ export default function About() {
 function CTA({ href, text }: { href: string; text: string }) {
 	return (
 		<Link
-			className="link text-cobalt-blue z-10 decoration-[0.1em] underline-offset-2 hover:underline"
+			className="link z-10 text-cobalt-blue decoration-[0.1em] underline-offset-2 hover:underline"
 			href={href}
 			rel="noopener noreferrer"
 			target="_blank"

@@ -1,12 +1,18 @@
 import { defineField, defineType } from "sanity";
-import { IoLogoBuffer } from "react-icons/io5";
+import { SiHiveBlockchain } from "react-icons/si";
 
 export default defineType({
-	icon: IoLogoBuffer,
-	title: "Protocol",
-	name: "protocol",
+	icon: SiHiveBlockchain,
+	title: "Chain",
+	name: "chain",
 	type: "document",
 	fields: [
+		defineField({
+			title: "Chain ID",
+			name: "chainId",
+			type: "number",
+			validation: (rule) => rule.required(),
+		}),
 		defineField({
 			title: "Label",
 			name: "label",
@@ -24,15 +30,16 @@ export default defineType({
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
-			title: "Ticker",
-			name: "ticker",
-			type: "string",
-		}),
-		defineField({
-			title: "Link",
-			name: "link",
+			title: "Etherscan",
+			name: "etherscan",
 			type: "url",
 			validation: (rule) => rule.required().uri({ scheme: ["https"] }),
+		}),
+		defineField({
+			title: "Is Testnet",
+			name: "isTestnet",
+			type: "boolean",
+			initialValue: false,
 		}),
 		defineField({
 			title: "Icon Image",
@@ -48,17 +55,27 @@ export default defineType({
 	],
 	preview: {
 		select: {
+			chainId: "chainId",
 			icon: "icon.asset",
 			label: "label",
-			ticker: "ticker",
 		},
-		prepare: ({ icon, label, ticker }) => ({
+		prepare: ({ chainId, icon, label }) => ({
 			media: icon,
 			title: label,
-			subtitle: ticker || "",
+			subtitle: chainId,
 		}),
 	},
 	orderings: [
+		{
+			title: "ChainId (Ascending)",
+			name: "chainIdAsc",
+			by: [{ field: "chainId", direction: "asc" }],
+		},
+		{
+			title: "ChainId (Descending)",
+			name: "chainIdDesc",
+			by: [{ field: "chainId", direction: "desc" }],
+		},
 		{
 			title: "Label (A-Z)",
 			name: "labelAsc",
