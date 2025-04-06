@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import BulletPoints from "@/components/elements/BulletPoints";
 import Duration from "@/components/elements/Duration";
 import { Chevron, External } from "@/components/icons";
 
@@ -109,12 +108,21 @@ export default function Experience({ items }: Props) {
 						{position}
 					</h4>
 
-					<BulletPoints
-						classNames={{
-							li: textColor,
-						}}
-						items={roles}
-					/>
+					{roles.length && (
+						<ul className="flex list-disc flex-col gap-2 overflow-y-auto text-sm md:text-base">
+							{roles.map((role, idx) => (
+								<li
+									key={idx}
+									className={cn(
+										"ml-5 text-balance tracking-tight marker:text-cobalt-blue md:text-pretty",
+										textColor,
+									)}
+								>
+									{role}
+								</li>
+							))}
+						</ul>
+					)}
 				</>
 			);
 		},

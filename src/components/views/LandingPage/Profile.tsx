@@ -118,12 +118,21 @@ export default function Profile({ contacts, resume }: Props) {
 function Background() {
 	return (
 		<>
-			<TextSlide value="blockchain ethereum" />
-			<TextSlide value="smart contract solidity" reverse />
-			<TextSlide value="decentralization web3" />
-			<TextSlide value="blockchain ethereum" reverse />
-			<TextSlide value="smart contract solidity" />
-			<TextSlide value="decentralization web3" reverse />
+			<TextSlide value="ryan kim ryan kim ryan kim ryan kim ryan kim ryan kim" />
+			<TextSlide
+				value="i craft the building blocks of a decentralized future"
+				reverse
+			/>
+			<TextSlide value="smart contract engineer smart contract engineer" />
+			<TextSlide
+				value="ryan kim ryan kim ryan kim ryan kim ryan kim ryan kim"
+				reverse
+			/>
+			<TextSlide value="i craft the building blocks of a decentralized future" />
+			<TextSlide
+				value="smart contract engineer smart contract engineer"
+				reverse
+			/>
 		</>
 	);
 }
