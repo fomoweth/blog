@@ -110,6 +110,22 @@ export default defineType({
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
+			title: "Number of Featured Projects",
+			name: "numberOfProjects",
+			type: "number",
+			group: "editorial",
+			initialValue: 6,
+			validation: (rule) => rule.required(),
+		}),
+		defineField({
+			title: "Number of Posts",
+			name: "numberOfPosts",
+			type: "number",
+			group: "editorial",
+			initialValue: 4,
+			validation: (rule) => rule.required(),
+		}),
+		defineField({
 			title: "Contacts",
 			name: "contacts",
 			type: "array",

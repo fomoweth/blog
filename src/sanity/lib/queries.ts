@@ -97,6 +97,8 @@ export async function loadLandingPage() {
 				keywords[],
 				paths[],
 				copyright,
+				numberOfProjects,
+				numberOfPosts,
 				contacts[] { ..., "color": upper(color.hex) },
 				location,
 				resume { ${ASSET} }
@@ -122,10 +124,10 @@ export async function loadLandingPage() {
 				duration,
 				roles[]
 			},
-			"projects": *[_type == "project" && defined(slug.current) && featured == true] | order(duration.start desc) [0...4] {
+			"projects": *[_type == "project" && defined(slug.current) && featured == true] | order(duration.start desc) {
 				${PROJECT}
 			},
-			"posts": *[_type == "post" && defined(slug.current) && category -> slug.current != "misc"] | order(date desc) [0...4] {
+			"posts": *[_type == "post" && defined(slug.current) && category -> slug.current != "misc"] | order(date desc) {
 				${POST_PARTIAL}
 			}
 		}`,

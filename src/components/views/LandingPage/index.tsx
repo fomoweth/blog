@@ -87,11 +87,11 @@ export default function LandingPage({
 				/>
 				<TechnicalProjects
 					className="relative bg-[#E4EAFB] pb-10"
-					items={projects}
+					items={projects.slice(0, settings.numberOfProjects)}
 				/>
 				<LatestPosts
 					className="relative rounded-b-6xl bg-[#161617] pt-8 md:pt-8 lg:pt-10"
-					items={posts}
+					items={posts.slice(0, settings.numberOfPosts)}
 				/>
 			</motion.div>
 		</AppLayout>

@@ -20,29 +20,6 @@ interface Props {
 	setter: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function Item({
-	children,
-	title,
-}: {
-	children: React.ReactNode;
-	title: string;
-}) {
-	return (
-		<div className="space-y-4">
-			<div className="flex items-center space-x-2 rounded-md border px-4 py-3 text-slate-600">
-				<TerminalIcon size={20} />
-				<div className="flex-1 space-y-1">
-					<p className="text-lg font-medium leading-none">
-						{capitalize(title)}:
-					</p>
-				</div>
-			</div>
-
-			{children}
-		</div>
-	);
-}
-
 export default function Panel({
 	className,
 	index,
@@ -192,6 +169,29 @@ export default function Panel({
 					<Terminal className="mx-auto" value={project} />
 				</motion.div>
 			</div>
+		</div>
+	);
+}
+
+function Item({
+	children,
+	title,
+}: {
+	children: React.ReactNode;
+	title: string;
+}) {
+	return (
+		<div className="space-y-4">
+			<div className="flex items-center space-x-2 rounded-md border px-4 py-3 text-slate-600">
+				<TerminalIcon size={20} />
+				<div className="flex-1 space-y-1">
+					<p className="text-lg font-medium leading-none">
+						{capitalize(title)}:
+					</p>
+				</div>
+			</div>
+
+			{children}
 		</div>
 	);
 }

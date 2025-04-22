@@ -21,6 +21,8 @@ declare global {
 			keywords: Array<string>;
 			paths: Array<{ label: string; href: string }>;
 			copyright: Array<PortableTextBlock>;
+			numberOfProjects: number;
+			numberOfPosts: number;
 			contacts: Array<Contact>;
 			location: string;
 			resume: Asset;
