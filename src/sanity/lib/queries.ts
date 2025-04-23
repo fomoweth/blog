@@ -167,7 +167,7 @@ export async function loadSettings() {
 export async function loadProjects() {
 	return await fetch<Array<Sanity.Project>>({
 		query: groq`
-			*[_type == "project" && defined(slug.current)] | order(duration.start desc) {
+			*[_type == "project" && defined(slug.current)] | order(duration.end desc) {
 				${PROJECT}
 			}
 		`,
