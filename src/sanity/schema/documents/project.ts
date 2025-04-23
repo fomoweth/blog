@@ -124,12 +124,12 @@ export default defineType({
 		{
 			title: "Date (Ascending)",
 			name: "dateAsc",
-			by: [{ field: "duration.start", direction: "asc" }],
+			by: [{ field: "duration.end", direction: "asc" }],
 		},
 		{
 			title: "Date (Descending)",
 			name: "dateDesc",
-			by: [{ field: "duration.start", direction: "desc" }],
+			by: [{ field: "duration.end", direction: "desc" }],
 		},
 		{
 			title: "Title (A-Z)",

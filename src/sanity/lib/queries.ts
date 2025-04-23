@@ -124,7 +124,7 @@ export async function loadLandingPage() {
 				duration,
 				roles[]
 			},
-			"projects": *[_type == "project" && defined(slug.current) && featured == true] | order(duration.start desc) {
+			"projects": *[_type == "project" && defined(slug.current) && featured == true] | order(duration.end desc) {
 				${PROJECT}
 			},
 			"posts": *[_type == "post" && defined(slug.current) && category -> slug.current != "misc"] | order(date desc) {
