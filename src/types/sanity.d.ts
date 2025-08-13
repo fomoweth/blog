@@ -144,8 +144,8 @@ declare global {
 			label: string;
 			address?: string;
 			addresses?: Array<{
-				chain: Chain;
 				address: string;
+				chain: Chain;
 			}>;
 		}
 

@@ -25,7 +25,7 @@ export default function MobileNavigation({
 			(acc, contact) => {
 				const { href } = contact;
 
-				if (!!URL.canParse(href)) {
+				if (URL.canParse(href)) {
 					const url = new URL(href);
 
 					if (url.protocol === "mailto:") {
@@ -175,7 +175,7 @@ function NavLinks({
 	paths: Array<{ href: string; label: string }>;
 }) {
 	return (
-		<motion.div className="z-30 space-y-6 p-12 pl-4">
+		<motion.div className="z-30 space-y-6 p-12 pl-8">
 			{paths.map((path, idx) => (
 				<motion.a
 					key={idx}
@@ -193,7 +193,7 @@ function NavLinks({
 					}}
 					exit={{ opacity: 0, y: -8 }}
 				>
-					{path.label}.
+					{path.label.toLowerCase()}
 				</motion.a>
 			))}
 		</motion.div>
@@ -209,7 +209,7 @@ function CallToActions({
 }) {
 	return (
 		<>
-			<nav className="absolute bottom-4 left-4 z-30 flex flex-col gap-6">
+			<nav className="absolute bottom-4 left-8 z-30 flex flex-col gap-6">
 				{contacts.map(({ icon, href, label }, idx) => (
 					<motion.a
 						key={idx}
@@ -236,7 +236,7 @@ function CallToActions({
 			</nav>
 
 			<motion.button
-				className="absolute bottom-2 right-2 z-30 inline-flex items-center gap-2 rounded-full bg-blue-700 px-4 py-1 text-lg font-medium text-blue-200 transition-colors hover:bg-white hover:text-blue-600"
+				className="absolute bottom-2 right-2 z-30 inline-flex items-center gap-2 rounded-full bg-blue-600 px-4 py-1 text-lg font-medium text-blue-200 transition-colors hover:bg-white hover:text-blue-600"
 				initial={{ opacity: 0, y: 8 }}
 				animate={{
 					opacity: 1,

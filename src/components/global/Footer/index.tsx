@@ -31,8 +31,8 @@ export default function Footer({ settings }: Props) {
 	return (
 		<footer className="relative inset-0 z-10 w-screen bg-black md:pt-10">
 			<div className="relative mx-auto max-w-screen-xl px-5 md:px-8">
-				<div className="mx-auto flex h-full w-full flex-col gap-y-5 pb-10 md:flex-row">
-					<div className="mx-auto flex flex-col items-start gap-y-2 pt-8 lg:gap-y-4">
+				<div className="mx-auto flex h-full w-full flex-col justify-between gap-y-5 pb-10 md:flex-row">
+					<div className="flex flex-col items-center gap-y-2 pt-8 md:mx-0 md:items-start lg:gap-y-4">
 						<span className="mt-0.5 text-xl text-primary-foreground lg:text-3xl">
 							{description}
 						</span>
@@ -47,7 +47,7 @@ export default function Footer({ settings }: Props) {
 					</div>
 
 					<Navigation
-						className="mx-auto w-full gap-y-5 py-8 md:w-1/2"
+						className="w-full gap-y-5 py-8 md:w-1/2"
 						contacts={contacts}
 						paths={paths}
 						resume={resume}

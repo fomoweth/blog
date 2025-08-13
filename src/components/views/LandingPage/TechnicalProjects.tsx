@@ -31,6 +31,15 @@ export default function TechnicalProjects({ className, items }: Props) {
 			<Terminal
 				key={item._id}
 				className="mx-auto w-full max-w-screen-md"
+				keys={[
+					"title",
+					"summary",
+					"duration",
+					"sourceCode",
+					"stacks",
+					"protocols",
+					"deployments",
+				]}
 				value={item}
 				style={{ opacity, scale }}
 			/>

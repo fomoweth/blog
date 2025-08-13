@@ -1,39 +1,30 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import { cn } from "@/lib/utils";
-
-type ProjectKey =
-	| "title"
-	| "description"
-	| "duration"
-	| "deployments"
-	| "sourceCode"
-	| "stacks"
-	| "protocols"
-	| "bulletPoints";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { cn, truncate } from "@/lib/utils";
 
 interface Props extends React.ComponentProps<typeof motion.div> {
 	className: string;
-	keys?: Array<ProjectKey>;
+	keys: Array<
+		keyof Pick<
+			Sanity.Project,
+			| "deployments"
+			| "duration"
+			| "highlights"
+			| "protocols"
+			| "sourceCode"
+			| "stacks"
+			| "summary"
+			| "title"
+		>
+	>;
 	value: Sanity.Project;
 }
 
-export default function Terminal({
-	className,
-	keys = [
-		"title",
-		"description",
-		"duration",
-		"deployments",
-		"sourceCode",
-		"stacks",
-		"protocols",
-		"bulletPoints",
-	],
-	value,
-	...props
-}: Props) {
+export default function Terminal({ className, keys, value, ...props }: Props) {
+	const isMobile = useIsMobile();
+
 	return (
 		<motion.div
 			id={value.slug.current}
@@ -55,57 +46,66 @@ export default function Terminal({
 			</div>
 
 			<div className="relative space-y-2 p-2 text-primary-foreground md:p-5">
-				<p className="flex flex-col justify-center md:mr-5">
-					<span>
-						<span className="text-teal-400 md:mr-2">&#126;</span>
+				<div className="flex flex-col justify-center md:mr-5">
+					<p>
+						<span className="mr-0.5 text-teal-400 md:mr-2">
+							&#126;
+						</span>
 						<span> &#123;</span>
-					</span>
+					</p>
 
 					{keys.map((key) => (
-						<Block key={key} field={key} property={value} />
+						<Block
+							key={key}
+							property={key}
+							project={value}
+							isMobile={isMobile}
+						/>
 					))}
 
-					<span className="ml-2 md:ml-4"> &#125; </span>
-				</p>
+					<p className="ml-2 md:ml-4"> &#125; </p>
+				</div>
 			</div>
 		</motion.div>
 	);
 }
 
 function Block({
-	field,
 	property,
+	project,
+	isMobile,
 }: {
-	field: ProjectKey;
-	property: Sanity.Project;
+	property: keyof Sanity.Project;
+	project: Sanity.Project;
+	isMobile: boolean;
 }) {
-	switch (field) {
+	switch (property) {
 		case "title":
-		case "description":
+		case "summary":
 			return (
-				<span className="ml-6 md:ml-10">
-					<span>{field}: </span>
-					<span className="text-teal-500">'{property[field]}'</span>
-					<span>,</span>
-				</span>
+				<div className="ml-6 md:ml-10">
+					<span>{property}: </span>
+					<span className="text-teal-500">'{project[property]}'</span>
+					,
+				</div>
 			);
 
 		case "duration":
-			const duration = property[field];
+			const { start, end } = project.duration;
 			return (
-				<span className="ml-6 md:ml-10">
+				<div className="ml-6 md:ml-10">
 					<span>duration: &#123; start: </span>
-					<span className="text-amber-300">'{duration.start}'</span>
+					<span className="text-amber-300">'{start}'</span>
 					<span>, end: </span>
-					<span className="text-amber-300">'{duration.end}'</span>
+					<span className="text-amber-300">'{end}'</span>
 					<span> &#125;,</span>
-				</span>
+				</div>
 			);
 
 		case "sourceCode":
-			const sourceCode = property[field];
+			const sourceCode = project[property];
 			return (
-				<span className="ml-6 md:ml-10">
+				<div className="ml-6 md:ml-10">
 					<span>sourceCode: </span>
 					{sourceCode ? (
 						<Link
@@ -114,19 +114,21 @@ function Block({
 							rel="noopener noreferrer"
 							target="_blank"
 						>
-							'{sourceCode}'
+							'{sourceCode.replace("https://", "")}'
 						</Link>
 					) : (
 						<span className="text-sky-400">null</span>
 					)}
 					<span>,</span>
-				</span>
+				</div>
 			);
 
 		case "stacks":
-			const stacks = property[field];
+			const stacks = project[property];
+			if (!stacks.length) return;
+
 			return (
-				<span
+				<div
 					className={cn(
 						"ml-6 flex md:ml-10",
 						stacks.length < 5
@@ -145,15 +147,15 @@ function Block({
 						</span>
 					))}
 					<span>&#93;,</span>
-				</span>
+				</div>
 			);
 
 		case "protocols":
-			const protocols = property[field];
-			if (!protocols) return;
+			const protocols = project[property];
+			if (!protocols || !protocols.length) return;
 
 			return (
-				<span
+				<div
 					className={cn(
 						"ml-6 flex md:ml-10",
 						protocols.length < 5
@@ -166,7 +168,7 @@ function Block({
 						<span
 							key={idx}
 							className={cn(
-								protocols.length < 5 ? "mx-1" : "mx-10",
+								protocols.length < 5 ? "mx-1" : "ml-6 md:ml-10",
 							)}
 						>
 							<Link
@@ -181,108 +183,45 @@ function Block({
 						</span>
 					))}
 					<span>&#93;,</span>
-				</span>
+				</div>
 			);
 
-		case "bulletPoints":
-			const bulletPoints = property[field];
+		case "highlights":
+			const highlights = project[property];
+			if (!highlights || !highlights.length) return;
+
 			return (
-				<span className="ml-6 flex flex-col items-start justify-center md:ml-10">
-					<span>bulletPoints: &#91;</span>
-					{bulletPoints.map((bulletPoint, idx) => (
+				<div className="ml-6 flex flex-col items-start justify-center md:ml-10">
+					<span>highlights: &#91;</span>
+					{highlights.map((bulletPoint, idx) => (
 						<span key={idx} className="ml-6 mr-5 md:ml-10">
 							<span className="text-teal-500">
 								'{bulletPoint}'
 							</span>
-							{idx < bulletPoints.length - 1 && <span>,</span>}
+							{idx < highlights.length - 1 && <span>,</span>}
 						</span>
 					))}
 					<span>&#93;,</span>
-				</span>
+				</div>
 			);
 
 		case "deployments":
-			const deployments = property[field];
-			if (!deployments) return;
+			const deployments = project[property];
+			if (!deployments || !deployments.length) return;
 
 			return (
-				<span className="ml-6 flex flex-col items-start md:ml-10">
+				<div className="ml-6 flex flex-col items-start overflow-auto md:ml-10">
 					<span>deployments: &#91;</span>
-					{deployments.map(({ address, addresses, label }, idx) => {
-						if (addresses) {
-							return (
-								<span
-									key={label}
-									className={cn("ml-6 mr-5 md:ml-10")}
-								>
-									{addresses.map(
-										(
-											{
-												chain: { chainId, etherscan },
-												address,
-											},
-											i,
-										) => (
-											<span key={i} className={cn("")}>
-												{i !== 0 && <br />}
-												<span> &#123; </span>
-												<br />
-												<span className="ml-4 md:ml-8">
-													name:{" "}
-												</span>
-												<span className="text-teal-500">
-													'{label}'
-												</span>
-												<span>, </span>
-												<br />
-												<span className="ml-4 md:ml-8">
-													chainId:{" "}
-												</span>
-												<span className="text-amber-300">
-													'{chainId}'
-												</span>
-												<span>, </span>
-												<br />
-												<span className="ml-4 md:ml-8">
-													address:{" "}
-												</span>
-												<Link
-													className="text-sky-400 hover:underline hover:opacity-70"
-													href={`${etherscan}/address/${address}`}
-													rel="noopener noreferrer"
-													target="_blank"
-												>
-													'{address}'
-												</Link>
-												<br />
-
-												<span>
-													&#125;
-													{i <
-														addresses.length -
-															1 && <span>,</span>}
-												</span>
-											</span>
-										),
-									)}
-								</span>
-							);
-						} else if (address) {
-							return (
-								<span
-									key={label}
-									className={cn("ml-6 mr-5 md:ml-10")}
-								>
-									<span> &#123; </span>
-									<br />
-									<span className="ml-6 md:ml-10">
-										name:{" "}
-									</span>
-									<span className="text-teal-500">
-										'{label}'
-									</span>
-									<span>, </span>
-									<br />
+					{deployments.map(({ address, addresses, label }, idx) => (
+						<div key={label} className="ml-6 w-full md:ml-10">
+							<span> &#123; </span>
+							<br />
+							<span className="ml-6 md:ml-10">name: </span>
+							<span className="text-teal-500">'{label}'</span>
+							<span>, </span>
+							<br />
+							{address && (
+								<>
 									<span className="ml-6 md:ml-10">
 										address:{" "}
 									</span>
@@ -292,21 +231,80 @@ function Block({
 										rel="noopener noreferrer"
 										target="_blank"
 									>
-										'{address}'
+										'
+										{isMobile
+											? truncate(address, 20)
+											: address}
+										'
 									</Link>
 									<br />
-									<span>
-										&#125;
-										{idx < deployments.length - 1 && (
-											<span>,</span>
-										)}
-									</span>
-								</span>
-							);
-						}
-					})}
+								</>
+							)}
+							{addresses && addresses.length && (
+								<div className="ml-6 md:ml-10">
+									<span>addresses: &#91;</span>
+									<br />
+									{addresses.map(
+										(
+											{
+												address,
+												chain: { chainId, etherscan },
+											},
+											i,
+										) => (
+											<div
+												key={i}
+												className="ml-6 md:ml-10"
+											>
+												<span> &#123; </span>
+												<br />
+												<span className="ml-6 md:ml-10">
+													chainId:{" "}
+												</span>
+												<span className="text-amber-300">
+													'{chainId}'
+												</span>
+												<span>, </span>
+												<br />
+												<span className="ml-6 md:ml-10">
+													address:{" "}
+												</span>
+												<Link
+													className="text-sky-400 hover:underline hover:opacity-70"
+													href={`${etherscan}/address/${address}`}
+													rel="noopener noreferrer"
+													target="_blank"
+												>
+													'
+													{isMobile
+														? truncate(address, 16)
+														: address}
+													'
+												</Link>
+												<br />
+												<span>
+													&#125;
+													{i <
+														addresses.length -
+															1 && <span>,</span>}
+												</span>
+											</div>
+										),
+									)}
+									<span>&#93;</span>
+								</div>
+							)}
+							<span>
+								&#125;
+								{idx < deployments.length - 1 && <span>,</span>}
+							</span>
+						</div>
+					))}
 					<span>&#93;,</span>
-				</span>
+				</div>
 			);
+
+		default:
+			return;
 	}
 }

@@ -52,11 +52,11 @@ export default function Portfolio({ contacts, projects, protocols }: Props) {
 						className="mx-auto w-full max-w-screen-lg"
 						keys={[
 							"title",
-							"description",
+							"summary",
 							"duration",
-							"deployments",
 							"sourceCode",
-							"bulletPoints",
+							"deployments",
+							"highlights",
 						]}
 						value={projects[current]}
 					/>

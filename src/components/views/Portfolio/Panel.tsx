@@ -55,7 +55,7 @@ export default function Panel({
 				<Card className="relative z-10 hidden w-full bg-transparent backdrop-blur-sm lg:block">
 					<CardContent className="grid gap-y-5 p-6">
 						{stacks && (
-							<Item title="Built With">
+							<Item title="Tech Stacks">
 								<div className="ml-4 flex w-full flex-wrap items-start gap-1 lg:gap-3">
 									{stacks.map((stack) => (
 										<Badge key={stack} variant="default">
@@ -101,34 +101,47 @@ export default function Panel({
 							<Item title="Deployments">
 								<div className="ml-4 flex w-full flex-col items-start gap-1 lg:gap-3">
 									{deployments.map(
-										({ address, addresses, label }) => {
+										(
+											{ address, addresses, label },
+											idx,
+										) => {
 											if (addresses) {
-												return addresses.map(
-													({
-														chain: {
-															etherscan,
-															label,
-														},
-														address,
-													}) => {
-														return (
-															<Link
-																key={address}
-																className="inline-flex items-center gap-x-2 underline-offset-2 hover:underline"
-																href={`${etherscan}/address/${address}`}
-																target="_blank"
-																rel="noopener noreferrer"
-															>
-																{label}
-															</Link>
-														);
-													},
+												return (
+													<details
+														key={idx}
+														className="flex flex-col gap-1"
+													>
+														<summary>
+															{label}
+														</summary>
+														{addresses.map(
+															({
+																address,
+																chain: {
+																	etherscan,
+																	label,
+																},
+															}) => (
+																<Link
+																	key={
+																		address
+																	}
+																	className="flex items-center py-1 underline-offset-2 hover:underline"
+																	href={`${etherscan}/address/${address}`}
+																	target="_blank"
+																	rel="noopener noreferrer"
+																>
+																	{label}
+																</Link>
+															),
+														)}
+													</details>
 												);
 											} else if (address) {
 												return (
 													<Link
-														key={address}
-														className="group inline-flex items-center gap-x-2"
+														key={idx}
+														className="group inline-flex items-center gap-x-2 underline-offset-2 hover:underline"
 														href={`https://contractscan.xyz/contract/${address}`}
 														target="_blank"
 														rel="noopener noreferrer"
@@ -143,6 +156,7 @@ export default function Panel({
 							</Item>
 						)}
 					</CardContent>
+
 					<CardFooter className="flex">
 						{sourceCode && (
 							<Button asChild>
@@ -166,7 +180,19 @@ export default function Panel({
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.5, ease: "easeInOut" }}
 				>
-					<Terminal className="mx-auto" value={project} />
+					<Terminal
+						className="mx-auto"
+						keys={[
+							"title",
+							"summary",
+							"duration",
+							"sourceCode",
+							"stacks",
+							"protocols",
+							"deployments",
+						]}
+						value={project}
+					/>
 				</motion.div>
 			</div>
 		</div>
