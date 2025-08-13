@@ -95,17 +95,16 @@ declare global {
 
 		interface Project extends SanityDocument {
 			_type: "project";
+			projectType: "personal" | "work";
 			title: string;
 			slug: Slug;
-			description: string;
-			tags: Array<string>;
-			category: "personal" | "work";
+			summary: string;
 			duration: Duration;
-			deployments?: Array<Deployment>;
 			sourceCode?: string;
 			stacks: Array<string>;
 			protocols?: Array<Protocol>;
-			bulletPoints: Array<string>;
+			deployments?: Array<Deployment>;
+			highlights?: Array<string>;
 			featured: boolean;
 		}
 

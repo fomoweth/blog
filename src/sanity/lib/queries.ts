@@ -56,18 +56,10 @@ const PROJECT = groq`
 	${DOCUMENT},
 	title,
 	slug,
-	description,
-	category,
+	projectType,
+	summary,
 	duration,
 	sourceCode,
-	deployments[] {
-		label,
-		address,
-		addresses[] {
-			chain ->,
-			address,
-		},
-	},
 	stacks[],
 	protocols[] -> {
 		icon { ${ASSET} },
@@ -76,7 +68,15 @@ const PROJECT = groq`
 		ticker,
 		link
 	},
-	bulletPoints[],
+	deployments[] {
+		label,
+		address,
+		addresses[] {
+			chain ->,
+			address,
+		},
+	},
+	highlights[],
 	featured
 `;
 

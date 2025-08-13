@@ -141,7 +141,7 @@ export default defineType({
 								layout: "radio",
 								list: [
 									"Email",
-									"Github",
+									"GitHub",
 									"LinkedIn",
 									"Telegram",
 									"X",

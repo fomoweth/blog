@@ -26,15 +26,15 @@ export default defineType({
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
-			title: "Description",
-			name: "description",
+			title: "Summary",
+			name: "summary",
 			type: "text",
 			rows: 2,
 			validation: (rule) => rule.required(),
 		}),
 		defineField({
-			title: "Category",
-			name: "category",
+			title: "Project Type",
+			name: "projectType",
 			type: "string",
 			options: {
 				layout: "radio",
@@ -51,18 +51,6 @@ export default defineType({
 			name: "duration",
 			type: "duration",
 			validation: (rule) => rule.required(),
-		}),
-		defineField({
-			title: "Deployments",
-			name: "deployments",
-			type: "array",
-			of: [
-				defineArrayMember({
-					title: "Deployment",
-					name: "deployment",
-					type: "deployment",
-				}),
-			],
 		}),
 		defineField({
 			title: "Source Code",
@@ -92,19 +80,36 @@ export default defineType({
 			],
 		}),
 		defineField({
-			title: "Bullet Points",
-			name: "bulletPoints",
+			title: "Deployments",
+			name: "deployments",
+			type: "array",
+			of: [
+				defineArrayMember({
+					title: "Deployment",
+					name: "deployment",
+					type: "deployment",
+				}),
+			],
+		}),
+		defineField({
+			title: "Highlights",
+			name: "highlights",
 			type: "array",
 			of: [
 				defineArrayMember({
 					type: "string",
 				}),
 			],
-			validation: (rule) => rule.required().min(2),
 		}),
 		defineField({
 			title: "Featured",
 			name: "featured",
+			type: "boolean",
+			initialValue: false,
+		}),
+		defineField({
+			title: "Hidden",
+			name: "hidden",
 			type: "boolean",
 			initialValue: false,
 		}),
@@ -140,16 +145,6 @@ export default defineType({
 			title: "Title (Z-A)",
 			name: "titleDesc",
 			by: [{ field: "title", direction: "desc" }],
-		},
-		{
-			title: "Category (A-Z)",
-			name: "categoryAsc",
-			by: [{ field: "category", direction: "asc" }],
-		},
-		{
-			title: "Category (Z-A)",
-			name: "categoryDesc",
-			by: [{ field: "category", direction: "desc" }],
 		},
 	],
 });

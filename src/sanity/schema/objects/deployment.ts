@@ -51,4 +51,12 @@ export default defineType({
 			],
 		}),
 	],
+	validation: (rule) =>
+		rule.custom((value) => {
+			if (!value || !!value.address || !!value.addresses) return true;
+
+			return {
+				message: "Missing deployment address.",
+			};
+		}),
 });
